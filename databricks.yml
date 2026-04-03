@@ -1,0 +1,20 @@
+bundle:
+  name: valentina-medtech
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    default: "medtech"
+  schema:
+    default: "sales"
+  warehouse_id:
+    default: "6f538f22f07fe0d8"
+
+targets:
+  dev:
+    default: true
+    workspace:
+      profile: free-edition-rleach
+      root_path: /Workspace/Shared/medtech-genie-app

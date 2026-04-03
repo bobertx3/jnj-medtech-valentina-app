@@ -1,0 +1,22 @@
+command:
+  - uvicorn
+  - app:app
+  - --host
+  - "0.0.0.0"
+  - --port
+  - "8000"
+
+auth:
+  - user
+
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "6f538f22f07fe0d8"
+  - name: GENIE_SPACE_ID
+    value: "01f12f02437f16798d9263335bf93877"
+
+resources:
+  - name: valentina_warehouse
+    sql_warehouse:
+      id: 6f538f22f07fe0d8
+      permission: CAN_USE

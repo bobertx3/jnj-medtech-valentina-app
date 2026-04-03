@@ -1,0 +1,23 @@
+resources:
+  jobs:
+    valentina_pipeline:
+      name: "Valentina Data Pipeline"
+      tasks:
+        - task_key: "setup_and_load"
+          notebook_task:
+            notebook_path: ../src/notebooks/01_setup_and_load.sql
+            warehouse_id: ${var.warehouse_id}
+
+        - task_key: "add_uc_metadata"
+          depends_on:
+            - task_key: "setup_and_load"
+          notebook_task:
+            notebook_path: ../src/notebooks/02_add_uc_metadata.sql
+            warehouse_id: ${var.warehouse_id}
+
+        - task_key: "add_business_semantics"
+          depends_on:
+            - task_key: "add_uc_metadata"
+          notebook_task:
+            notebook_path: ../src/notebooks/03_add_business_semantics.sql
+            warehouse_id: ${var.warehouse_id}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "resources": [
+    {
+      "type": "volume",
+      "name": "medtech.sales.raw_data",
+      "id": "medtech.sales.raw_data",
+      "created_at": "2026-04-03T01:30:41.386822+00:00",
+      "updated_at": "2026-04-03T01:30:41.386822+00:00"
+    },
+    {
+      "type": "genie_space",
+      "name": "J&J MedTech Valentina Sales Advisor",
+      "id": "01f12f02437f16798d9263335bf93877",
+      "created_at": "2026-04-03T02:10:19.924817+00:00",
+      "updated_at": "2026-04-03T02:10:19.924817+00:00"
+    },
+    {
+      "type": "dashboard",
+      "name": "J&J MedTech Sales Analytics",
+      "id": "01f12f0bbedf104d9612b7765c4a68cc",
+      "created_at": "2026-04-03T03:18:12.372814+00:00",
+      "updated_at": "2026-04-03T03:18:12.372814+00:00",
+      "url": "https://dbc-3152298d-8ef5.cloud.databricks.com/sql/dashboardsv3/01f12f0bbedf104d9612b7765c4a68cc"
+    }
+  ]
+}
