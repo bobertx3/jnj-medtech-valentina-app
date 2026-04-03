@@ -1,6 +1,6 @@
 resources:
   apps:
-    valentina_advisor:
-      name: valentina-advisor
-      description: "J&J MedTech Genie App- Chat with curated sales datasets"
+    medtech_ask_genie:
+      name: jnj-medtech-sales-genie-app
+      description: "J&J MedTech Sales Genie App - Chat with curated sales datasets"
       source_code_path: ../src/app

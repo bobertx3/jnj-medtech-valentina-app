@@ -120,7 +120,7 @@ function App() {
               <>
                 <div className="welcome">
                   <div className="avatar-large">V</div>
-                  <h3>Hi Valentina!</h3>
+                  <h3>What's on your mind?</h3>
                   <p>Welcome to Chat. How may I help you?</p>
                   <a className="faq-link" href="#faq">Go to FAQs &#x1F6C8;</a>
                 </div>

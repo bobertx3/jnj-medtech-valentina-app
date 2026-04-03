@@ -1,5 +1,5 @@
 bundle:
-  name: valentina-medtech
+  name: medtech-sales-ask-genie
 
 include:
   - resources/*.yml

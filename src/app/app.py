@@ -1,5 +1,5 @@
 """
-J&J MedTech Valentina AI Advisor - FastAPI Backend + Static React Frontend
+J&J MedTech Sales Genie App - FastAPI Backend + Static React Frontend
 """
 
 import os
@@ -19,7 +19,7 @@ from databricks.sdk.core import Config
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="J&J MedTech Valentina AI Advisor")
+app = FastAPI(title="J&J MedTech Sales Genie App")
 
 GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12f02437f16798d9263335bf93877")
 WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "6f538f22f07fe0d8")
@@ -48,6 +48,7 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply: str
     conversation_id: Optional[str] = None
+    message_id: Optional[str] = None
     sql: Optional[str] = None
     data: Optional[list] = None
     columns: Optional[list] = None
@@ -155,6 +156,7 @@ async def chat(req: ChatRequest, request: Request):
             return ChatResponse(
                 reply=reply_text,
                 conversation_id=conversation_id,
+                message_id=message_id,
                 sql=sql_query,
                 data=result_data,
                 columns=result_columns,
@@ -164,6 +166,36 @@ async def chat(req: ChatRequest, request: Request):
         raise HTTPException(status_code=500, detail=e.response.text)
     except Exception as e:
         logger.error(f"Chat error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class FeedbackRequest(BaseModel):
+    conversation_id: str
+    message_id: str
+    rating: str  # POSITIVE, NEGATIVE, or NONE
+
+
+@app.post("/api/feedback")
+async def feedback(req: FeedbackRequest):
+    """Send feedback on a Genie message."""
+    import httpx
+
+    try:
+        cfg = Config()
+        host = (cfg.host or "").rstrip("/")
+        sp_headers = cfg.authenticate()
+        headers = {**sp_headers, "Content-Type": "application/json"}
+
+        async with httpx.AsyncClient(timeout=30) as client:
+            r = await client.post(
+                f"{host}/api/2.0/genie/spaces/{GENIE_SPACE_ID}/conversations/{req.conversation_id}/messages/{req.message_id}/feedback",
+                headers=headers,
+                json={"rating": req.rating},
+            )
+            r.raise_for_status()
+            return {"status": "ok", "rating": req.rating}
+    except Exception as e:
+        logger.error(f"Feedback error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

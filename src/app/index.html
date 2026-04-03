@@ -86,6 +86,16 @@
     .sql-block { background: rgba(0,0,0,0.04); border: 1px solid #ddd8d2; border-radius: 10px; padding: 16px 18px; margin-top: 14px; font-family: 'SF Mono', Menlo, monospace; font-size: 13px; overflow-x: auto; white-space: pre-wrap; color: #555; line-height: 1.6; }
     .sql-toggle { color: #EB1700; font-size: 13px; cursor: pointer; margin-top: 12px; display: inline-block; font-weight: 500; }
 
+    /* Message actions (feedback + download) */
+    .msg-actions { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 8px; }
+    .msg-actions .action-left { display: flex; align-items: center; gap: 2px; }
+    .msg-actions .action-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+    .msg-action-btn { background: none; border: none; cursor: pointer; padding: 5px 7px; border-radius: 6px; color: #aaa5a0; transition: all 0.15s; display: flex; align-items: center; gap: 5px; font-size: 12px; }
+    .msg-action-btn:hover { background: rgba(0,0,0,0.05); color: #666; }
+    .msg-action-btn.active-up { color: #2E7D32; }
+    .msg-action-btn.active-down { color: #c62828; }
+    .msg-action-btn svg { width: 16px; height: 16px; }
+
     /* Loading */
     .loading { display: flex; gap: 6px; padding: 12px 0; }
     .loading .dot { width: 8px; height: 8px; border-radius: 50%; background: #aaa; animation: bounce 1.4s infinite ease-in-out; }
@@ -223,9 +233,9 @@
             </div>
 
             <div class="suggestions" id="suggestions">
-              <div class="suggestion-card" onclick="sendSuggestion(this)">Which account has the highest Opportunity ($)?</div>
-              <div class="suggestion-card" onclick="sendSuggestion(this)">What are the top 5 HCPs based on procedure volume for this year?</div>
-              <div class="suggestion-card" onclick="sendSuggestion(this)">Which Product Line has the highest total Opportunity ($)?</div>
+              <div class="suggestion-card" onclick="sendSuggestion(this)">Which account has the highest Opportunity?</div>
+              <div class="suggestion-card" onclick="sendSuggestion(this)">Who are the top 5 surgeons by procedure volume?</div>
+              <div class="suggestion-card" onclick="sendSuggestion(this)">Show opportunity by product line</div>
               <div class="suggestion-card" onclick="sendSuggestion(this)">Which GPO has the highest opportunity?</div>
             </div>
           </div>
@@ -262,16 +272,21 @@
     let dashboardLoaded = false;
 
     const SUGGESTED_QUESTIONS = [
-      "Which account has the highest Opportunity ($)?",
-      "What are the top 5 HCPs based on procedure volume for this year?",
-      "Which Product Line has the highest total Opportunity ($)?",
+      "Which account has the highest Opportunity?",
+      "Who are the top 5 surgeons by procedure volume?",
+      "Show opportunity by product line",
       "Which GPO has the highest opportunity?",
-      "Which Target Type has the highest Opportunity for Heritage Medical Center?",
-      "What is the average Net Cost To Customer ($) for the Alpha Series product line?",
-      "Which accounts have the highest upgrade Opportunity ($) where 2025 Penetration % is lower than 2024 Penetration %?",
-      "What are the top 5 accounts by Opportunity grouped by product description?",
-      "What physician (HCP) should I speak to for Coastal Community Hospital?",
-      "Show procedure volume by specialty"
+      "What is the total opportunity by target type?",
+      "What is the average net cost for Alpha Series?",
+      "Which accounts have declining penetration?",
+      "Show top 10 accounts by rolling 12 sales",
+      "What are the top upgrade opportunities?",
+      "Show procedure volume by specialty",
+      "Which territory has the highest opportunity?",
+      "How many accounts are Tier 1 targets?",
+      "What is the total opportunity by area?",
+      "Who are the HCPs at Coastal Community Hospital?",
+      "Show comped products by account"
     ];
 
     function showTypeahead() {
@@ -577,24 +592,94 @@
       return html;
     }
 
-    function addMessage(role, content, sql) {
+    function addMessage(role, content, sql, meta) {
       const msgs = document.getElementById('messages');
       const div = document.createElement('div');
       div.className = 'message ' + role;
 
       if (role === 'user') {
-        div.innerHTML = `<div class="msg-content">${content}</div>`;
+        div.innerHTML = '<div class="msg-content">' + content + '</div>';
       } else {
         let htmlContent = renderMarkdown(content);
         let sqlBlock = '';
         if (sql) {
           const sqlId = 'sql-' + Date.now();
-          sqlBlock = `<div class="sql-toggle" onclick="document.getElementById('${sqlId}').style.display=document.getElementById('${sqlId}').style.display==='none'?'block':'none'">&#128269; View SQL</div><div class="sql-block" id="${sqlId}" style="display:none">${sql}</div>`;
+          sqlBlock = '<div class="sql-toggle" onclick="document.getElementById(\'' + sqlId + '\').style.display=document.getElementById(\'' + sqlId + '\').style.display===\'none\'?\'block\':\'none\'">&#128269; View SQL</div><div class="sql-block" id="' + sqlId + '" style="display:none">' + sql + '</div>';
         }
-        div.innerHTML = `<div class="msg-content">${htmlContent}${sqlBlock}</div>`;
+
+        let actionsHtml = '';
+        if (meta && meta.message_id) {
+          const mid = meta.message_id;
+          const cid = meta.conversation_id || '';
+          actionsHtml = '<div class="msg-actions">'
+            + '<div class="action-left">'
+            + '<button class="msg-action-btn" id="fb-up-' + mid + '" onclick="sendFeedback(\'' + cid + '\',\'' + mid + '\',\'POSITIVE\')" title="Helpful">'
+            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>'
+            + '</button>'
+            + '<button class="msg-action-btn" id="fb-down-' + mid + '" onclick="sendFeedback(\'' + cid + '\',\'' + mid + '\',\'NEGATIVE\')" title="Not helpful">'
+            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>'
+            + '</button>'
+            + '</div>'
+            + '<div class="action-right">';
+
+          if (meta.data && meta.columns) {
+            actionsHtml += '<button class="msg-action-btn" onclick="downloadCSV(' + JSON.stringify(meta.columns).replace(/"/g, '&quot;') + ',' + JSON.stringify(meta.data).replace(/"/g, '&quot;') + ')" title="Download CSV">'
+              + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
+              + '<span>CSV</span>'
+              + '</button>';
+          }
+
+          actionsHtml += '</div></div>';
+        }
+
+        div.innerHTML = '<div class="msg-content">' + htmlContent + sqlBlock + actionsHtml + '</div>';
       }
       msgs.appendChild(div);
       document.getElementById('chatArea').scrollTop = document.getElementById('chatArea').scrollHeight;
+    }
+
+    async function sendFeedback(conversationId, messageId, rating) {
+      const upBtn = document.getElementById('fb-up-' + messageId);
+      const downBtn = document.getElementById('fb-down-' + messageId);
+
+      // Toggle: if already active, send NONE to clear
+      if (rating === 'POSITIVE' && upBtn.classList.contains('active-up')) rating = 'NONE';
+      if (rating === 'NEGATIVE' && downBtn.classList.contains('active-down')) rating = 'NONE';
+
+      // Update UI immediately
+      upBtn.classList.remove('active-up');
+      downBtn.classList.remove('active-down');
+      if (rating === 'POSITIVE') upBtn.classList.add('active-up');
+      if (rating === 'NEGATIVE') downBtn.classList.add('active-down');
+
+      try {
+        await fetch('/api/feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ conversation_id: conversationId, message_id: messageId, rating: rating }),
+        });
+      } catch (e) {
+        console.error('Feedback error:', e);
+      }
+    }
+
+    function downloadCSV(columns, data) {
+      let csv = columns.join(',') + '\n';
+      for (const row of data) {
+        csv += row.map(function(v) {
+          if (v === null || v === undefined) return '';
+          const s = String(v);
+          if (s.includes(',') || s.includes('"') || s.includes('\n')) return '"' + s.replace(/"/g, '""') + '"';
+          return s;
+        }).join(',') + '\n';
+      }
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'genie_results.csv';
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     function addLoading() {
@@ -636,7 +721,12 @@
 
         if (resp.ok) {
           conversationId = data.conversation_id;
-          addMessage('assistant', data.reply, data.sql);
+          addMessage('assistant', data.reply, data.sql, {
+            message_id: data.message_id,
+            conversation_id: data.conversation_id,
+            data: data.data,
+            columns: data.columns
+          });
         } else {
           addMessage('assistant', 'Sorry, I encountered an error: ' + (data.detail || 'Unknown error'));
         }

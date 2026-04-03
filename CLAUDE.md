@@ -1,4 +1,4 @@
-# J&J MedTech Valentina App
+# J&J MedTech Sales Genie App
 
 ## Overview
 Data backup and analytics solution for J&J MedTech surgical product sales. Loads 3 CSV datasets into Databricks Unity Catalog, creates metric views, powers a Genie space, and serves a branded AI chat advisor web app.
@@ -14,13 +14,16 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 ```
 ├── databricks.yml              # DAB bundle config
 ├── resources/
-│   ├── valentina_job.yml       # Pipeline job (3 SQL notebook tasks)
+│   ├── valentina_job.yml       # Pipeline job (4 tasks)
 │   └── valentina_app.yml       # App resource definition
 ├── src/
 │   ├── notebooks/
 │   │   ├── 01_setup_and_load.sql   # Create tables from CSVs
 │   │   ├── 02_add_uc_metadata.sql  # PK constraints + table/column comments
 │   │   └── 03_add_business_semantics.sql  # 7 metric views
+│   ├── genie/
+│   │   ├── 04_create_genie_space.py  # Creates/updates Genie space via REST API
+│   │   └── valentina_genie.json      # Genie space config (serialized_space export)
 │   └── app/
 │       ├── app.py              # FastAPI backend (Genie API integration)
 │       ├── app.yaml            # Databricks Apps config
@@ -71,13 +74,13 @@ databricks bundle validate
 databricks bundle deploy --auto-approve
 
 # Run the pipeline job
-databricks bundle run valentina_pipeline
+databricks bundle run medtech_pipeline
 
 # Start the app
-databricks bundle run valentina_advisor
+databricks bundle run medtech_ask_genie
 
 # View app logs
-databricks apps logs valentina-advisor-dev -p free-edition-rleach
+databricks apps logs jnj-medtech-sales-genie-app -p free-edition-rleach
 
 # Destroy deployment
 databricks bundle destroy --auto-approve
