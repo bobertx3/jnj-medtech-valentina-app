@@ -1,0 +1,10 @@
+{
+  "profile": "DEFAULT",
+  "workspace_url": "https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com",
+  "catalog": "bx4",
+  "schema": "sales",
+  "warehouse_id": "9488857c6101bb75",
+  "volume_name": "raw_data",
+  "genie_space_id": "01f12f7548a611dbb1599e198079c32f",
+  "app_name": "medtech-sales-genie"
+}

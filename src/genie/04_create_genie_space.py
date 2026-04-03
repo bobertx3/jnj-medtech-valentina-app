@@ -7,12 +7,33 @@
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## Parameters
+
+# COMMAND ----------
+
+dbutils.widgets.text("catalog", "medtech", "Catalog")
+dbutils.widgets.text("schema", "sales", "Schema")
+dbutils.widgets.text("warehouse_id", "", "Warehouse ID")
+dbutils.widgets.text("genie_space_id", "", "Genie Space ID")
+
+catalog = dbutils.widgets.get("catalog")
+schema = dbutils.widgets.get("schema")
+warehouse_id = dbutils.widgets.get("warehouse_id")
+genie_space_id = dbutils.widgets.get("genie_space_id")
+
+print(f"Catalog: {catalog}, Schema: {schema}")
+print(f"Warehouse: {warehouse_id}, Genie Space: {genie_space_id}")
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC ## Load the Genie config from the repo
 
 # COMMAND ----------
 
 import json
 import os
+import re
 import requests
 from databricks.sdk import WorkspaceClient
 
@@ -26,7 +47,19 @@ config_path = os.path.join(notebook_dir, "valentina_genie.json")
 print(f"Loading config from: {config_path}")
 
 with open(config_path, "r") as f:
-    genie_config = json.load(f)
+    raw_config = f.read()
+
+# Replace placeholder catalog.schema references with actual values
+# Handles both __CATALOG__.__SCHEMA__ placeholders and any prior values
+raw_config = re.sub(r'__CATALOG__\.__SCHEMA__', f'{catalog}.{schema}', raw_config)
+raw_config = raw_config.replace('__WAREHOUSE_ID__', warehouse_id)
+raw_config = raw_config.replace('__GENIE_SPACE_ID__', genie_space_id)
+
+genie_config = json.loads(raw_config)
+
+# Override from widget params
+genie_config["space_id"] = genie_space_id
+genie_config["warehouse_id"] = warehouse_id
 
 print(f"Genie Space: {genie_config['display_name']}")
 print(f"Tables: {len(genie_config['table_identifiers'])}")
@@ -60,6 +93,7 @@ if space_id:
         f"{host}/api/2.0/genie/spaces/{space_id}",
         headers=headers,
         json={
+            "warehouse_id": warehouse_id,
             "serialized_space": serialized_space,
             "title": genie_config["display_name"],
             "description": genie_config["description"],

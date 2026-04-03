@@ -5,8 +5,8 @@
 
 -- COMMAND ----------
 
-USE CATALOG medtech;
-USE SCHEMA sales;
+USE CATALOG ${catalog};
+USE SCHEMA ${schema};
 
 -- COMMAND ----------
 
@@ -15,13 +15,13 @@ USE SCHEMA sales;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.total_procedure_volume
+CREATE OR REPLACE VIEW ${catalog}.${schema}.total_procedure_volume
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Total current year procedure volume by HCP, specialty, area, and rep"
-source: medtech.sales.hcp_procedure_volume
+source: ${catalog}.${schema}.hcp_procedure_volume
 dimensions:
   - name: Area
     expr: area
@@ -57,13 +57,13 @@ $$;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.yoy_procedure_growth
+CREATE OR REPLACE VIEW ${catalog}.${schema}.yoy_procedure_growth
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Year-over-year procedure volume change by HCP, specialty, and area"
-source: medtech.sales.hcp_procedure_volume
+source: ${catalog}.${schema}.hcp_procedure_volume
 dimensions:
   - name: Area
     expr: area
@@ -99,13 +99,13 @@ $$;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.total_upgrade_opportunity
+CREATE OR REPLACE VIEW ${catalog}.${schema}.total_upgrade_opportunity
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Total upgrade opportunity dollars by territory, product line, and account"
-source: medtech.sales.product_upgrades
+source: ${catalog}.${schema}.product_upgrades
 dimensions:
   - name: Area
     expr: area
@@ -150,13 +150,13 @@ $$;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.rolling_12_sales_metric
+CREATE OR REPLACE VIEW ${catalog}.${schema}.rolling_12_sales_metric
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Rolling 12-month sales across accounts, territories, and product lines"
-source: medtech.sales.account_targeting
+source: ${catalog}.${schema}.account_targeting
 dimensions:
   - name: Area
     expr: area
@@ -198,13 +198,13 @@ $$;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.account_penetration
+CREATE OR REPLACE VIEW ${catalog}.${schema}.account_penetration
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Account penetration rates and YoY trends by target type, area, and clinical focus"
-source: medtech.sales.account_targeting
+source: ${catalog}.${schema}.account_targeting
 dimensions:
   - name: Area
     expr: area
@@ -249,13 +249,13 @@ $$;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.market_exposure
+CREATE OR REPLACE VIEW ${catalog}.${schema}.market_exposure
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Current and prior year market exposure by territory and product line"
-source: medtech.sales.account_targeting
+source: ${catalog}.${schema}.account_targeting
 dimensions:
   - name: Area
     expr: area
@@ -294,13 +294,13 @@ $$;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE VIEW medtech.sales.total_max_market
+CREATE OR REPLACE VIEW ${catalog}.${schema}.total_max_market
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 1.1
 comment: "Total max market opportunity by product line and area"
-source: medtech.sales.hcp_procedure_volume
+source: ${catalog}.${schema}.hcp_procedure_volume
 dimensions:
   - name: Area
     expr: area

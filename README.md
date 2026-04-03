@@ -75,32 +75,101 @@ After the first **create**, note the printed space ID and align `GENIE_SPACE_ID`
   - `GET /api/health` — Liveness and configured Genie space id.
 - **UI:** J&J red header, sidebar (e.g., Chat, Dashboard, Contact Center), suggested prompts, markdown for answers, SQL display where returned.
 
-## Quick start
+## Getting started
 
-### Prerequisites
+### What you need before you begin
 
-- [Databricks CLI](https://docs.databricks.com/dev-tools/cli/install.html) with a profile that can deploy to your workspace.
-- Default target in `databricks.yml` uses profile `free-edition-rleach` and workspace path `/Workspace/Shared/medtech-genie-app` — adjust `targets.dev.workspace` for your environment.
+You will need a few things ready in your Databricks workspace before running the setup. If you are unsure how to find any of these, ask your workspace admin.
 
-### Deploy and run
+| Prerequisite | Where to find it | Notes |
+|---|---|---|
+| **Databricks workspace access** | Your workspace URL (e.g. `https://adb-xxxx.azuredatabricks.net`) | You need permission to create schemas, tables, and apps |
+| **Unity Catalog** | Must already exist in your workspace | The setup will create the schema and volume inside it |
+| **SQL Warehouse** | Sidebar > **SQL Warehouses** > pick one > **Connection Details** | Copy the Warehouse ID. If none exist, create a Serverless warehouse |
+| **Empty Genie Space** | Sidebar > **Genie** > click **+ New** | Create a blank space and copy the ID from the URL |
+| **Databricks CLI** | Installed on your computer (see below) | Used to deploy and run the project |
+
+### Step 1 — Install the Databricks CLI
+
+The Databricks CLI is a command-line tool that deploys this project to your workspace.
+
+**macOS**
 
 ```bash
-databricks bundle validate
+brew tap databricks/tap
+brew install databricks
+```
+
+**Windows**
+
+```powershell
+winget install Databricks.DatabricksCLI
+```
+
+**Linux**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+```
+
+### Step 2 — Connect the CLI to your workspace
+
+Run this command and follow the prompts. You will need your workspace URL and a personal access token (your admin can help you generate one).
+
+```bash
+databricks configure --profile DEFAULT
+```
+
+### Step 3 — Prepare your workspace
+
+Before running the setup script, create these in your Databricks workspace:
+
+1. **Confirm you have a Unity Catalog** — Go to **Catalog** in the sidebar. You should see at least one catalog listed. Note its name.
+
+2. **Find or create a SQL Warehouse** — Go to **SQL Warehouses** in the sidebar. If you see an existing warehouse, click on it and go to **Connection Details** to copy the **Warehouse ID**. If there are no warehouses, click **Create SQL Warehouse** and choose **Serverless**.
+
+3. **Create an empty Genie Space** — Go to **Genie** in the sidebar, click **+ New**, give it any name (e.g. "MedTech Sales"), and save. Copy the **Space ID** from the URL bar — it looks like: `https://<workspace>/genie/rooms/<THIS_PART>`.
+
+### Step 4 — Run the setup script
+
+The setup script will ask you for the values you gathered above and configure all project files automatically.
+
+**macOS / Linux**
+
+```bash
+./install.sh
+```
+
+**Windows** (use Git Bash, which comes with [Git for Windows](https://git-scm.com/download/win))
+
+```bash
+./install.sh
+```
+
+The script will walk you through each value and confirm before making any changes. You can re-run it at any time to update your settings.
+
+### Step 5 — Deploy and run
+
+Run these three commands in order:
+
+```bash
+# 1. Push everything to your workspace
 databricks bundle deploy --auto-approve
 
-# Loads data, metadata, metric views, and creates/updates Genie
+# 2. Load the sales data and set up the Genie space
 databricks bundle run medtech_pipeline
 
-# Deploy/start the Databricks App (see bundle for job name)
+# 3. Start the web app
 databricks bundle run medtech_ask_genie
 ```
 
-### Logs and teardown
+After step 3, the app URL will be printed in the terminal. Open it in your browser to start chatting with your sales data.
+
+### Teardown
+
+To remove everything from your workspace:
 
 ```bash
-# Example: replace app name/profile if yours differ
-databricks apps logs medtech-sales-ask-genie -p free-edition-rleach
-
 databricks bundle destroy --auto-approve
 ```
 

@@ -4,11 +4,12 @@
 Data backup and analytics solution for J&J MedTech surgical product sales. Loads 3 CSV datasets into Databricks Unity Catalog, creates metric views, powers a Genie space, and serves a branded AI chat advisor web app.
 
 ## Workspace
-- **Profile:** `free-edition-rleach`
-- **Host:** https://dbc-3152298d-8ef5.cloud.databricks.com
-- **Catalog/Schema:** `medtech.sales`
-- **SQL Warehouse:** `6f538f22f07fe0d8`
-- **Genie Space ID:** `01f12f02437f16798d9263335bf93877`
+- **Profile:** `DEFAULT`
+- **Host:** `https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com`
+- **Catalog/Schema:** `bx4.sales`
+- **SQL Warehouse:** `9488857c6101bb75`
+- **Genie Space ID:** `01f12f7548a611dbb1599e198079c32f`
+- **App Name:** `medtech-sales-genie`
 
 ## Project Structure
 ```
@@ -80,7 +81,7 @@ databricks bundle run medtech_pipeline
 databricks bundle run medtech_ask_genie
 
 # View app logs
-databricks apps logs jnj-medtech-sales-genie-app -p free-edition-rleach
+databricks apps logs medtech-sales-genie -p DEFAULT
 
 # Destroy deployment
 databricks bundle destroy --auto-approve

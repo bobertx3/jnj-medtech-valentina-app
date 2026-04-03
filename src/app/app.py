@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="J&J MedTech Sales Genie App")
 
-GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12f02437f16798d9263335bf93877")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "6f538f22f07fe0d8")
+GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12f7548a611dbb1599e198079c32f")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "9488857c6101bb75")
 
 
 def get_workspace_client(request: Request) -> WorkspaceClient:
@@ -237,13 +237,13 @@ async def dashboard_data(request: Request):
                 rows.append(d)
             return rows
 
-        kpis = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM medtech.sales.account_targeting")
-        opp_by_product = run_query("SELECT product_line, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY product_line ORDER BY total_opportunity DESC")
-        opp_by_target = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
-        top_accounts = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM medtech.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
-        opp_by_area = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
-        vol_by_specialty = run_query("SELECT specialty, SUM(cy_procedure_volume) AS total_volume FROM medtech.sales.hcp_procedure_volume GROUP BY specialty ORDER BY total_volume DESC")
-        top_surgeons = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM medtech.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
+        kpis = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM bx4.sales.account_targeting")
+        opp_by_product = run_query("SELECT product_line, SUM(opportunity) AS total_opportunity FROM bx4.sales.account_targeting GROUP BY product_line ORDER BY total_opportunity DESC")
+        opp_by_target = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM bx4.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
+        top_accounts = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM bx4.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
+        opp_by_area = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM bx4.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
+        vol_by_specialty = run_query("SELECT specialty, SUM(cy_procedure_volume) AS total_volume FROM bx4.sales.hcp_procedure_volume GROUP BY specialty ORDER BY total_volume DESC")
+        top_surgeons = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM bx4.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
 
         return {
             "kpis": kpis[0] if kpis else {},

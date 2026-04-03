@@ -1,12 +1,12 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # 01 - Setup and Load Raw Data
--- MAGIC Load 3 CSV files from the volume into Delta tables in `medtech.sales`.
+-- MAGIC Load 3 CSV files from the volume into Delta tables.
 
 -- COMMAND ----------
 
-USE CATALOG medtech;
-USE SCHEMA sales;
+USE CATALOG ${catalog};
+USE SCHEMA ${schema};
 
 -- COMMAND ----------
 
@@ -15,7 +15,7 @@ USE SCHEMA sales;
 
 -- COMMAND ----------
 
-CREATE OR REPLACE TABLE medtech.sales.hcp_procedure_volume AS
+CREATE OR REPLACE TABLE ${catalog}.${schema}.hcp_procedure_volume AS
 SELECT
   `NPI` AS npi,
   `Surgeon Name` AS surgeon_name,
@@ -37,7 +37,7 @@ SELECT
   CAST(`PY Delta Max Market` AS DOUBLE) AS py_delta_max_market,
   CAST(`Total PY Max Market` AS DOUBLE) AS total_py_max_market
 FROM read_files(
-  '/Volumes/medtech/sales/raw_data/hcp_procedure_volume.csv',
+  '/Volumes/${catalog}/${schema}/${volume_name}/hcp_procedure_volume.csv',
   format => 'csv',
   header => true,
   inferSchema => true
@@ -50,7 +50,7 @@ FROM read_files(
 
 -- COMMAND ----------
 
-CREATE OR REPLACE TABLE medtech.sales.product_upgrades AS
+CREATE OR REPLACE TABLE ${catalog}.${schema}.product_upgrades AS
 SELECT
   CAST(`Row Number` AS INT) AS row_number,
   `Area` AS area,
@@ -74,7 +74,7 @@ SELECT
   CAST(`Net Cost To Customer ($)` AS DOUBLE) AS net_cost_to_customer,
   CAST(`Rolling 12 Sales ($)` AS DOUBLE) AS rolling_12_sales
 FROM read_files(
-  '/Volumes/medtech/sales/raw_data/product_upgrades.csv',
+  '/Volumes/${catalog}/${schema}/${volume_name}/product_upgrades.csv',
   format => 'csv',
   header => true,
   inferSchema => true
@@ -87,7 +87,7 @@ FROM read_files(
 
 -- COMMAND ----------
 
-CREATE OR REPLACE TABLE medtech.sales.account_targeting AS
+CREATE OR REPLACE TABLE ${catalog}.${schema}.account_targeting AS
 SELECT
   CAST(`Row Number` AS INT) AS row_number,
   `Area` AS area,
@@ -117,7 +117,7 @@ SELECT
   CAST(`CY Market Exposure %` AS DOUBLE) AS cy_market_exposure,
   CAST(`PY Market Exposure %` AS DOUBLE) AS py_market_exposure
 FROM read_files(
-  '/Volumes/medtech/sales/raw_data/account_targeting.csv',
+  '/Volumes/${catalog}/${schema}/${volume_name}/account_targeting.csv',
   format => 'csv',
   header => true,
   inferSchema => true
@@ -130,8 +130,8 @@ FROM read_files(
 
 -- COMMAND ----------
 
-SELECT 'hcp_procedure_volume' AS table_name, COUNT(*) AS row_count FROM medtech.sales.hcp_procedure_volume
+SELECT 'hcp_procedure_volume' AS table_name, COUNT(*) AS row_count FROM ${catalog}.${schema}.hcp_procedure_volume
 UNION ALL
-SELECT 'product_upgrades', COUNT(*) FROM medtech.sales.product_upgrades
+SELECT 'product_upgrades', COUNT(*) FROM ${catalog}.${schema}.product_upgrades
 UNION ALL
-SELECT 'account_targeting', COUNT(*) FROM medtech.sales.account_targeting;
+SELECT 'account_targeting', COUNT(*) FROM ${catalog}.${schema}.account_targeting;

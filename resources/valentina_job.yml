@@ -3,10 +3,25 @@ resources:
     medtech_pipeline:
       name: "MedTech Sales Data Pipeline"
       tasks:
+        - task_key: "setup_volume"
+          notebook_task:
+            notebook_path: ../src/notebooks/00_setup_volume.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+              volume_name: ${var.volume_name}
+          environment_key: default
+
         - task_key: "setup_and_load"
+          depends_on:
+            - task_key: "setup_volume"
           notebook_task:
             notebook_path: ../src/notebooks/01_setup_and_load.sql
             warehouse_id: ${var.warehouse_id}
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+              volume_name: ${var.volume_name}
 
         - task_key: "add_uc_metadata"
           depends_on:
@@ -14,6 +29,9 @@ resources:
           notebook_task:
             notebook_path: ../src/notebooks/02_add_uc_metadata.sql
             warehouse_id: ${var.warehouse_id}
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
 
         - task_key: "add_business_semantics"
           depends_on:
@@ -21,12 +39,20 @@ resources:
           notebook_task:
             notebook_path: ../src/notebooks/03_add_business_semantics.sql
             warehouse_id: ${var.warehouse_id}
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
 
         - task_key: "create_genie_space"
           depends_on:
             - task_key: "add_business_semantics"
           notebook_task:
             notebook_path: ../src/genie/04_create_genie_space.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+              warehouse_id: ${var.warehouse_id}
+              genie_space_id: 01f12f7548a611dbb1599e198079c32f
           environment_key: default
       environments:
         - environment_key: default
