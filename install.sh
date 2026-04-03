@@ -81,6 +81,16 @@ echo "Enter your Databricks configuration values."
 echo "(Press Enter to accept defaults shown in brackets.)"
 echo ""
 
+# List available profiles if .databrickscfg exists
+DBCFG="$HOME/.databrickscfg"
+if [[ -f "$DBCFG" ]]; then
+  profiles=$(grep '^\[' "$DBCFG" | tr -d '[]' | tr '\n' ', ' | sed 's/,$//')
+  if [[ -n "$profiles" ]]; then
+    echo "  Available profiles: $profiles"
+    echo ""
+  fi
+fi
+
 prompt PROFILE "Databricks CLI profile name" "${existing_profile:-DEFAULT}"
 
 echo ""
@@ -112,19 +122,18 @@ echo "  Pick a name for the web app. Rules:"
 echo "    - Lowercase letters, numbers, and hyphens only"
 echo "    - No underscores or spaces"
 echo ""
-prompt APP_NAME "App name" "${existing_app_name:-medtech-sales-genie}"
-
-# ── Validate app name ─────────────────────────────────────────
+while true; do
+  prompt APP_NAME "App name" "${existing_app_name:-medtech-sales-genie}"
+  if [[ "$APP_NAME" =~ ^[a-z0-9][a-z0-9-]*[a-z0-9]$ ]]; then
+    break
+  fi
+  echo "  Invalid: must be lowercase, no underscores, start/end with a letter or number."
+  echo "  Got: '$APP_NAME' — please try again."
+  echo ""
+done
 
 # Strip trailing slash from workspace URL
 WORKSPACE_URL="${WORKSPACE_URL%/}"
-
-if [[ ! "$APP_NAME" =~ ^[a-z0-9][a-z0-9-]*[a-z0-9]$ ]]; then
-  echo ""
-  echo "  ERROR: App name must be lowercase, no underscores, start/end with a letter or number."
-  echo "  Got: '$APP_NAME'"
-  exit 1
-fi
 
 # ── Confirm ───────────────────────────────────────────────────
 

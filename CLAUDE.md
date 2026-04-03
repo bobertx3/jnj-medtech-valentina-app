@@ -4,12 +4,12 @@
 Data backup and analytics solution for J&J MedTech surgical product sales. Loads 3 CSV datasets into Databricks Unity Catalog, creates metric views, powers a Genie space, and serves a branded AI chat advisor web app.
 
 ## Workspace
-- **Profile:** `free-edition-datakafe`
-- **Host:** `https://dbc-cbc6ac73-661b.cloud.databricks.com`
-- **Catalog/Schema:** `jnj_medtech.sales.
-- **SQL Warehouse:** `a1119b437a4a8d45`
-- **Genie Space ID:** `01f12fb14eb21d5e9864032b2d13316f`
-- **App Name:** `medtech-sales-genie`
+- **Profile:** `free-edition-bobbyleach`
+- **Host:** `https://dbc-acdfb509-1e94.cloud.databricks.com`
+- **Catalog/Schema:** `medtech.sales.
+- **SQL Warehouse:** `95381a6c659a6cfe`
+- **Genie Space ID:** `01f12fb6b13e17178757fe23739e1121`
+- **App Name:** `medtech.sales.genie`
 
 ## Project Structure
 ```
@@ -40,7 +40,7 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 
 ## Data Model
 
-### Tables (medtech.sales)
+### Tables (medtech.sales.
 | Table | Rows | PK | Description |
 |-------|------|----|-------------|
 | `hcp_procedure_volume` | 150 | `npi` | HCP/surgeon procedure volumes, CY/PY market by product line |
@@ -81,7 +81,7 @@ databricks bundle run medtech_pipeline
 databricks bundle run medtech_ask_genie
 
 # View app logs
-databricks apps logs medtech-sales-genie -p free-edition-datakafe
+databricks apps logs medtech.sales.genie -p free-edition-bobbyleach
 
 # Destroy deployment
 databricks bundle destroy --auto-approve
