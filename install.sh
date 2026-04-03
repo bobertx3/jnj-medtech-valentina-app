@@ -185,6 +185,25 @@ replace_placeholder() {
   done
 }
 
+# First, restore placeholders from previous config (for idempotent re-runs)
+if [[ -n "${existing_profile:-}" ]]; then
+  echo "Restoring placeholders from previous config..."
+  # Reverse order: replace old values back to placeholders
+  # Replace longer strings first to avoid partial matches
+  replace_placeholder "${existing_profile}"        "__PROFILE__"
+  replace_placeholder "${existing_workspace_url}"  "__WORKSPACE_URL__"
+  replace_placeholder "${existing_catalog}.${existing_schema}." "__CATALOG__.__SCHEMA__."
+  replace_placeholder "${existing_catalog}"        "__CATALOG__"
+  replace_placeholder "${existing_schema}"         "__SCHEMA__"
+  replace_placeholder "${existing_warehouse_id}"   "__WAREHOUSE_ID__"
+  replace_placeholder "${existing_volume_name}"    "__VOLUME_NAME__"
+  replace_placeholder "${existing_genie_space_id}" "__GENIE_SPACE_ID__"
+  replace_placeholder "${existing_app_name}"       "__APP_NAME__"
+
+  # Clear cached bundle state (may point to old workspace)
+  rm -rf .databricks/ .databricks-resources.json 2>/dev/null || true
+fi
+
 echo "Configuring project files..."
 replace_placeholder "__PROFILE__"        "$PROFILE"
 replace_placeholder "__WORKSPACE_URL__"  "$WORKSPACE_URL"

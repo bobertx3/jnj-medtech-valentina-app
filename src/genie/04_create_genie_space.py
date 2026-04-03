@@ -1,8 +1,8 @@
 # Databricks notebook source
 # MAGIC %md
 # MAGIC # 04 - Create or Update Genie Space
-# MAGIC Recreates the Genie space from the exported `valentina_genie.json` config.
-# MAGIC Uses the REST API directly (no MCP required).
+# MAGIC Recreates the Genie space from the exported `valentina_genie.json` config,
+# MAGIC then grants the app's service principal CAN_MANAGE permission on the space.
 
 # COMMAND ----------
 
@@ -15,14 +15,17 @@ dbutils.widgets.text("catalog", "medtech", "Catalog")
 dbutils.widgets.text("schema", "sales", "Schema")
 dbutils.widgets.text("warehouse_id", "", "Warehouse ID")
 dbutils.widgets.text("genie_space_id", "", "Genie Space ID")
+dbutils.widgets.text("app_name", "", "Databricks App Name")
 
 catalog = dbutils.widgets.get("catalog")
 schema = dbutils.widgets.get("schema")
 warehouse_id = dbutils.widgets.get("warehouse_id")
 genie_space_id = dbutils.widgets.get("genie_space_id")
+app_name = dbutils.widgets.get("app_name")
 
 print(f"Catalog: {catalog}, Schema: {schema}")
 print(f"Warehouse: {warehouse_id}, Genie Space: {genie_space_id}")
+print(f"App Name: {app_name}")
 
 # COMMAND ----------
 
@@ -50,7 +53,6 @@ with open(config_path, "r") as f:
     raw_config = f.read()
 
 # Replace placeholder catalog.schema references with actual values
-# Handles both __CATALOG__.__SCHEMA__ placeholders and any prior values
 raw_config = re.sub(r'__CATALOG__\.__SCHEMA__', f'{catalog}.{schema}', raw_config)
 raw_config = raw_config.replace('__WAREHOUSE_ID__', warehouse_id)
 raw_config = raw_config.replace('__GENIE_SPACE_ID__', genie_space_id)
@@ -69,13 +71,6 @@ print(f"Sample Questions: {len(genie_config['sample_questions'])}")
 
 # MAGIC %md
 # MAGIC ## Create or Update the Genie Space
-# MAGIC
-# MAGIC The REST API uses these endpoints:
-# MAGIC - **Create (import)**: `POST /api/2.0/genie/spaces`
-# MAGIC - **Update**: `PATCH /api/2.0/genie/spaces/{space_id}`
-# MAGIC
-# MAGIC Both accept a `serialized_space` field (JSON string) that contains the full
-# MAGIC space configuration: tables, metric views, instructions, SQL examples, and benchmarks.
 
 # COMMAND ----------
 
@@ -126,9 +121,98 @@ if not space_id:
         new_space = resp.json()
         new_id = new_space.get("space_id") or new_space.get("id")
         print(f"Created new space: {new_id}")
-        print(f"NOTE: Update GENIE_SPACE_ID in app.yaml and app.py to: {new_id}")
     else:
         raise Exception(f"Failed to create space ({resp.status_code}): {resp.text[:500]}")
+
+final_space_id = space_id or new_id
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Grant App Service Principal access to the Genie Space
+# MAGIC
+# MAGIC The Databricks App has its own service principal. We need to grant it
+# MAGIC CAN_MANAGE on the Genie space so the app can call the Genie API.
+
+# COMMAND ----------
+
+if app_name:
+    # Look up the app to find its service principal
+    print(f"Looking up app: {app_name}")
+    app_resp = requests.get(
+        f"{host}/api/2.0/apps/{app_name}",
+        headers=headers,
+    )
+
+    if app_resp.status_code == 200:
+        app_data = app_resp.json()
+        sp_id = app_data.get("service_principal_id")
+        sp_name = app_data.get("service_principal_name", "")
+        print(f"App service principal ID: {sp_id}, name: {sp_name}")
+
+        sp_client_id = app_data.get("service_principal_client_id", "")
+        if sp_client_id:
+            # Grant CAN_MANAGE on the Genie space
+            # Permission object type is "genie", use service_principal_name = client_id
+            print(f"Granting CAN_MANAGE on Genie space {final_space_id} to SP '{sp_name}' (client_id: {sp_client_id})...")
+            perm_resp = requests.patch(
+                f"{host}/api/2.0/permissions/genie/{final_space_id}",
+                headers=headers,
+                json={
+                    "access_control_list": [
+                        {
+                            "service_principal_name": sp_client_id,
+                            "permission_level": "CAN_MANAGE",
+                        }
+                    ]
+                },
+            )
+
+            if perm_resp.status_code == 200:
+                print("Genie space permission granted!")
+            else:
+                print(f"Genie permission failed ({perm_resp.status_code}): {perm_resp.text[:300]}")
+
+            # Also grant CAN_USE on the SQL warehouse
+            print(f"Granting CAN_USE on warehouse {warehouse_id} to SP '{sp_name}'...")
+            wh_perm_resp = requests.patch(
+                f"{host}/api/2.0/permissions/warehouses/{warehouse_id}",
+                headers=headers,
+                json={
+                    "access_control_list": [
+                        {
+                            "service_principal_name": sp_client_id,
+                            "permission_level": "CAN_USE",
+                        }
+                    ]
+                },
+            )
+
+            if wh_perm_resp.status_code == 200:
+                print("Warehouse permission granted!")
+            else:
+                print(f"Warehouse permission failed ({wh_perm_resp.status_code}): {wh_perm_resp.text[:300]}")
+
+            # Grant Unity Catalog access so the SP can query tables
+            print(f"Granting Unity Catalog access to SP '{sp_client_id}'...")
+            uc_grants = [
+                f"GRANT USE_CATALOG ON CATALOG {catalog} TO `{sp_client_id}`",
+                f"GRANT USE_SCHEMA ON SCHEMA {catalog}.{schema} TO `{sp_client_id}`",
+                f"GRANT SELECT ON SCHEMA {catalog}.{schema} TO `{sp_client_id}`",
+            ]
+            for grant_sql in uc_grants:
+                try:
+                    spark.sql(grant_sql)
+                    print(f"  OK: {grant_sql}")
+                except Exception as e:
+                    print(f"  WARN: {grant_sql} -> {e}")
+        else:
+            print("WARNING: Could not find service principal client ID for app")
+    else:
+        print(f"WARNING: Could not find app '{app_name}' ({app_resp.status_code}). "
+              f"Make sure 'databricks bundle deploy' was run first.")
+else:
+    print("WARNING: No app_name provided — skipping permission grant.")
 
 # COMMAND ----------
 
@@ -137,9 +221,8 @@ if not space_id:
 
 # COMMAND ----------
 
-verify_id = space_id or new_id
 resp = requests.get(
-    f"{host}/api/2.0/genie/spaces/{verify_id}",
+    f"{host}/api/2.0/genie/spaces/{final_space_id}",
     headers=headers,
     params={"include_serialized_space": "true"},
 )

@@ -6,11 +6,11 @@ include:
 
 variables:
   catalog:
-    default: "bx4"
+    default: "jnj_medtech"
   schema:
     default: "sales"
   warehouse_id:
-    default: "9488857c6101bb75"
+    default: "a1119b437a4a8d45"
   volume_name:
     default: "raw_data"
 
@@ -18,6 +18,6 @@ targets:
   dev:
     default: true
     workspace:
-      profile: DEFAULT
-      host: https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com
+      profile: free-edition-datakafe
+      host: https://dbc-cbc6ac73-661b.cloud.databricks.com
       root_path: /Workspace/Shared/medtech-genie-app

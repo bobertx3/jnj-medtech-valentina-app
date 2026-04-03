@@ -1,10 +1,10 @@
 {
-  "profile": "DEFAULT",
-  "workspace_url": "https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com",
-  "catalog": "bx4",
+  "profile": "free-edition-datakafe",
+  "workspace_url": "https://dbc-cbc6ac73-661b.cloud.databricks.com",
+  "catalog": "jnj_medtech",
   "schema": "sales",
-  "warehouse_id": "9488857c6101bb75",
+  "warehouse_id": "a1119b437a4a8d45",
   "volume_name": "raw_data",
-  "genie_space_id": "01f12f7548a611dbb1599e198079c32f",
+  "genie_space_id": "01f12fb14eb21d5e9864032b2d13316f",
   "app_name": "medtech-sales-genie"
 }

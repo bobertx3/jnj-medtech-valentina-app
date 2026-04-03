@@ -21,22 +21,12 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="J&J MedTech Sales Genie App")
 
-GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12f7548a611dbb1599e198079c32f")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "9488857c6101bb75")
+GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12fb14eb21d5e9864032b2d13316f")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "a1119b437a4a8d45")
 
 
-def get_workspace_client(request: Request) -> WorkspaceClient:
-    """Get workspace client using user auth (required for Genie access)."""
-    token = request.headers.get("x-forwarded-access-token")
-    if token:
-        host = os.getenv("DATABRICKS_HOST") or os.getenv("DATABRICKS_INSTANCE_NAME")
-        if not host:
-            # Derive host from the request origin
-            cfg = Config()
-            host = cfg.host
-        cfg = Config(host=host, token=token)
-        return WorkspaceClient(config=cfg)
-    # Fallback to app auth (service principal)
+def get_workspace_client() -> WorkspaceClient:
+    """Get workspace client using app auth (service principal)."""
     return WorkspaceClient(config=Config())
 
 
@@ -60,10 +50,9 @@ async def chat(req: ChatRequest, request: Request):
     import httpx
 
     try:
-        # Use service principal auth for Genie API (requires CAN_MANAGE on space)
         cfg = Config()
         host = (cfg.host or "").rstrip("/")
-        sp_headers = cfg.authenticate()  # Returns {"Authorization": "Bearer ..."}
+        sp_headers = cfg.authenticate()
         headers = {**sp_headers, "Content-Type": "application/json"}
         base = f"{host}/api/2.0/genie/spaces/{GENIE_SPACE_ID}"
 
@@ -105,6 +94,14 @@ async def chat(req: ChatRequest, request: Request):
                         continue
 
             # 3) Parse response
+            logger.info(f"Genie response status: {msg_data.get('status')}")
+            logger.info(f"Genie response keys: {list(msg_data.keys())}")
+            logger.info(f"Genie attachments count: {len(msg_data.get('attachments', []))}")
+            if msg_data.get('error'):
+                logger.error(f"Genie error: {msg_data['error']}")
+            if msg_data.get('attachments'):
+                for i, att in enumerate(msg_data['attachments']):
+                    logger.info(f"Attachment {i} keys: {list(att.keys())}")
             reply_text = ""
             sql_query = None
             result_data = None
@@ -205,10 +202,10 @@ async def health():
 
 
 @app.get("/api/dashboard")
-async def dashboard_data(request: Request):
+async def dashboard_data():
     """Fetch dashboard KPI and chart data from the tables."""
     try:
-        w = get_workspace_client(request)
+        w = get_workspace_client()
 
         def run_query(query):
             """Execute SQL via statement execution API and return list of dicts."""
@@ -237,13 +234,13 @@ async def dashboard_data(request: Request):
                 rows.append(d)
             return rows
 
-        kpis = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM bx4.sales.account_targeting")
-        opp_by_product = run_query("SELECT product_line, SUM(opportunity) AS total_opportunity FROM bx4.sales.account_targeting GROUP BY product_line ORDER BY total_opportunity DESC")
-        opp_by_target = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM bx4.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
-        top_accounts = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM bx4.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
-        opp_by_area = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM bx4.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
-        vol_by_specialty = run_query("SELECT specialty, SUM(cy_procedure_volume) AS total_volume FROM bx4.sales.hcp_procedure_volume GROUP BY specialty ORDER BY total_volume DESC")
-        top_surgeons = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM bx4.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
+        kpis = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM jnj_medtech.sales.account_targeting")
+        opp_by_product = run_query("SELECT product_line, SUM(opportunity) AS total_opportunity FROM jnj_medtech.sales.account_targeting GROUP BY product_line ORDER BY total_opportunity DESC")
+        opp_by_target = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM jnj_medtech.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
+        top_accounts = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM jnj_medtech.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
+        opp_by_area = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM jnj_medtech.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
+        vol_by_specialty = run_query("SELECT specialty, SUM(cy_procedure_volume) AS total_volume FROM jnj_medtech.sales.hcp_procedure_volume GROUP BY specialty ORDER BY total_volume DESC")
+        top_surgeons = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM jnj_medtech.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
 
         return {
             "kpis": kpis[0] if kpis else {},

@@ -117,7 +117,7 @@ curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.s
 Run this command and follow the prompts. You will need your workspace URL and a personal access token (your admin can help you generate one).
 
 ```bash
-databricks configure --profile DEFAULT
+databricks configure --profile free-edition-datakafe
 ```
 
 ### Step 3 — Prepare your workspace
