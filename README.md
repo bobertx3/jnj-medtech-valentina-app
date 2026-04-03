@@ -146,11 +146,9 @@ The setup script will ask you for the values you gathered above and configure al
 ./install.sh
 ```
 
-The script will walk you through each value and confirm before making any changes. You can re-run it at any time to update your settings.
+The script will walk you through each value, confirm before making changes, log you in to the workspace, and then offer to deploy automatically. You can re-run it at any time to switch workspaces or update your settings.
 
-### Step 5 — Deploy and run
-
-Run these three commands in order:
+Behind the scenes, the script runs these three commands for you:
 
 ```bash
 # 1. Push everything to your workspace
@@ -163,13 +161,22 @@ databricks bundle run medtech_pipeline
 databricks bundle run medtech_ask_genie
 ```
 
-After step 3, the app URL will be printed in the terminal. Open it in your browser to start chatting with your sales data.
+After the script finishes, the app URL will be printed in the terminal. Open it in your browser to start chatting with your sales data.
 
-### Teardown
-
-To remove everything from your workspace:
+### Useful commands after setup
 
 ```bash
+# Check app status
+databricks apps get <your-app-name> --profile <your-profile>
+
+# Re-deploy after making changes
+databricks bundle deploy --auto-approve
+databricks bundle run medtech_ask_genie
+
+# Re-run the data pipeline
+databricks bundle run medtech_pipeline
+
+# Remove everything from your workspace
 databricks bundle destroy --auto-approve
 ```
 

@@ -6,7 +6,7 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 ## Workspace
 - **Profile:** `free-edition-datakafe`
 - **Host:** `https://dbc-cbc6ac73-661b.cloud.databricks.com`
-- **Catalog/Schema:** `jnj_medtech.sales`
+- **Catalog/Schema:** `jnj_medtech.sales.
 - **SQL Warehouse:** `a1119b437a4a8d45`
 - **Genie Space ID:** `01f12fb14eb21d5e9864032b2d13316f`
 - **App Name:** `medtech-sales-genie`

@@ -221,6 +221,15 @@ echo "Done!"
 
 # ── Deploy ────────────────────────────────────────────────────
 
+# ── Authenticate ──────────────────────────────────────────────
+
+echo ""
+echo "Logging in to your Databricks workspace..."
+echo ""
+databricks auth login --host "$WORKSPACE_URL" --profile "$PROFILE"
+
+# ── Deploy ────────────────────────────────────────────────────
+
 echo ""
 echo "Configuration complete! Ready to deploy."
 echo ""
@@ -236,31 +245,43 @@ if [[ ! "$deploy" =~ ^[Yy]$ ]]; then
 fi
 
 echo ""
-echo "Step 1/3 — Pushing to workspace..."
+echo "Step 1/3 — Pushing everything to your workspace..."
+echo "  Running: databricks bundle deploy --auto-approve"
 echo ""
 databricks bundle deploy --auto-approve
 
 echo ""
-echo "Step 2/3 — Loading data and configuring Genie space..."
+echo "Step 2/3 — Loading data and configuring the Genie space..."
+echo "  Running: databricks bundle run medtech_pipeline"
 echo "  (this may take a few minutes)"
 echo ""
 databricks bundle run medtech_pipeline
 
 echo ""
 echo "Step 3/3 — Starting the web app..."
+echo "  Running: databricks bundle run medtech_ask_genie"
 echo ""
 databricks bundle run medtech_ask_genie
 
 echo ""
 echo "══════════════════════════════════════════════════════════"
 echo ""
-echo "  All done! Your app is deploying now."
+echo "  All done! Your app should be running."
 echo ""
-echo "  To check the app status:"
-echo "    databricks apps get $APP_NAME --profile $PROFILE"
+echo "  Useful commands:"
 echo ""
-echo "  To tear everything down later:"
-echo "    databricks bundle destroy --auto-approve"
+echo "    Check app status:"
+echo "      databricks apps get $APP_NAME --profile $PROFILE"
+echo ""
+echo "    Re-deploy after making changes:"
+echo "      databricks bundle deploy --auto-approve"
+echo "      databricks bundle run medtech_ask_genie"
+echo ""
+echo "    Re-run the data pipeline:"
+echo "      databricks bundle run medtech_pipeline"
+echo ""
+echo "    Remove everything from your workspace:"
+echo "      databricks bundle destroy --auto-approve"
 echo ""
 echo "══════════════════════════════════════════════════════════"
 echo ""
