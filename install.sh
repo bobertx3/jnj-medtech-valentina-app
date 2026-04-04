@@ -81,17 +81,63 @@ echo "Enter your Databricks configuration values."
 echo "(Press Enter to accept defaults shown in brackets.)"
 echo ""
 
-# List available profiles if .databrickscfg exists
+# Interactive profile selector
 DBCFG="$HOME/.databrickscfg"
+PROFILE=""
 if [[ -f "$DBCFG" ]]; then
-  profiles=$(grep '^\[' "$DBCFG" | tr -d '[]' | tr '\n' ', ' | sed 's/,$//')
-  if [[ -n "$profiles" ]]; then
-    echo "  Available profiles: $profiles"
-    echo ""
+  mapfile -t profile_list < <(grep '^\[' "$DBCFG" | tr -d '[]')
+  if [[ ${#profile_list[@]} -gt 0 ]]; then
+    # Find default selection index
+    default_idx=0
+    for i in "${!profile_list[@]}"; do
+      if [[ "${profile_list[$i]}" == "${existing_profile:-DEFAULT}" ]]; then
+        default_idx=$i
+        break
+      fi
+    done
+
+    selected=$default_idx
+    while true; do
+      # Clear and redraw the menu
+      echo "  Select a Databricks CLI profile (use arrow keys, Enter to confirm):"
+      echo ""
+      for i in "${!profile_list[@]}"; do
+        if [[ $i -eq $selected ]]; then
+          echo "  > ${profile_list[$i]}"
+        else
+          echo "    ${profile_list[$i]}"
+        fi
+      done
+      echo ""
+
+      # Read a single keypress
+      IFS= read -rsn1 key
+      if [[ "$key" == $'\x1b' ]]; then
+        read -rsn2 arrow
+        case "$arrow" in
+          '[A') # Up arrow
+            (( selected > 0 )) && (( selected-- ))
+            ;;
+          '[B') # Down arrow
+            (( selected < ${#profile_list[@]} - 1 )) && (( selected++ ))
+            ;;
+        esac
+        # Move cursor up to redraw (menu lines + 2 for header/footer)
+        lines=$(( ${#profile_list[@]} + 3 ))
+        printf "\033[${lines}A\033[J"
+      elif [[ "$key" == "" ]]; then
+        # Enter pressed — confirm selection
+        PROFILE="${profile_list[$selected]}"
+        break
+      fi
+    done
+    echo "  Selected: $PROFILE"
   fi
 fi
 
-prompt PROFILE "Databricks CLI profile name" "${existing_profile:-DEFAULT}"
+if [[ -z "$PROFILE" ]]; then
+  prompt PROFILE "Databricks CLI profile name" "${existing_profile:-DEFAULT}"
+fi
 
 echo ""
 echo "  Your workspace URL looks like:"
