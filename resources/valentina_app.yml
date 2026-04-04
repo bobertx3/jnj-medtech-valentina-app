@@ -1,6 +1,6 @@
 resources:
   apps:
     medtech_ask_genie:
-      name: medtech.sales.genie
+      name: medtech-sales-genie
       description: "J&J MedTech Sales Genie App - Chat with curated sales datasets"
       source_code_path: ../src/app

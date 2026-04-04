@@ -9,7 +9,7 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 - **Catalog/Schema:** `medtech.sales.
 - **SQL Warehouse:** `95381a6c659a6cfe`
 - **Genie Space ID:** `01f12fb6b13e17178757fe23739e1121`
-- **App Name:** `medtech.sales.genie`
+- **App Name:** `medtech-sales-genie`
 
 ## Project Structure
 ```
@@ -81,7 +81,7 @@ databricks bundle run medtech_pipeline
 databricks bundle run medtech_ask_genie
 
 # View app logs
-databricks apps logs medtech.sales.genie -p free-edition-bobbyleach
+databricks apps logs medtech-sales-genie -p free-edition-bobbyleach
 
 # Destroy deployment
 databricks bundle destroy --auto-approve
