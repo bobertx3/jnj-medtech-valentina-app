@@ -6,7 +6,7 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 ## Workspace
 - **Profile:** `free-edition-bobbyleach`
 - **Host:** `https://dbc-acdfb509-1e94.cloud.databricks.com`
-- **Catalog/Schema:** `medtech.sales.
+- **Catalog/Schema:** `medtech.sales`
 - **SQL Warehouse:** `95381a6c659a6cfe`
 - **Genie Space ID:** `01f12fb6b13e17178757fe23739e1121`
 - **App Name:** `medtech-sales-genie`
@@ -15,15 +15,16 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 ```
 ├── databricks.yml              # DAB bundle config
 ├── resources/
-│   ├── valentina_job.yml       # Pipeline job (4 tasks)
+│   ├── valentina_job.yml       # Pipeline job (5 tasks)
 │   └── valentina_app.yml       # App resource definition
 ├── src/
 │   ├── notebooks/
-│   │   ├── 01_setup_and_load.sql   # Create tables from CSVs
-│   │   ├── 02_add_uc_metadata.sql  # PK constraints + table/column comments
+│   │   ├── 00_setup_data_in_volume.py  # Create schema/volume, copy CSVs
+│   │   ├── 01_setup_and_load.sql       # Create tables from CSVs
+│   │   ├── 02_add_uc_metadata.sql      # PK constraints + table/column comments
 │   │   └── 03_add_business_semantics.sql  # 7 metric views
 │   ├── genie/
-│   │   ├── 04_create_genie_space.py  # Creates/updates Genie space via REST API
+│   │   ├── 04_create_genie_space.py  # Updates Genie space + grants SP permissions
 │   │   └── valentina_genie.json      # Genie space config (serialized_space export)
 │   └── app/
 │       ├── app.py              # FastAPI backend (Genie API integration)
@@ -34,13 +35,14 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 │           ├── src/App.js      # React chat UI
 │           └── src/App.css     # J&J red branding
 ├── raw_data/                   # Source CSVs (uploaded to volume)
+├── templates/                  # Template files for install.sh
 ├── design/                     # UI reference screenshots
 └── test_cases/                 # Validation test cases (Excel)
 ```
 
 ## Data Model
 
-### Tables (medtech.sales.
+### Tables (medtech.sales)
 | Table | Rows | PK | Description |
 |-------|------|----|-------------|
 | `hcp_procedure_volume` | 150 | `npi` | HCP/surgeon procedure volumes, CY/PY market by product line |
