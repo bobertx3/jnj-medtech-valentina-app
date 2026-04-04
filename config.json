@@ -1,10 +1,10 @@
 {
-  "profile": "free-edition-bobbyleach",
-  "workspace_url": "https://dbc-acdfb509-1e94.cloud.databricks.com",
+  "profile": "free-gotminted",
+  "workspace_url": "https://dbc-2378f1fc-0530.cloud.databricks.com",
   "catalog": "medtech",
   "schema": "sales",
-  "warehouse_id": "95381a6c659a6cfe",
+  "warehouse_id": "796f36d00b204fb6",
   "volume_name": "raw_data",
-  "genie_space_id": "01f12fb6b13e17178757fe23739e1121",
+  "genie_space_id": "01f12fc00af814cfa74a3b452021bb66",
   "app_name": "medtech-sales-genie"
 }

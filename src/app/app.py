@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="J&J MedTech Sales Genie App")
 
-GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12fb6b13e17178757fe23739e1121")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "95381a6c659a6cfe")
+GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12fc00af814cfa74a3b452021bb66")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "796f36d00b204fb6")
 
 
 def get_workspace_client() -> WorkspaceClient:

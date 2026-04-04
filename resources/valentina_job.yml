@@ -52,7 +52,7 @@ resources:
               catalog: ${var.catalog}
               schema: ${var.schema}
               warehouse_id: ${var.warehouse_id}
-              genie_space_id: 01f12fb6b13e17178757fe23739e1121
+              genie_space_id: 01f12fc00af814cfa74a3b452021bb66
               app_name: medtech-sales-genie
           environment_key: default
       environments:

@@ -10,7 +10,7 @@ variables:
   schema:
     default: "sales"
   warehouse_id:
-    default: "95381a6c659a6cfe"
+    default: "796f36d00b204fb6"
   volume_name:
     default: "raw_data"
 
@@ -18,6 +18,6 @@ targets:
   dev:
     default: true
     workspace:
-      profile: free-edition-bobbyleach
-      host: https://dbc-acdfb509-1e94.cloud.databricks.com
+      profile: free-gotminted
+      host: https://dbc-2378f1fc-0530.cloud.databricks.com
       root_path: /Workspace/Shared/medtech-genie-app

@@ -85,7 +85,10 @@ echo ""
 DBCFG="$HOME/.databrickscfg"
 PROFILE=""
 if [[ -f "$DBCFG" ]]; then
-  mapfile -t profile_list < <(grep '^\[' "$DBCFG" | tr -d '[]')
+  profile_list=()
+  while IFS= read -r line; do
+    profile_list+=("$line")
+  done < <(grep '^\[' "$DBCFG" | tr -d '[]')
   if [[ ${#profile_list[@]} -gt 0 ]]; then
     # Find default selection index
     default_idx=0
