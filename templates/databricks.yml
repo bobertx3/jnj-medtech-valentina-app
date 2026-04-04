@@ -6,18 +6,18 @@ include:
 
 variables:
   catalog:
-    default: "medtech"
+    default: "__CATALOG__"
   schema:
-    default: "sales"
+    default: "__SCHEMA__"
   warehouse_id:
-    default: "95381a6c659a6cfe"
+    default: "__WAREHOUSE_ID__"
   volume_name:
-    default: "raw_data"
+    default: "__VOLUME_NAME__"
 
 targets:
   dev:
     default: true
     workspace:
-      profile: free-edition-bobbyleach
-      host: https://dbc-acdfb509-1e94.cloud.databricks.com
+      profile: __PROFILE__
+      host: __WORKSPACE_URL__
       root_path: /Workspace/Shared/medtech-genie-app

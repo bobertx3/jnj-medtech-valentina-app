@@ -172,59 +172,49 @@ EOF
 echo ""
 echo "Saved your settings to $CONFIG_FILE"
 
-# ── Replace placeholders ──────────────────────────────────────
+# ── Generate config files from templates ──────────────────────
+#
+# Templates live in templates/ with __PLACEHOLDER__ tokens.
+# We copy each template to its target location, replacing
+# placeholders with the user's values. No reverse replacement
+# needed — we always start fresh from the template.
 
-FILES=(
-  databricks.yml
-  resources/valentina_app.yml
-  resources/valentina_job.yml
-  src/app/app.py
-  src/app/app.yaml
-  CLAUDE.md
-  README.md
+echo "Configuring project files from templates..."
+
+# template_source -> target_destination
+declare -a TEMPLATES=(
+  "templates/databricks.yml|databricks.yml"
+  "templates/valentina_app.yml|resources/valentina_app.yml"
+  "templates/valentina_job.yml|resources/valentina_job.yml"
+  "templates/app.py|src/app/app.py"
+  "templates/app.yaml|src/app/app.yaml"
+  "templates/CLAUDE.md|CLAUDE.md"
+  "templates/README.md|README.md"
 )
 
-replace_placeholder() {
-  local placeholder="$1" value="$2"
-  for f in "${FILES[@]}"; do
-    if [[ -f "$f" ]]; then
-      # Use | as sed delimiter to avoid conflicts with / in values
-      sed -i'' -e "s|${placeholder}|${value}|g" "$f"
-    fi
-  done
-}
+for entry in "${TEMPLATES[@]}"; do
+  src="${entry%%|*}"
+  dst="${entry##*|}"
+  if [[ ! -f "$src" ]]; then
+    echo "  WARNING: Template not found: $src"
+    continue
+  fi
+  # Copy template and replace placeholders
+  sed \
+    -e "s|__PROFILE__|${PROFILE}|g" \
+    -e "s|__WORKSPACE_URL__|${WORKSPACE_URL}|g" \
+    -e "s|__CATALOG__|${CATALOG}|g" \
+    -e "s|__SCHEMA__|${SCHEMA}|g" \
+    -e "s|__WAREHOUSE_ID__|${WAREHOUSE_ID}|g" \
+    -e "s|__VOLUME_NAME__|${VOLUME_NAME}|g" \
+    -e "s|__GENIE_SPACE_ID__|${GENIE_SPACE_ID}|g" \
+    -e "s|__APP_NAME__|${APP_NAME}|g" \
+    "$src" > "$dst"
+  echo "  $src -> $dst"
+done
 
-# First, restore placeholders from previous config (for idempotent re-runs)
-if [[ -n "${existing_profile:-}" ]]; then
-  echo "Restoring placeholders from previous config..."
-  # Restore longest/most specific strings first to avoid partial matches
-  # (e.g. "medtech-sales-genie" must be restored before "sales")
-  replace_placeholder "${existing_app_name}"       "__APP_NAME__"
-  replace_placeholder "${existing_workspace_url}"  "__WORKSPACE_URL__"
-  replace_placeholder "${existing_genie_space_id}" "__GENIE_SPACE_ID__"
-  replace_placeholder "${existing_warehouse_id}"   "__WAREHOUSE_ID__"
-  replace_placeholder "${existing_catalog}.${existing_schema}." "__CATALOG__.__SCHEMA__."
-  replace_placeholder "${existing_profile}"        "__PROFILE__"
-  replace_placeholder "${existing_catalog}"        "__CATALOG__"
-  replace_placeholder "${existing_schema}"         "__SCHEMA__"
-  replace_placeholder "${existing_volume_name}"    "__VOLUME_NAME__"
-
-  # Clear cached bundle state (may point to old workspace)
-  rm -rf .databricks/ .databricks-resources.json 2>/dev/null || true
-fi
-
-echo "Configuring project files..."
-replace_placeholder "__PROFILE__"        "$PROFILE"
-replace_placeholder "__WORKSPACE_URL__"  "$WORKSPACE_URL"
-replace_placeholder "__CATALOG__"        "$CATALOG"
-replace_placeholder "__SCHEMA__"         "$SCHEMA"
-replace_placeholder "__WAREHOUSE_ID__"   "$WAREHOUSE_ID"
-replace_placeholder "__VOLUME_NAME__"    "$VOLUME_NAME"
-replace_placeholder "__GENIE_SPACE_ID__" "$GENIE_SPACE_ID"
-replace_placeholder "__APP_NAME__"       "$APP_NAME"
-
-# Clean up sed backup files (macOS creates -e files)
-find . -name "*-e" -type f -delete 2>/dev/null || true
+# Clear cached bundle state (may point to old workspace)
+rm -rf .databricks/ .databricks-resources.json 2>/dev/null || true
 
 echo "Done!"
 
