@@ -6,24 +6,24 @@ include:
 
 variables:
   catalog:
-    default: "bx4"
+    default: "medtech"
   schema:
-    default: "mt_test"
+    default: "sales"
   warehouse_id:
-    default: "08381690ac2b0e1a"
+    default: "6f538f22f07fe0d8"
   volume_name:
     default: "raw_data"
   dataset:
-    default: "hr_recruiting"
+    default: "med_tech_sales"
   genie_space_id:
-    default: "01f128afd07410268461ef36a3a865dd"
+    default: "01f131fb36aa184b8b53f281573aeb01"
   app_name:
-    default: "mt-test-genie"
+    default: "mt-test-app"
 
 targets:
   dev:
     default: true
     workspace:
-      profile: DEFAULT
-      host: https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com
+      profile: free-rleach
+      host: https://dbc-3152298d-8ef5.cloud.databricks.com
       root_path: /Workspace/Shared/jnj-genie-workshop

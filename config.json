@@ -1,11 +1,11 @@
 {
-  "profile": "DEFAULT",
-  "workspace_url": "https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com",
-  "catalog": "bx4",
-  "schema": "mt_test",
-  "warehouse_id": "08381690ac2b0e1a",
+  "profile": "free-rleach",
+  "workspace_url": "https://dbc-3152298d-8ef5.cloud.databricks.com",
+  "catalog": "medtech",
+  "schema": "sales",
+  "warehouse_id": "6f538f22f07fe0d8",
   "volume_name": "raw_data",
-  "genie_space_id": "01f128afd07410268461ef36a3a865dd",
-  "app_name": "mt-test-genie",
-  "dataset": "hr_recruiting"
+  "genie_space_id": "01f131fb36aa184b8b53f281573aeb01",
+  "app_name": "mt-test-app",
+  "dataset": "med_tech_sales"
 }

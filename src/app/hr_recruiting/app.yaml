@@ -11,16 +11,16 @@ auth:
 
 env:
   - name: DATABRICKS_WAREHOUSE_ID
-    value: "08381690ac2b0e1a"
+    value: "796f36d00b204fb6"
   - name: GENIE_SPACE_ID
-    value: "01f128afd07410268461ef36a3a865dd"
+    value: "01f0b40597a9152c935ddb6a25d08f59"
 
 resources:
   - name: sql_warehouse
     sql_warehouse:
-      id: 08381690ac2b0e1a
+      id: 796f36d00b204fb6
       permission: CAN_USE
   - name: genie_space
     genie_space:
-      id: 01f128afd07410268461ef36a3a865dd
+      id: 01f0b40597a9152c935ddb6a25d08f59
       permission: CAN_MANAGE

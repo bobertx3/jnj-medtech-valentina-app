@@ -4,13 +4,13 @@
 Multi-dataset Genie workshop app. Users select a dataset (e.g. med_tech_sales, hr_recruiting) during install. Loads CSVs into Databricks Unity Catalog, creates metric views, powers a Genie space, and serves a branded AI chat advisor web app.
 
 ## Workspace
-- **Profile:** `DEFAULT`
-- **Host:** `https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com`
-- **Catalog/Schema:** `bx4.mt_test`
-- **SQL Warehouse:** `08381690ac2b0e1a`
-- **Genie Space ID:** `01f128afd07410268461ef36a3a865dd`
-- **App Name:** `mt-test-genie`
-- **Dataset:** `hr_recruiting`
+- **Profile:** `free-rleach`
+- **Host:** `https://dbc-3152298d-8ef5.cloud.databricks.com`
+- **Catalog/Schema:** `medtech.sales`
+- **SQL Warehouse:** `6f538f22f07fe0d8`
+- **Genie Space ID:** `01f131fb36aa184b8b53f281573aeb01`
+- **App Name:** `mt-test-app`
+- **Dataset:** `med_tech_sales`
 
 ## Project Structure
 ```
@@ -51,7 +51,7 @@ Multi-dataset Genie workshop app. Users select a dataset (e.g. med_tech_sales, h
 
 ## Data Model (med_tech_sales)
 
-### Tables (bx4.mt_test)
+### Tables (medtech.sales)
 | Table | Rows | PK | Description |
 |-------|------|----|-------------|
 | `hcp_procedure_volume` | 150 | `npi` | HCP/surgeon procedure volumes, CY/PY market by product line |
@@ -92,7 +92,7 @@ databricks bundle run data_pipeline
 databricks bundle run ask_genie
 
 # View app logs
-databricks apps logs mt-test-genie -p DEFAULT
+databricks apps logs mt-test-app -p free-rleach
 
 # Destroy deployment
 databricks bundle destroy --auto-approve

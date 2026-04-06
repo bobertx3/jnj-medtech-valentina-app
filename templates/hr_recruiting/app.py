@@ -234,7 +234,9 @@ async def dashboard_data():
                 rows.append(d)
             return rows
 
-        kpis = run_query("SELECT COUNT(*) AS total_candidates, SUM(CASE WHEN stage = 'Hired' THEN 1 ELSE 0 END) AS total_positions_filled, ROUND(AVG(total_days_in_pipeline), 1) AS avg_days_in_pipeline, ROUND(SUM(CASE WHEN stage = 'Hired' THEN 1.0 ELSE 0 END) / NULLIF(SUM(CASE WHEN stage IN ('Offered', 'Hired') THEN 1.0 ELSE 0 END), 0) * 100, 1) AS offer_accept_rate FROM __CATALOG__.__SCHEMA__.candidate_pipeline")
+        kpis_candidates = run_query("SELECT COUNT(*) AS total_candidates, SUM(CASE WHEN stage = 'Hired' THEN 1 ELSE 0 END) AS total_positions_filled FROM __CATALOG__.__SCHEMA__.candidate_pipeline")
+        kpis_metrics = run_query("SELECT ROUND(AVG(avg_time_to_fill_days), 1) AS avg_time_to_fill, ROUND(AVG(offer_acceptance_rate) * 100, 1) AS avg_offer_acceptance_rate FROM __CATALOG__.__SCHEMA__.hiring_metrics")
+        kpis = [{**(kpis_candidates[0] if kpis_candidates else {}), **(kpis_metrics[0] if kpis_metrics else {})}]
         candidates_by_stage = run_query("SELECT stage, COUNT(*) AS candidate_count FROM __CATALOG__.__SCHEMA__.candidate_pipeline GROUP BY stage ORDER BY candidate_count DESC")
         candidates_by_source = run_query("SELECT source, COUNT(*) AS candidate_count FROM __CATALOG__.__SCHEMA__.candidate_pipeline GROUP BY source ORDER BY candidate_count DESC")
         positions_by_department = run_query("SELECT department, SUM(headcount_needed) AS position_count FROM __CATALOG__.__SCHEMA__.job_requisitions GROUP BY department ORDER BY position_count DESC")

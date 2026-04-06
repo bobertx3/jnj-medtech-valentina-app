@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="J&J HR Recruiting Genie App")
 
-GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f128afd07410268461ef36a3a865dd")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "08381690ac2b0e1a")
+GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f0b40597a9152c935ddb6a25d08f59")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "796f36d00b204fb6")
 
 
 def get_workspace_client() -> WorkspaceClient:
@@ -119,7 +119,7 @@ async def chat(req: ChatRequest, request: Request):
                     if desc:
                         reply_text += f"\n\n{desc}"
 
-                    # 4) Fetch query results via /query-result endpoint
+                    # 4) Fetch query results
                     if query_obj.get("statement_id"):
                         try:
                             qr = await client.get(
@@ -137,41 +137,10 @@ async def chat(req: ChatRequest, request: Request):
                         except Exception as e:
                             logger.warning(f"Could not fetch query result: {e}")
 
-            # 5) Fallback: extract data from message-level query_result
-            if not result_data:
-                qr_msg = msg_data.get("query_result", {})
-                if isinstance(qr_msg, dict):
-                    # Try columns from query_result manifest
-                    cols = qr_msg.get("manifest", {}).get("schema", {}).get("columns", [])
-                    if cols and not result_columns:
-                        result_columns = [c.get("name", "") for c in cols]
-                    da = qr_msg.get("result", {}).get("data_array", [])
-                    if da:
-                        result_data = [list(row) for row in da]
-                        logger.info(f"Got data from message query_result: {len(result_data)} rows")
-
-            # 6) Fallback: re-execute the SQL directly
-            if not result_data and sql_query and result_columns:
-                try:
-                    logger.info("Falling back to direct SQL execution for chart data")
-                    w_sync = get_workspace_client()
-                    exec_resp = w_sync.statement_execution.execute_statement(
-                        warehouse_id=WAREHOUSE_ID,
-                        statement=sql_query,
-                        wait_timeout="30s",
-                    )
-                    if exec_resp.result and exec_resp.manifest:
-                        result_columns = [c.name for c in exec_resp.manifest.schema.columns]
-                        result_data = [list(row) for row in (exec_resp.result.data_array or [])]
-                        logger.info(f"Direct SQL returned {len(result_data)} rows")
-                except Exception as e:
-                    logger.warning(f"Direct SQL fallback failed: {e}")
-
             if not reply_text and result_data and result_columns:
                 reply_text = "Here are the results:"
 
-            # Only append table markdown for single-row results (chart handles multi-row)
-            if result_data and result_columns and len(result_data) == 1:
+            if result_data and result_columns and len(result_data) > 0:
                 table_md = "\n\n| " + " | ".join(result_columns) + " |\n"
                 table_md += "| " + " | ".join(["---"] * len(result_columns)) + " |\n"
                 for row in result_data[:50]:
@@ -265,13 +234,15 @@ async def dashboard_data():
                 rows.append(d)
             return rows
 
-        kpis = run_query("SELECT COUNT(*) AS total_candidates, SUM(CASE WHEN stage = 'Hired' THEN 1 ELSE 0 END) AS total_positions_filled, ROUND(AVG(total_days_in_pipeline), 1) AS avg_days_in_pipeline, ROUND(SUM(CASE WHEN stage = 'Hired' THEN 1.0 ELSE 0 END) / NULLIF(SUM(CASE WHEN stage IN ('Offered', 'Hired') THEN 1.0 ELSE 0 END), 0) * 100, 1) AS offer_accept_rate FROM bx4.mt_test.candidate_pipeline")
-        candidates_by_stage = run_query("SELECT stage, COUNT(*) AS candidate_count FROM bx4.mt_test.candidate_pipeline GROUP BY stage ORDER BY candidate_count DESC")
-        candidates_by_source = run_query("SELECT source, COUNT(*) AS candidate_count FROM bx4.mt_test.candidate_pipeline GROUP BY source ORDER BY candidate_count DESC")
-        positions_by_department = run_query("SELECT department, SUM(headcount_needed) AS position_count FROM bx4.mt_test.job_requisitions GROUP BY department ORDER BY position_count DESC")
-        top_recruiters = run_query("SELECT recruiter_id AS recruiter_name, SUM(positions_filled) AS positions_filled FROM bx4.mt_test.hiring_metrics GROUP BY recruiter_id ORDER BY positions_filled DESC LIMIT 10")
-        pipeline_by_bu = run_query("SELECT business_unit, COUNT(*) AS candidate_count FROM bx4.mt_test.candidate_pipeline GROUP BY business_unit ORDER BY candidate_count DESC")
-        cost_per_hire_by_dept = run_query("SELECT department, ROUND(AVG(cost_per_hire), 0) AS avg_cost_per_hire FROM bx4.mt_test.hiring_metrics GROUP BY department ORDER BY avg_cost_per_hire DESC")
+        kpis_candidates = run_query("SELECT COUNT(*) AS total_candidates, SUM(CASE WHEN stage = 'Hired' THEN 1 ELSE 0 END) AS total_positions_filled FROM medtech.sales.candidate_pipeline")
+        kpis_metrics = run_query("SELECT ROUND(AVG(avg_time_to_fill_days), 1) AS avg_time_to_fill, ROUND(AVG(offer_acceptance_rate) * 100, 1) AS avg_offer_acceptance_rate FROM medtech.sales.hiring_metrics")
+        kpis = [{**(kpis_candidates[0] if kpis_candidates else {}), **(kpis_metrics[0] if kpis_metrics else {})}]
+        candidates_by_stage = run_query("SELECT stage, COUNT(*) AS candidate_count FROM medtech.sales.candidate_pipeline GROUP BY stage ORDER BY candidate_count DESC")
+        candidates_by_source = run_query("SELECT source, COUNT(*) AS candidate_count FROM medtech.sales.candidate_pipeline GROUP BY source ORDER BY candidate_count DESC")
+        positions_by_department = run_query("SELECT department, SUM(headcount_needed) AS position_count FROM medtech.sales.job_requisitions GROUP BY department ORDER BY position_count DESC")
+        top_recruiters = run_query("SELECT recruiter_id AS recruiter_name, SUM(positions_filled) AS positions_filled FROM medtech.sales.hiring_metrics GROUP BY recruiter_id ORDER BY positions_filled DESC LIMIT 10")
+        pipeline_by_bu = run_query("SELECT business_unit, COUNT(*) AS candidate_count FROM medtech.sales.candidate_pipeline GROUP BY business_unit ORDER BY candidate_count DESC")
+        cost_per_hire_by_dept = run_query("SELECT department, ROUND(AVG(cost_per_hire), 0) AS avg_cost_per_hire FROM medtech.sales.hiring_metrics GROUP BY department ORDER BY avg_cost_per_hire DESC")
 
         return {
             "kpis": kpis[0] if kpis else {},
