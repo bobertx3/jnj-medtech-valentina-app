@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md
 # MAGIC # 04 - Create or Update Genie Space
-# MAGIC Recreates the Genie space from the exported `valentina_genie.json` config,
+# MAGIC Recreates the Genie space from the exported `genie_space.json` config,
 # MAGIC then grants the app's service principal CAN_MANAGE permission on the space.
 
 # COMMAND ----------
@@ -16,14 +16,16 @@ dbutils.widgets.text("schema", "sales", "Schema")
 dbutils.widgets.text("warehouse_id", "", "Warehouse ID")
 dbutils.widgets.text("genie_space_id", "", "Genie Space ID")
 dbutils.widgets.text("app_name", "", "Databricks App Name")
+dbutils.widgets.text("dataset", "med_tech_sales", "Dataset")
 
 catalog = dbutils.widgets.get("catalog")
 schema = dbutils.widgets.get("schema")
 warehouse_id = dbutils.widgets.get("warehouse_id")
 genie_space_id = dbutils.widgets.get("genie_space_id")
 app_name = dbutils.widgets.get("app_name")
+dataset = dbutils.widgets.get("dataset")
 
-print(f"Catalog: {catalog}, Schema: {schema}")
+print(f"Catalog: {catalog}, Schema: {schema}, Dataset: {dataset}")
 print(f"Warehouse: {warehouse_id}, Genie Space: {genie_space_id}")
 print(f"App Name: {app_name}")
 
@@ -45,7 +47,7 @@ w = WorkspaceClient()
 # Resolve config path relative to this notebook's location
 notebook_path = dbutils.notebook.entry_point.getDbutils().notebook().getContext().notebookPath().get()
 notebook_dir = "/Workspace" + notebook_path.rsplit("/", 1)[0]
-config_path = os.path.join(notebook_dir, "valentina_genie.json")
+config_path = os.path.join(notebook_dir, dataset, "genie_space.json")
 
 print(f"Loading config from: {config_path}")
 

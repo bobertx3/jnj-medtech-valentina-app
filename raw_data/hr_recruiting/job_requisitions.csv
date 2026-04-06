@@ -1,0 +1,151 @@
+Requisition ID,Recruiter ID,Department,Business Unit,Position Title,Location,Priority,Status,Days Open,Target Salary Min,Target Salary Max,Headcount Needed,Headcount Filled,Posting Quarter
+REQ-1001,REC-012,R&D,Corporate,R&D Engineer,New Brunswick NJ,Low,Filled,16,90000,105044,2,2,Q1 2025
+REQ-1002,REC-018,Legal,Pharma,Compliance Analyst,Warsaw IN,High,Filled,48,71000,82934,2,2,Q4 2025
+REQ-1003,REC-011,Engineering,MedTech,Software Engineer,New Brunswick NJ,Critical,Filled,61,87000,109918,4,4,Q2 2025
+REQ-1004,REC-005,Operations,Pharma,Senior Operations Manager,Raynham MA,High,Open,57,103000,123393,1,0,Q4 2025
+REQ-1005,REC-003,Sales,MedTech,Senior Sales Representative,Raritan NJ,Critical,Open,128,56000,70608,1,0,Q4 2025
+REQ-1006,REC-005,R&D,MedTech,Senior Research Scientist,Raritan NJ,Medium,Open,95,123000,139088,1,0,Q2 2025
+REQ-1007,REC-003,Quality,MedTech,Quality Director,Jacksonville FL,High,Filled,85,154000,189038,1,1,Q4 2025
+REQ-1008,REC-007,Sales,MedTech,Senior Sales Representative,Remote,Medium,Open,124,79000,90611,1,0,Q2 2025
+REQ-1009,REC-018,Supply Chain,Consumer Health,VP Supply Chain,Irvine CA,High,Filled,29,175000,211347,1,1,Q2 2025
+REQ-1010,REC-016,Legal,MedTech,Corporate Counsel,Remote,Critical,Filled,6,128000,143664,1,1,Q1 2026
+REQ-1011,REC-014,HR,Pharma,Talent Acquisition Specialist,New Brunswick NJ,Medium,Open,70,54000,61305,4,3,Q1 2026
+REQ-1012,REC-010,Quality,Corporate,Quality Assurance Manager,Raritan NJ,Medium,Filled,24,103000,128184,1,1,Q2 2025
+REQ-1013,REC-005,Quality,Consumer Health,Quality Assurance Manager,Raritan NJ,High,Filled,35,93000,113794,4,4,Q1 2025
+REQ-1014,REC-015,Supply Chain,MedTech,Senior Supply Chain Manager,Jacksonville FL,Critical,Filled,6,111000,130736,1,1,Q1 2026
+REQ-1015,REC-009,Marketing,Consumer Health,Marketing Specialist,Raritan NJ,Medium,Open,124,58000,68912,1,0,Q4 2025
+REQ-1016,REC-015,Quality,Consumer Health,Quality Analyst,Remote,High,Open,41,64000,73805,1,0,Q1 2025
+REQ-1017,REC-001,Finance,MedTech,Controller,Cincinnati OH,Low,Open,24,155000,176232,2,1,Q2 2025
+REQ-1018,REC-011,Finance,Corporate,FP&A Director,Irvine CA,Medium,Filled,20,187000,215803,1,1,Q2 2025
+REQ-1019,REC-017,Engineering,Corporate,Software Engineer,Irvine CA,Medium,Open,37,98000,116247,1,0,Q1 2026
+REQ-1020,REC-010,Supply Chain,Pharma,Procurement Specialist,Remote,Low,Cancelled,54,63000,72807,2,0,Q2 2025
+REQ-1021,REC-005,Engineering,Corporate,Junior Software Engineer,Boston MA,High,Filled,6,52000,65977,2,2,Q3 2025
+REQ-1022,REC-004,Finance,Pharma,Controller,New Brunswick NJ,Low,Open,86,117000,146096,1,0,Q3 2025
+REQ-1023,REC-015,Sales,MedTech,Account Executive,Cincinnati OH,Critical,Filled,60,60000,73566,1,1,Q3 2025
+REQ-1024,REC-013,HR,Consumer Health,Talent Acquisition Specialist,Palm Beach Gardens FL,Critical,Open,164,51000,63570,1,0,Q3 2025
+REQ-1025,REC-014,Sales,Consumer Health,Senior Sales Representative,Irvine CA,Medium,Filled,16,70000,80329,1,1,Q1 2026
+REQ-1026,REC-002,Finance,Consumer Health,Senior Financial Analyst,Palm Beach Gardens FL,Low,Open,27,86000,104584,5,0,Q4 2025
+REQ-1027,REC-015,Quality,Pharma,Quality Analyst,Raritan NJ,Medium,Open,18,50000,57020,5,1,Q2 2025
+REQ-1028,REC-013,HR,MedTech,Compensation Analyst,Irvine CA,Low,Open,31,73000,82959,1,0,Q1 2025
+REQ-1029,REC-011,Sales,MedTech,Regional Sales Director,Jacksonville FL,Low,Filled,55,156000,195028,2,2,Q2 2025
+REQ-1030,REC-012,Finance,Pharma,Finance Manager,Warsaw IN,Low,Open,173,124000,150434,1,0,Q1 2026
+REQ-1031,REC-016,Engineering,MedTech,Principal Engineer,Jacksonville FL,High,Filled,72,183000,212656,3,3,Q1 2025
+REQ-1032,REC-013,HR,Corporate,Compensation Analyst,Raynham MA,Low,Filled,54,71000,87723,1,1,Q2 2025
+REQ-1033,REC-001,Operations,MedTech,Process Improvement Specialist,Raynham MA,Medium,Cancelled,15,60000,73281,1,0,Q1 2026
+REQ-1034,REC-002,Finance,Corporate,Finance Manager,Jacksonville FL,High,Open,106,119000,148768,2,0,Q1 2026
+REQ-1035,REC-007,R&D,Consumer Health,Senior Research Scientist,New Brunswick NJ,Critical,Open,71,99000,116306,1,0,Q2 2025
+REQ-1036,REC-011,Marketing,Consumer Health,Marketing Coordinator,Jacksonville FL,Medium,Cancelled,54,43000,48634,3,0,Q1 2025
+REQ-1037,REC-012,Legal,MedTech,Senior Corporate Counsel,Raynham MA,Critical,Open,126,178000,206894,1,0,Q2 2025
+REQ-1038,REC-018,Supply Chain,Consumer Health,Supply Chain Manager,Cincinnati OH,High,Filled,21,88000,101646,4,4,Q1 2026
+REQ-1039,REC-013,Supply Chain,MedTech,Supply Chain Manager,Remote,High,Filled,68,82000,99217,1,1,Q3 2025
+REQ-1040,REC-011,Marketing,MedTech,VP Marketing,Raynham MA,High,Open,78,141000,168885,2,0,Q1 2025
+REQ-1041,REC-013,R&D,Corporate,Senior Research Scientist,Warsaw IN,Low,Open,111,107000,121647,2,0,Q2 2025
+REQ-1042,REC-015,Sales,MedTech,Sales Manager,Raynham MA,High,Open,102,94000,106148,1,0,Q1 2026
+REQ-1043,REC-003,HR,Corporate,HR Director,Cincinnati OH,Low,Open,126,121000,150295,1,0,Q4 2025
+REQ-1044,REC-018,Quality,Consumer Health,Validation Specialist,Irvine CA,High,Open,161,68000,78011,1,0,Q1 2025
+REQ-1045,REC-014,Sales,Consumer Health,Business Development Rep,Palm Beach Gardens FL,Critical,Open,178,48000,54562,1,0,Q3 2025
+REQ-1046,REC-013,R&D,Corporate,R&D Director,Raritan NJ,Medium,Open,109,184000,219996,1,0,Q4 2025
+REQ-1047,REC-015,Operations,Pharma,Senior Operations Manager,New Brunswick NJ,High,Filled,17,108000,125616,3,3,Q4 2025
+REQ-1048,REC-019,Finance,MedTech,Controller,Cincinnati OH,Low,Filled,65,157000,177533,1,1,Q1 2025
+REQ-1049,REC-013,Engineering,Pharma,Software Engineer,Jacksonville FL,Low,Open,69,75000,92630,1,0,Q2 2025
+REQ-1050,REC-005,Supply Chain,Consumer Health,Senior Supply Chain Manager,Raritan NJ,High,Open,98,117000,138101,3,0,Q1 2026
+REQ-1051,REC-019,Quality,Corporate,Quality Analyst,Jacksonville FL,Critical,Filled,17,50000,58461,1,1,Q3 2025
+REQ-1052,REC-018,HR,Corporate,Senior HR Manager,Warsaw IN,Medium,Filled,27,107000,128049,2,2,Q4 2025
+REQ-1053,REC-002,Legal,Consumer Health,General Counsel,New Brunswick NJ,Medium,Cancelled,28,167000,201325,2,0,Q3 2025
+REQ-1054,REC-009,R&D,MedTech,Senior Research Scientist,Irvine CA,Low,Filled,46,115000,132656,2,2,Q1 2025
+REQ-1055,REC-007,R&D,Pharma,Principal Scientist,Warsaw IN,Medium,Filled,12,157000,178768,1,1,Q1 2026
+REQ-1056,REC-013,Marketing,MedTech,Marketing Specialist,Palm Beach Gardens FL,Medium,Open,131,54000,61656,2,1,Q3 2025
+REQ-1057,REC-015,Quality,Corporate,Validation Specialist,New Brunswick NJ,High,Filled,62,58000,65819,1,1,Q1 2026
+REQ-1058,REC-012,HR,Pharma,Senior HR Manager,Irvine CA,Critical,Open,161,109000,124045,2,0,Q3 2025
+REQ-1059,REC-014,Quality,MedTech,Validation Specialist,Warsaw IN,Low,Filled,81,69000,86242,1,1,Q3 2025
+REQ-1060,REC-009,Legal,Corporate,Senior Corporate Counsel,Irvine CA,High,Open,148,180000,209022,2,0,Q1 2026
+REQ-1061,REC-012,Quality,Consumer Health,Senior Quality Engineer,Warsaw IN,Critical,Cancelled,45,107000,121308,1,0,Q3 2025
+REQ-1062,REC-007,Marketing,Pharma,Marketing Coordinator,Raynham MA,Medium,Filled,88,55000,61297,1,1,Q4 2025
+REQ-1063,REC-013,Legal,MedTech,Regulatory Affairs Specialist,Remote,Medium,Open,71,95000,110037,1,0,Q1 2026
+REQ-1064,REC-010,Marketing,Pharma,Senior Marketing Manager,Warsaw IN,Critical,Open,158,133000,149998,4,2,Q1 2025
+REQ-1065,REC-008,HR,Pharma,HR Director,Cincinnati OH,Medium,Open,81,147000,178375,3,1,Q1 2025
+REQ-1066,REC-019,Supply Chain,MedTech,Procurement Specialist,Boston MA,Critical,Filled,72,66000,79553,3,3,Q2 2025
+REQ-1067,REC-005,Finance,Consumer Health,Controller,Warsaw IN,Critical,Filled,28,154000,191048,1,1,Q2 2025
+REQ-1068,REC-011,Engineering,MedTech,Engineering Manager,Palm Beach Gardens FL,Medium,Open,55,155000,177084,2,0,Q1 2026
+REQ-1069,REC-014,Legal,Corporate,Compliance Analyst,Cincinnati OH,Critical,Filled,52,58000,65461,2,2,Q1 2026
+REQ-1070,REC-007,Engineering,MedTech,Staff Software Engineer,Raynham MA,High,Open,143,156000,188579,1,0,Q3 2025
+REQ-1071,REC-010,R&D,Consumer Health,Principal Scientist,Jacksonville FL,High,Cancelled,27,158000,194159,4,0,Q4 2025
+REQ-1072,REC-001,Finance,Pharma,FP&A Director,Palm Beach Gardens FL,Medium,Filled,26,139000,166143,2,2,Q1 2025
+REQ-1073,REC-013,Operations,MedTech,VP Operations,Raritan NJ,Medium,Open,44,181000,214627,1,0,Q4 2025
+REQ-1074,REC-005,Finance,MedTech,Finance Manager,Raritan NJ,Medium,Open,170,126000,155922,3,0,Q1 2026
+REQ-1075,REC-020,Sales,Consumer Health,Sales Representative,Warsaw IN,High,Open,82,65000,77246,1,0,Q3 2025
+REQ-1076,REC-006,Engineering,Corporate,Staff Software Engineer,Raynham MA,High,Open,37,138000,157237,2,0,Q1 2025
+REQ-1077,REC-017,Sales,MedTech,Sales Manager,Palm Beach Gardens FL,Medium,Cancelled,21,100000,125426,3,0,Q1 2025
+REQ-1078,REC-010,HR,Consumer Health,Talent Acquisition Specialist,Raritan NJ,Low,Filled,6,71000,87918,2,2,Q3 2025
+REQ-1079,REC-012,R&D,Consumer Health,R&D Director,Raynham MA,Medium,Open,117,199000,222461,1,0,Q4 2025
+REQ-1080,REC-014,Marketing,MedTech,Marketing Specialist,Jacksonville FL,Critical,Cancelled,35,73000,86288,1,0,Q1 2026
+REQ-1081,REC-013,HR,MedTech,HR Director,Jacksonville FL,Medium,Filled,57,135000,168880,1,1,Q3 2025
+REQ-1082,REC-001,Quality,Pharma,Validation Specialist,Boston MA,Medium,Filled,17,64000,74183,1,1,Q3 2025
+REQ-1083,REC-013,Marketing,MedTech,Marketing Coordinator,Boston MA,Medium,Filled,26,41000,47453,1,1,Q3 2025
+REQ-1084,REC-009,Engineering,Pharma,Data Engineer,Palm Beach Gardens FL,Critical,Filled,78,100000,124366,1,1,Q3 2025
+REQ-1085,REC-004,R&D,MedTech,Research Scientist,Cincinnati OH,Critical,Filled,16,107000,119597,2,2,Q1 2026
+REQ-1086,REC-018,Finance,Corporate,Finance Manager,New Brunswick NJ,Medium,Filled,47,128000,146710,2,2,Q3 2025
+REQ-1087,REC-015,Sales,MedTech,Business Development Rep,New Brunswick NJ,High,Filled,42,53000,62946,2,2,Q1 2025
+REQ-1088,REC-006,R&D,Pharma,R&D Director,Cincinnati OH,Critical,Filled,29,165000,185826,1,1,Q4 2025
+REQ-1089,REC-007,HR,MedTech,Talent Acquisition Specialist,Remote,Critical,Filled,63,70000,81576,2,2,Q4 2025
+REQ-1090,REC-001,Quality,MedTech,Quality Director,Remote,Medium,Filled,27,158000,185338,2,2,Q2 2025
+REQ-1091,REC-004,Legal,Consumer Health,Regulatory Affairs Specialist,Cincinnati OH,Low,Cancelled,53,75000,91268,4,0,Q3 2025
+REQ-1092,REC-015,Marketing,Pharma,Digital Marketing Analyst,Boston MA,High,Filled,45,68000,78326,2,2,Q2 2025
+REQ-1093,REC-007,Finance,Consumer Health,FP&A Director,Jacksonville FL,Low,Filled,27,184000,216046,2,2,Q1 2025
+REQ-1094,REC-012,Quality,Corporate,Quality Director,Cincinnati OH,Medium,Filled,73,140000,158738,1,1,Q1 2025
+REQ-1095,REC-017,Sales,MedTech,Regional Sales Director,New Brunswick NJ,Medium,Open,56,145000,167567,1,0,Q3 2025
+REQ-1096,REC-007,Quality,MedTech,Senior Quality Engineer,Raritan NJ,Medium,Filled,76,100000,114700,2,2,Q2 2025
+REQ-1097,REC-017,Operations,MedTech,Process Improvement Specialist,Cincinnati OH,Low,Cancelled,25,70000,88092,2,0,Q2 2025
+REQ-1098,REC-020,R&D,Pharma,R&D Director,Raynham MA,Medium,Filled,82,171000,195751,4,4,Q3 2025
+REQ-1099,REC-015,Marketing,MedTech,Marketing Specialist,Boston MA,Critical,Open,86,64000,78238,1,0,Q1 2025
+REQ-1100,REC-011,R&D,Pharma,Research Scientist,Raynham MA,Medium,Filled,85,106000,120344,1,1,Q1 2026
+REQ-1101,REC-018,HR,MedTech,HR Director,Boston MA,High,Open,32,162000,191528,1,0,Q1 2025
+REQ-1102,REC-012,Finance,Pharma,FP&A Director,Raynham MA,High,Open,173,186000,219533,2,0,Q1 2025
+REQ-1103,REC-012,R&D,Pharma,R&D Director,Remote,High,Open,97,196000,219987,4,3,Q3 2025
+REQ-1104,REC-018,Operations,MedTech,VP Operations,Raynham MA,Medium,Filled,67,137000,165747,2,2,Q3 2025
+REQ-1105,REC-017,Sales,MedTech,Senior Sales Representative,Boston MA,Critical,Open,176,74000,83970,1,0,Q2 2025
+REQ-1106,REC-018,Legal,MedTech,General Counsel,Jacksonville FL,Critical,Filled,9,166000,205735,1,1,Q3 2025
+REQ-1107,REC-018,Sales,Pharma,Sales Manager,Cincinnati OH,Medium,Filled,45,80000,96106,1,1,Q1 2025
+REQ-1108,REC-020,Sales,MedTech,Business Development Rep,Raynham MA,Low,Open,92,52000,64875,2,1,Q4 2025
+REQ-1109,REC-013,Engineering,Corporate,Senior Software Engineer,Jacksonville FL,Medium,Filled,74,120000,134331,1,1,Q3 2025
+REQ-1110,REC-001,Quality,Pharma,Quality Analyst,New Brunswick NJ,Medium,Open,155,47000,57789,2,1,Q2 2025
+REQ-1111,REC-014,Quality,Pharma,Quality Engineer,Palm Beach Gardens FL,Medium,Open,44,71000,81885,2,0,Q1 2026
+REQ-1112,REC-015,Quality,MedTech,Senior Quality Engineer,Irvine CA,Critical,Filled,67,101000,121682,2,2,Q2 2025
+REQ-1113,REC-004,Operations,MedTech,Operations Manager,Warsaw IN,Medium,Filled,44,104000,128284,2,2,Q3 2025
+REQ-1114,REC-014,Marketing,MedTech,Senior Marketing Manager,Palm Beach Gardens FL,Medium,Filled,40,100000,123559,2,2,Q4 2025
+REQ-1115,REC-015,R&D,Consumer Health,R&D Engineer,Boston MA,Critical,Filled,15,82000,93390,1,1,Q1 2026
+REQ-1116,REC-007,Operations,MedTech,Logistics Coordinator,New Brunswick NJ,Medium,Filled,79,53000,63969,2,2,Q1 2025
+REQ-1117,REC-018,Operations,Corporate,Logistics Coordinator,Raynham MA,High,Filled,80,44000,54535,2,2,Q1 2025
+REQ-1118,REC-013,HR,MedTech,HR Director,Remote,Medium,Filled,22,138000,169243,2,2,Q1 2026
+REQ-1119,REC-005,R&D,Consumer Health,Research Scientist,Warsaw IN,High,Open,74,71000,82805,2,1,Q4 2025
+REQ-1120,REC-016,R&D,MedTech,Research Scientist,Raynham MA,Critical,Cancelled,45,86000,97923,1,0,Q1 2026
+REQ-1121,REC-019,Marketing,Corporate,VP Marketing,Raynham MA,Medium,Filled,14,187000,227720,5,5,Q2 2025
+REQ-1122,REC-017,Legal,Consumer Health,Senior Corporate Counsel,Warsaw IN,Low,Open,50,150000,183829,1,0,Q2 2025
+REQ-1123,REC-005,Marketing,Pharma,Senior Marketing Manager,Palm Beach Gardens FL,High,Open,44,114000,131556,1,0,Q4 2025
+REQ-1124,REC-001,Finance,MedTech,Senior Financial Analyst,Remote,High,Filled,10,76000,94624,1,1,Q2 2025
+REQ-1125,REC-017,Legal,MedTech,General Counsel,Irvine CA,Low,Open,170,204000,230894,1,0,Q1 2026
+REQ-1126,REC-005,Supply Chain,Pharma,Demand Planner,Boston MA,High,Filled,48,81000,94718,1,1,Q4 2025
+REQ-1127,REC-013,Marketing,MedTech,Marketing Coordinator,Boston MA,Low,Filled,58,42000,49900,1,1,Q1 2026
+REQ-1128,REC-020,Engineering,MedTech,Software Engineer,Jacksonville FL,Low,Filled,5,92000,108278,1,1,Q1 2025
+REQ-1129,REC-017,Legal,Pharma,Compliance Analyst,Raynham MA,Medium,Filled,78,57000,68201,1,1,Q2 2025
+REQ-1130,REC-003,Operations,Corporate,Senior Operations Manager,New Brunswick NJ,Medium,Filled,78,125000,154245,1,1,Q2 2025
+REQ-1131,REC-011,Legal,Consumer Health,Legal Assistant,Cincinnati OH,Medium,Open,152,50000,58879,2,1,Q2 2025
+REQ-1132,REC-014,Quality,Corporate,Quality Engineer,Boston MA,Medium,Open,93,89000,107856,2,0,Q1 2025
+REQ-1133,REC-008,R&D,Pharma,Research Scientist,Boston MA,High,Open,155,104000,120240,2,0,Q4 2025
+REQ-1134,REC-001,Sales,Pharma,Regional Sales Director,Cincinnati OH,Critical,Open,109,120000,140490,2,1,Q1 2026
+REQ-1135,REC-017,Operations,MedTech,Operations Manager,Warsaw IN,Critical,Filled,71,89000,108743,2,2,Q1 2026
+REQ-1136,REC-017,Finance,Pharma,FP&A Director,Raynham MA,High,Open,55,145000,161382,2,1,Q4 2025
+REQ-1137,REC-013,Supply Chain,Pharma,Demand Planner,Raritan NJ,Low,Filled,76,73000,87812,3,3,Q2 2025
+REQ-1138,REC-020,Finance,Corporate,Controller,New Brunswick NJ,High,Filled,18,142000,176610,1,1,Q1 2025
+REQ-1139,REC-017,Operations,Consumer Health,Logistics Coordinator,Cincinnati OH,Medium,Filled,48,52000,60035,3,3,Q1 2025
+REQ-1140,REC-016,Sales,Consumer Health,Sales Representative,Palm Beach Gardens FL,Medium,Open,95,56000,63514,2,0,Q3 2025
+REQ-1141,REC-008,Operations,MedTech,Process Improvement Specialist,Raynham MA,Critical,Cancelled,35,67000,80284,3,0,Q3 2025
+REQ-1142,REC-006,Finance,Corporate,FP&A Director,Palm Beach Gardens FL,Medium,Filled,31,147000,180042,1,1,Q1 2026
+REQ-1143,REC-012,Marketing,MedTech,Marketing Coordinator,Warsaw IN,Medium,Filled,74,41000,46384,1,1,Q3 2025
+REQ-1144,REC-016,Supply Chain,Consumer Health,Procurement Specialist,Boston MA,High,Open,162,55000,68404,2,1,Q1 2026
+REQ-1145,REC-002,Quality,Consumer Health,Quality Assurance Manager,Warsaw IN,Low,Filled,63,113000,130686,1,1,Q2 2025
+REQ-1146,REC-013,Supply Chain,MedTech,Senior Supply Chain Manager,Remote,Low,Open,82,112000,135541,4,2,Q3 2025
+REQ-1147,REC-006,R&D,Corporate,Senior Research Scientist,Raynham MA,High,Filled,62,108000,126789,5,5,Q2 2025
+REQ-1148,REC-004,Operations,Pharma,VP Operations,Cincinnati OH,High,Filled,24,195000,221995,1,1,Q4 2025
+REQ-1149,REC-005,Quality,Consumer Health,Quality Assurance Manager,Irvine CA,Medium,Filled,55,101000,116486,1,1,Q3 2025
+REQ-1150,REC-016,Sales,Corporate,Business Development Rep,Irvine CA,High,Filled,37,45000,56276,1,1,Q1 2026

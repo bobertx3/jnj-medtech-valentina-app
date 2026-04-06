@@ -37,7 +37,7 @@ SELECT
   CAST(`PY Delta Max Market` AS DOUBLE) AS py_delta_max_market,
   CAST(`Total PY Max Market` AS DOUBLE) AS total_py_max_market
 FROM read_files(
-  '/Volumes/${catalog}/${schema}/${volume_name}/hcp_procedure_volume.csv',
+  '/Volumes/${catalog}/${schema}/${volume_name}/med_tech_sales/hcp_procedure_volume.csv',
   format => 'csv',
   header => true,
   inferSchema => true
@@ -74,7 +74,7 @@ SELECT
   CAST(`Net Cost To Customer ($)` AS DOUBLE) AS net_cost_to_customer,
   CAST(`Rolling 12 Sales ($)` AS DOUBLE) AS rolling_12_sales
 FROM read_files(
-  '/Volumes/${catalog}/${schema}/${volume_name}/product_upgrades.csv',
+  '/Volumes/${catalog}/${schema}/${volume_name}/med_tech_sales/product_upgrades.csv',
   format => 'csv',
   header => true,
   inferSchema => true
@@ -117,7 +117,7 @@ SELECT
   CAST(`CY Market Exposure %` AS DOUBLE) AS cy_market_exposure,
   CAST(`PY Market Exposure %` AS DOUBLE) AS py_market_exposure
 FROM read_files(
-  '/Volumes/${catalog}/${schema}/${volume_name}/account_targeting.csv',
+  '/Volumes/${catalog}/${schema}/${volume_name}/med_tech_sales/account_targeting.csv',
   format => 'csv',
   header => true,
   inferSchema => true

@@ -1,0 +1,401 @@
+Row Number,Recruiter ID,Department,Business Unit,Region,Quarter,Positions Filled,Positions Open,Avg Time To Fill Days,Avg Time To Offer Days,Offer Acceptance Rate,Cost Per Hire,Referral Rate,Diversity Hire Pct,Candidate Satisfaction Score
+1,REC-007,Supply Chain,Pharma,Central,Q3 2025,10,10,55.7,37.1,0.77,4724.97,0.35,0.41,4.9
+2,REC-006,HR,Corporate,Remote,Q1 2026,12,1,25.5,22.0,0.72,17366.29,0.38,0.47,3.8
+3,REC-015,HR,Corporate,West,Q2 2025,5,0,28.8,18.2,0.7,19365.26,0.4,0.29,3.8
+4,REC-004,Sales,Corporate,Remote,Q1 2025,0,6,56.7,44.9,0.64,16598.25,0.13,0.62,3.8
+5,REC-008,Finance,Consumer Health,West,Q2 2025,4,8,78.7,11.0,0.85,21928.11,0.23,0.41,4.9
+6,REC-018,Operations,Corporate,Southeast,Q1 2026,5,9,61.8,32.1,0.84,15407.66,0.31,0.49,3.6
+7,REC-012,R&D,Pharma,Northeast,Q4 2025,9,5,48.9,15.5,0.6,14512.96,0.4,0.26,3.6
+8,REC-018,Engineering,Corporate,West,Q3 2025,0,6,75.9,30.9,0.9,15060.67,0.18,0.6,3.9
+9,REC-008,Marketing,Corporate,West,Q2 2025,8,1,49.6,18.4,0.89,23019.0,0.42,0.51,3.6
+10,REC-018,Operations,Corporate,Southeast,Q1 2025,5,2,40.3,32.3,0.83,8986.95,0.35,0.28,3.0
+11,REC-002,Quality,MedTech,Southeast,Q1 2025,9,4,28.8,25.3,0.6,4984.33,0.11,0.3,3.8
+12,REC-016,HR,Corporate,Northeast,Q3 2025,2,2,23.9,37.1,0.63,13343.23,0.18,0.58,4.6
+13,REC-001,Sales,Pharma,West,Q4 2025,7,0,33.9,35.7,0.64,17652.17,0.18,0.38,4.9
+14,REC-011,Marketing,MedTech,Remote,Q1 2026,3,4,53.7,20.5,0.74,4145.93,0.37,0.64,3.5
+15,REC-014,HR,MedTech,Southeast,Q3 2025,3,6,75.2,10.3,0.62,20236.46,0.29,0.47,3.7
+16,REC-003,Finance,Pharma,West,Q1 2025,10,10,24.2,22.4,0.66,14799.77,0.14,0.42,3.6
+17,REC-018,HR,Corporate,Southeast,Q1 2025,12,5,70.7,18.8,0.62,18545.77,0.32,0.44,4.0
+18,REC-019,Marketing,Consumer Health,Central,Q4 2025,8,9,84.0,29.4,0.63,6410.56,0.22,0.32,3.7
+19,REC-001,Quality,Corporate,Southeast,Q1 2025,11,9,36.7,35.2,0.85,14857.04,0.25,0.44,4.0
+20,REC-018,Marketing,Consumer Health,Central,Q4 2025,10,1,26.7,33.1,0.62,23631.59,0.17,0.21,3.2
+21,REC-007,Sales,MedTech,Remote,Q4 2025,15,8,63.7,30.7,0.62,7855.9,0.39,0.21,4.8
+22,REC-016,Sales,Corporate,Northeast,Q3 2025,13,5,75.6,12.0,0.83,14638.46,0.39,0.58,3.2
+23,REC-007,Quality,MedTech,Northeast,Q2 2025,12,3,33.5,33.0,0.82,23845.07,0.32,0.45,4.5
+24,REC-019,HR,Corporate,West,Q1 2025,5,2,58.5,27.7,0.85,14745.81,0.34,0.62,4.8
+25,REC-018,HR,Consumer Health,West,Q4 2025,10,9,36.9,29.1,0.74,15105.25,0.4,0.36,3.9
+26,REC-013,Engineering,MedTech,Central,Q1 2026,0,8,29.5,41.2,0.6,24656.68,0.19,0.34,4.5
+27,REC-009,Quality,Pharma,Northeast,Q1 2025,14,5,30.9,19.3,0.94,8496.85,0.2,0.34,4.1
+28,REC-019,Finance,MedTech,Central,Q4 2025,5,7,77.8,34.1,0.82,22968.42,0.34,0.34,4.5
+29,REC-019,Legal,MedTech,Northeast,Q3 2025,11,6,49.2,40.4,0.93,7987.79,0.36,0.47,3.0
+30,REC-013,Engineering,Consumer Health,Remote,Q1 2025,10,8,59.5,21.4,0.87,6370.34,0.37,0.65,4.9
+31,REC-020,Supply Chain,MedTech,Southeast,Q4 2025,9,6,30.4,21.8,0.78,19396.93,0.32,0.32,3.8
+32,REC-014,Marketing,Pharma,West,Q1 2026,6,7,47.7,30.0,0.81,24935.73,0.31,0.31,3.5
+33,REC-014,HR,MedTech,Northeast,Q4 2025,13,5,44.4,21.2,0.83,3532.55,0.22,0.64,4.2
+34,REC-015,Supply Chain,Pharma,West,Q1 2025,7,3,68.0,15.5,0.88,4887.92,0.4,0.31,4.2
+35,REC-005,Operations,MedTech,Central,Q1 2025,9,7,53.0,21.6,0.88,7661.26,0.32,0.54,4.1
+36,REC-020,Marketing,MedTech,West,Q1 2026,1,4,31.9,19.9,0.9,16595.23,0.12,0.49,3.0
+37,REC-013,Operations,Consumer Health,Northeast,Q1 2025,9,10,47.1,44.3,0.79,18613.15,0.46,0.42,4.2
+38,REC-003,Marketing,Pharma,Remote,Q4 2025,0,0,37.3,28.5,0.73,11654.8,0.16,0.36,3.7
+39,REC-010,Finance,Consumer Health,Northeast,Q3 2025,12,0,86.1,43.2,0.69,10519.3,0.26,0.26,4.5
+40,REC-017,Supply Chain,Pharma,West,Q2 2025,4,6,87.9,41.8,0.73,14929.14,0.18,0.26,4.1
+41,REC-007,Marketing,Consumer Health,Remote,Q2 2025,13,2,65.9,29.8,0.66,4491.91,0.31,0.52,3.4
+42,REC-005,Engineering,Consumer Health,West,Q4 2025,9,7,72.2,38.8,0.84,19243.47,0.16,0.28,3.3
+43,REC-001,Supply Chain,Consumer Health,Remote,Q1 2026,7,9,36.3,34.1,0.74,18139.11,0.29,0.43,4.2
+44,REC-012,Marketing,Corporate,West,Q4 2025,4,2,33.5,11.1,0.89,3330.31,0.21,0.39,4.5
+45,REC-007,Finance,MedTech,Southeast,Q4 2025,15,5,80.7,41.1,0.76,20076.72,0.34,0.57,4.4
+46,REC-013,Supply Chain,MedTech,Remote,Q1 2025,14,7,77.9,11.5,0.98,14411.46,0.26,0.53,4.1
+47,REC-017,Engineering,Pharma,Central,Q4 2025,12,4,74.2,20.0,0.66,9477.23,0.47,0.51,4.8
+48,REC-015,R&D,MedTech,Remote,Q1 2025,5,9,85.6,34.4,0.65,12098.3,0.28,0.28,4.2
+49,REC-007,R&D,MedTech,Central,Q3 2025,5,1,26.4,34.7,0.84,4876.74,0.38,0.53,5.0
+50,REC-020,Marketing,Corporate,Remote,Q4 2025,1,2,83.9,29.8,0.85,6301.97,0.45,0.28,4.4
+51,REC-014,Operations,Consumer Health,West,Q3 2025,5,1,82.9,43.6,0.6,19838.71,0.1,0.42,4.0
+52,REC-001,Supply Chain,Corporate,Southeast,Q2 2025,15,7,48.7,12.8,0.83,8383.69,0.32,0.48,4.1
+53,REC-007,Engineering,Pharma,Southeast,Q1 2025,11,0,30.2,11.1,0.82,16272.28,0.23,0.24,3.2
+54,REC-006,Marketing,Consumer Health,Remote,Q1 2026,5,7,72.5,22.6,0.61,19907.26,0.23,0.6,4.6
+55,REC-014,Quality,MedTech,Central,Q4 2025,4,1,68.6,19.6,0.8,14542.22,0.38,0.48,3.2
+56,REC-017,Sales,Corporate,Remote,Q3 2025,13,9,79.3,19.1,0.82,16711.37,0.47,0.48,4.0
+57,REC-016,R&D,Pharma,Remote,Q2 2025,9,3,20.1,10.8,0.84,5594.37,0.44,0.56,5.0
+58,REC-014,Engineering,Consumer Health,Central,Q1 2026,6,0,64.8,34.2,0.7,4492.39,0.22,0.45,4.5
+59,REC-004,HR,Consumer Health,West,Q1 2026,0,2,33.6,39.2,0.95,13540.38,0.29,0.22,3.3
+60,REC-005,R&D,Consumer Health,West,Q4 2025,1,8,41.0,35.4,0.72,14789.48,0.18,0.51,4.6
+61,REC-012,Sales,Pharma,Central,Q1 2025,10,6,63.9,39.5,0.82,11570.46,0.34,0.59,4.5
+62,REC-011,Engineering,Consumer Health,West,Q1 2025,15,3,46.0,39.0,0.71,14552.21,0.17,0.37,3.1
+63,REC-007,Sales,Corporate,Remote,Q1 2025,15,8,30.8,21.9,0.78,22225.34,0.22,0.35,4.5
+64,REC-004,Quality,Pharma,Southeast,Q1 2025,14,6,70.0,28.3,0.6,23511.42,0.37,0.47,3.2
+65,REC-015,Engineering,MedTech,Remote,Q3 2025,0,9,73.1,32.4,0.68,7412.22,0.21,0.44,4.5
+66,REC-004,Operations,Pharma,Southeast,Q3 2025,3,0,87.1,29.6,0.64,14935.63,0.32,0.32,4.9
+67,REC-010,Supply Chain,Pharma,Southeast,Q1 2025,9,9,82.5,28.9,0.62,3637.84,0.46,0.22,3.8
+68,REC-003,Legal,Corporate,Southeast,Q1 2026,14,9,44.9,21.6,0.68,19684.86,0.42,0.24,4.8
+69,REC-015,Supply Chain,Pharma,Northeast,Q4 2025,3,7,41.7,32.6,0.89,13352.01,0.48,0.26,4.8
+70,REC-009,HR,Corporate,Southeast,Q3 2025,10,7,54.1,12.3,0.64,13530.35,0.44,0.33,3.7
+71,REC-019,Marketing,MedTech,West,Q1 2025,10,8,65.5,37.7,0.8,11817.96,0.27,0.48,4.1
+72,REC-016,Legal,MedTech,Central,Q2 2025,13,6,59.7,22.0,0.86,6807.88,0.37,0.53,4.4
+73,REC-016,Sales,Corporate,Central,Q1 2026,3,7,32.3,43.5,0.63,5392.38,0.43,0.55,3.8
+74,REC-016,Engineering,MedTech,Southeast,Q2 2025,0,2,66.3,25.9,0.71,16542.59,0.28,0.29,4.8
+75,REC-010,Supply Chain,Consumer Health,West,Q3 2025,2,9,20.6,44.5,0.75,5806.23,0.22,0.37,4.1
+76,REC-002,Engineering,Consumer Health,Northeast,Q3 2025,0,3,50.2,30.7,0.84,18659.02,0.26,0.4,3.4
+77,REC-006,R&D,Pharma,Southeast,Q1 2026,12,5,78.8,15.4,0.98,17741.45,0.15,0.23,3.0
+78,REC-016,Legal,Pharma,Northeast,Q2 2025,13,7,82.6,34.3,0.95,16711.47,0.28,0.39,4.6
+79,REC-013,HR,Pharma,Southeast,Q4 2025,0,9,54.9,35.6,0.87,8923.51,0.47,0.46,3.1
+80,REC-002,Supply Chain,Corporate,Central,Q1 2025,15,1,29.9,35.6,0.97,24640.7,0.41,0.41,3.2
+81,REC-020,Sales,Pharma,West,Q1 2025,9,9,23.7,22.0,0.9,13315.11,0.31,0.41,4.5
+82,REC-014,HR,Consumer Health,Central,Q2 2025,1,9,72.5,35.4,0.81,4351.19,0.29,0.28,3.1
+83,REC-010,Supply Chain,MedTech,Central,Q4 2025,2,2,55.4,39.8,0.71,5915.85,0.21,0.59,3.0
+84,REC-004,Supply Chain,Pharma,Remote,Q2 2025,14,5,76.5,19.1,0.87,13668.21,0.42,0.59,3.7
+85,REC-003,Marketing,Pharma,West,Q4 2025,12,3,66.2,35.4,0.66,15710.66,0.44,0.22,3.5
+86,REC-004,Engineering,Pharma,West,Q4 2025,15,4,53.3,43.2,0.95,8140.55,0.37,0.38,3.5
+87,REC-017,Legal,MedTech,Central,Q4 2025,12,10,42.1,28.6,0.96,5142.02,0.31,0.36,4.7
+88,REC-020,Operations,Consumer Health,Central,Q3 2025,3,4,65.8,23.7,0.89,19480.0,0.39,0.46,3.4
+89,REC-011,Marketing,Consumer Health,Remote,Q1 2025,0,1,20.8,13.4,0.64,12810.73,0.19,0.33,3.4
+90,REC-001,Supply Chain,MedTech,Northeast,Q1 2026,6,9,64.7,34.8,0.65,21841.7,0.15,0.5,4.8
+91,REC-019,Marketing,MedTech,Southeast,Q3 2025,9,7,66.2,12.6,0.77,24895.44,0.41,0.51,4.3
+92,REC-011,Operations,Pharma,Northeast,Q3 2025,1,6,47.2,44.9,0.7,20881.62,0.17,0.23,5.0
+93,REC-007,Supply Chain,Corporate,Southeast,Q4 2025,3,2,57.8,25.1,0.83,5337.49,0.28,0.32,3.1
+94,REC-003,Supply Chain,Consumer Health,West,Q1 2025,15,2,65.7,10.0,0.61,11590.64,0.16,0.35,3.8
+95,REC-001,Quality,Corporate,West,Q4 2025,12,1,57.8,10.1,0.96,20995.49,0.29,0.46,4.9
+96,REC-012,HR,Consumer Health,West,Q1 2025,2,5,57.4,43.6,0.63,13112.07,0.41,0.49,3.4
+97,REC-002,Legal,Pharma,Central,Q4 2025,3,10,68.2,27.0,0.94,12635.64,0.18,0.22,3.1
+98,REC-019,Finance,Corporate,West,Q1 2025,9,7,57.4,39.2,0.77,24908.34,0.11,0.23,4.6
+99,REC-002,Legal,MedTech,Southeast,Q1 2026,14,10,80.9,28.8,0.88,8125.68,0.13,0.53,4.0
+100,REC-001,R&D,MedTech,Southeast,Q2 2025,0,2,64.3,41.7,0.91,5140.43,0.34,0.58,3.1
+101,REC-004,Sales,Corporate,Remote,Q1 2026,7,1,76.3,24.9,0.91,24608.24,0.37,0.35,5.0
+102,REC-019,Quality,Pharma,Central,Q2 2025,1,9,32.1,12.2,0.7,19666.1,0.17,0.37,3.3
+103,REC-008,Supply Chain,MedTech,Southeast,Q1 2025,12,2,21.1,27.0,0.6,6947.08,0.14,0.49,4.8
+104,REC-014,R&D,Pharma,Southeast,Q2 2025,8,8,51.5,18.4,0.67,18216.82,0.34,0.52,4.2
+105,REC-003,Operations,Consumer Health,West,Q1 2025,7,3,28.2,28.6,0.64,10961.83,0.4,0.44,3.4
+106,REC-007,Operations,MedTech,Southeast,Q1 2025,4,10,79.1,41.9,0.79,6514.71,0.47,0.22,3.7
+107,REC-007,Legal,Consumer Health,Central,Q1 2026,14,0,27.3,11.8,0.8,6477.0,0.11,0.43,3.1
+108,REC-008,R&D,Consumer Health,West,Q2 2025,10,3,74.5,21.4,0.64,19230.45,0.45,0.37,3.4
+109,REC-016,Supply Chain,Corporate,Northeast,Q4 2025,4,3,85.0,25.9,0.75,6000.9,0.39,0.48,5.0
+110,REC-007,HR,Pharma,Northeast,Q1 2026,1,4,29.6,39.8,0.77,6766.43,0.24,0.6,4.2
+111,REC-020,Marketing,Pharma,Northeast,Q4 2025,15,3,61.4,39.3,0.71,19060.39,0.39,0.31,3.7
+112,REC-019,Finance,Pharma,Remote,Q1 2025,13,0,22.8,26.5,0.89,3739.65,0.31,0.42,4.6
+113,REC-004,R&D,Corporate,Southeast,Q1 2025,0,6,86.5,14.6,0.71,17248.08,0.14,0.42,3.6
+114,REC-015,Supply Chain,MedTech,West,Q4 2025,4,6,32.9,40.5,0.84,18485.85,0.1,0.48,3.8
+115,REC-011,Quality,MedTech,Central,Q4 2025,8,9,58.0,37.8,0.9,4781.1,0.45,0.53,3.1
+116,REC-012,Engineering,MedTech,West,Q3 2025,14,9,22.9,22.8,0.85,18507.22,0.32,0.55,3.3
+117,REC-011,Finance,MedTech,West,Q1 2026,6,3,42.4,41.4,0.79,12304.44,0.12,0.37,3.9
+118,REC-017,Quality,MedTech,West,Q1 2026,9,7,63.5,38.0,0.96,20793.51,0.48,0.23,4.8
+119,REC-015,Sales,MedTech,West,Q2 2025,9,1,27.7,19.7,0.86,13919.23,0.45,0.43,4.3
+120,REC-010,Legal,Pharma,West,Q3 2025,13,7,71.6,10.8,0.67,3484.81,0.42,0.58,4.0
+121,REC-011,Legal,Consumer Health,Central,Q4 2025,14,7,41.3,14.6,0.9,6778.22,0.2,0.42,4.9
+122,REC-002,Marketing,Consumer Health,Central,Q4 2025,5,9,84.7,34.9,0.71,24410.53,0.44,0.51,4.3
+123,REC-005,Marketing,Pharma,Northeast,Q1 2025,10,9,28.9,19.1,0.67,15374.72,0.11,0.34,3.7
+124,REC-012,R&D,Pharma,Remote,Q3 2025,3,0,48.3,27.5,0.66,13076.9,0.23,0.2,4.5
+125,REC-017,HR,Consumer Health,West,Q3 2025,4,9,71.0,42.3,0.73,5470.94,0.29,0.22,4.4
+126,REC-004,Operations,MedTech,West,Q1 2026,7,7,45.0,21.4,0.83,7293.29,0.31,0.55,4.5
+127,REC-007,Engineering,MedTech,Remote,Q4 2025,2,8,47.6,27.2,0.83,14254.23,0.12,0.5,3.8
+128,REC-014,HR,Corporate,Central,Q1 2025,9,5,44.6,44.2,0.93,4927.17,0.39,0.4,5.0
+129,REC-015,Operations,Pharma,West,Q4 2025,4,9,61.9,15.0,0.72,24744.41,0.31,0.35,4.9
+130,REC-019,Legal,MedTech,Northeast,Q4 2025,8,6,32.2,26.2,0.82,23127.19,0.18,0.57,3.6
+131,REC-016,Engineering,Consumer Health,Remote,Q3 2025,15,8,71.8,17.9,0.9,6388.53,0.22,0.49,4.3
+132,REC-004,Operations,Corporate,Southeast,Q4 2025,7,0,28.4,19.7,0.98,4467.95,0.4,0.46,4.1
+133,REC-009,R&D,MedTech,Central,Q1 2026,0,4,31.4,12.0,0.72,22322.98,0.15,0.27,3.5
+134,REC-014,HR,MedTech,Central,Q3 2025,2,8,33.6,32.0,0.89,16172.77,0.17,0.35,3.6
+135,REC-010,Operations,Consumer Health,Northeast,Q1 2026,11,2,20.9,28.1,0.74,13667.78,0.24,0.61,3.2
+136,REC-005,Quality,Pharma,Southeast,Q1 2026,3,6,52.2,12.7,0.91,23315.01,0.29,0.34,3.7
+137,REC-015,Supply Chain,Consumer Health,Southeast,Q3 2025,0,1,35.6,40.0,0.65,7984.64,0.15,0.26,3.2
+138,REC-004,Sales,MedTech,West,Q4 2025,1,3,27.5,37.8,0.8,4303.84,0.15,0.31,3.1
+139,REC-001,Sales,MedTech,Remote,Q2 2025,6,2,66.9,11.0,0.66,19416.36,0.21,0.46,3.7
+140,REC-017,Supply Chain,Pharma,Remote,Q1 2026,2,1,77.4,36.7,0.8,18747.86,0.49,0.28,4.5
+141,REC-001,Sales,Pharma,Remote,Q4 2025,11,9,33.0,33.6,0.64,21364.33,0.49,0.39,4.0
+142,REC-014,Sales,Consumer Health,Northeast,Q4 2025,3,8,29.5,36.7,0.87,15256.91,0.12,0.35,3.2
+143,REC-010,R&D,Consumer Health,West,Q2 2025,13,4,88.9,25.0,0.93,22684.6,0.42,0.62,3.7
+144,REC-001,R&D,MedTech,West,Q4 2025,2,1,30.0,24.0,0.82,5237.89,0.47,0.64,3.1
+145,REC-007,HR,Pharma,Remote,Q4 2025,3,3,78.7,35.4,0.71,18696.86,0.33,0.32,4.6
+146,REC-013,HR,Corporate,Remote,Q4 2025,15,8,39.5,36.9,0.64,8515.18,0.3,0.48,3.3
+147,REC-004,Engineering,MedTech,West,Q1 2025,5,6,62.3,21.4,0.72,16711.12,0.4,0.5,4.0
+148,REC-016,R&D,Pharma,Central,Q4 2025,15,8,38.3,22.0,0.93,15025.64,0.48,0.21,3.9
+149,REC-004,Legal,Corporate,Central,Q4 2025,14,7,22.5,16.2,0.85,20146.41,0.45,0.27,3.9
+150,REC-010,Legal,Corporate,Northeast,Q1 2026,15,10,58.8,28.9,0.78,15369.62,0.16,0.23,3.5
+151,REC-019,Legal,Consumer Health,Central,Q3 2025,1,0,61.3,14.5,0.74,20810.18,0.33,0.54,4.3
+152,REC-013,Sales,Corporate,Central,Q3 2025,13,5,24.0,18.5,0.69,9866.19,0.13,0.51,4.7
+153,REC-004,HR,Pharma,Northeast,Q1 2026,10,0,52.3,40.2,0.82,22831.02,0.21,0.51,4.2
+154,REC-011,Legal,Corporate,Central,Q1 2026,3,7,27.0,33.6,0.73,14060.91,0.41,0.35,4.2
+155,REC-012,Legal,Pharma,West,Q1 2025,6,4,38.6,20.4,0.82,20701.27,0.35,0.63,4.4
+156,REC-019,Sales,Consumer Health,Central,Q1 2025,15,6,34.7,37.8,0.85,9640.63,0.42,0.39,4.1
+157,REC-007,Legal,Corporate,Central,Q1 2026,14,10,73.4,16.3,0.61,18473.3,0.45,0.46,3.4
+158,REC-015,Operations,Corporate,Remote,Q1 2025,6,5,52.4,18.4,0.88,19841.66,0.44,0.38,4.7
+159,REC-003,Finance,Corporate,Central,Q3 2025,5,4,68.1,18.3,0.69,6299.17,0.11,0.56,3.6
+160,REC-016,Quality,Corporate,West,Q1 2025,6,2,39.1,11.0,0.9,9110.98,0.32,0.49,3.1
+161,REC-016,Engineering,MedTech,Northeast,Q3 2025,9,1,83.0,24.2,0.74,17463.47,0.14,0.62,4.4
+162,REC-005,Finance,MedTech,Remote,Q1 2026,3,8,66.5,30.3,0.89,14555.72,0.3,0.24,4.2
+163,REC-011,HR,Corporate,Southeast,Q4 2025,6,2,27.5,17.5,0.7,11984.26,0.45,0.23,4.1
+164,REC-004,HR,Corporate,West,Q2 2025,8,2,45.4,35.0,0.91,3463.63,0.49,0.47,4.7
+165,REC-002,Finance,Consumer Health,Remote,Q4 2025,9,10,87.1,22.7,0.91,5685.18,0.45,0.59,3.8
+166,REC-013,Operations,Consumer Health,Northeast,Q2 2025,9,3,80.2,15.6,0.77,9978.06,0.42,0.49,4.6
+167,REC-009,Sales,Corporate,West,Q4 2025,10,6,81.4,38.7,0.91,18366.61,0.3,0.36,4.2
+168,REC-018,HR,Corporate,Northeast,Q1 2025,5,10,51.0,32.4,0.6,7401.66,0.22,0.46,3.2
+169,REC-008,Quality,Pharma,Remote,Q4 2025,10,7,53.5,35.7,0.7,18124.27,0.43,0.56,3.4
+170,REC-014,HR,Pharma,West,Q4 2025,7,0,86.4,42.3,0.85,16785.8,0.46,0.64,3.4
+171,REC-006,Engineering,Corporate,Remote,Q4 2025,8,2,26.2,22.9,0.96,5581.71,0.39,0.4,4.8
+172,REC-015,R&D,MedTech,Southeast,Q2 2025,6,4,40.2,27.3,0.65,21839.43,0.34,0.65,3.6
+173,REC-007,Legal,Pharma,West,Q2 2025,0,4,88.3,18.2,0.77,8463.0,0.33,0.49,3.2
+174,REC-016,Marketing,Consumer Health,West,Q2 2025,12,6,71.5,19.0,0.64,4292.55,0.23,0.31,4.8
+175,REC-020,Supply Chain,MedTech,Northeast,Q3 2025,12,4,88.4,33.5,0.65,22628.97,0.12,0.28,3.3
+176,REC-016,HR,Corporate,Southeast,Q1 2025,10,8,50.3,19.1,0.72,24527.37,0.3,0.64,3.6
+177,REC-012,Legal,Consumer Health,Central,Q1 2026,8,8,41.9,41.2,0.72,24880.43,0.41,0.27,4.7
+178,REC-015,Engineering,Pharma,Southeast,Q1 2025,7,2,22.5,19.1,0.87,12601.46,0.5,0.62,3.1
+179,REC-012,Quality,Corporate,West,Q4 2025,3,2,28.7,13.3,0.93,6974.41,0.17,0.43,3.5
+180,REC-019,Finance,MedTech,Remote,Q1 2026,5,6,84.4,18.6,0.79,5074.71,0.23,0.33,5.0
+181,REC-004,Legal,Consumer Health,Remote,Q1 2025,10,2,22.0,26.1,0.87,13556.81,0.35,0.32,4.3
+182,REC-011,Engineering,Corporate,Central,Q1 2026,4,3,80.4,38.1,0.71,20559.23,0.4,0.45,4.2
+183,REC-003,Legal,Consumer Health,Southeast,Q2 2025,12,1,21.4,17.3,0.75,11852.72,0.36,0.63,3.3
+184,REC-010,R&D,Corporate,Central,Q1 2026,4,5,66.6,39.1,0.79,13771.71,0.45,0.41,4.1
+185,REC-014,Sales,Corporate,Central,Q1 2026,5,6,64.1,13.3,0.8,24411.98,0.37,0.49,4.4
+186,REC-016,Quality,MedTech,Central,Q4 2025,13,1,83.5,26.7,0.66,5811.37,0.46,0.58,4.0
+187,REC-010,Supply Chain,MedTech,Remote,Q1 2025,1,8,27.5,24.9,0.64,17538.82,0.33,0.31,3.5
+188,REC-003,Quality,MedTech,Northeast,Q4 2025,5,2,79.0,11.6,0.76,18496.33,0.23,0.53,4.5
+189,REC-015,Supply Chain,Consumer Health,Central,Q2 2025,6,2,25.5,44.4,0.7,17814.99,0.27,0.21,3.8
+190,REC-001,Marketing,Corporate,West,Q4 2025,15,4,63.3,44.1,0.74,17823.67,0.38,0.38,3.6
+191,REC-005,Marketing,MedTech,Southeast,Q1 2025,0,3,80.1,17.3,0.85,17294.28,0.27,0.48,4.6
+192,REC-007,Sales,Consumer Health,West,Q2 2025,15,6,21.5,15.8,0.66,18457.16,0.49,0.41,4.7
+193,REC-019,Finance,Pharma,Central,Q1 2026,12,0,43.4,13.6,0.92,12499.33,0.27,0.42,4.2
+194,REC-018,Operations,MedTech,West,Q4 2025,15,8,61.4,31.4,0.86,20967.16,0.3,0.52,4.1
+195,REC-014,Supply Chain,Consumer Health,Remote,Q1 2025,8,10,49.2,26.6,0.79,23657.22,0.24,0.51,3.0
+196,REC-010,Finance,Corporate,Central,Q4 2025,7,8,35.4,41.8,0.73,16246.2,0.44,0.5,3.3
+197,REC-010,Legal,Corporate,Central,Q4 2025,5,9,34.5,34.2,0.63,13623.57,0.17,0.27,4.0
+198,REC-014,R&D,Consumer Health,Southeast,Q2 2025,1,0,45.1,19.1,0.86,6843.73,0.44,0.43,4.6
+199,REC-011,Legal,MedTech,Remote,Q2 2025,3,8,35.7,19.0,0.73,10815.3,0.12,0.59,3.5
+200,REC-005,Quality,MedTech,Northeast,Q4 2025,14,1,88.2,37.4,0.83,21884.52,0.14,0.45,4.0
+201,REC-006,Sales,Pharma,Central,Q2 2025,9,7,73.3,27.4,0.93,6394.51,0.25,0.57,3.2
+202,REC-007,R&D,Corporate,Northeast,Q2 2025,15,5,40.1,16.0,0.7,18734.39,0.27,0.48,3.5
+203,REC-017,Legal,Pharma,Southeast,Q4 2025,13,6,82.9,43.3,0.8,18008.37,0.48,0.4,4.5
+204,REC-017,Sales,MedTech,Central,Q3 2025,12,2,50.4,23.8,0.61,23295.41,0.16,0.46,5.0
+205,REC-017,Operations,Corporate,West,Q1 2026,9,5,83.6,10.3,0.71,14611.42,0.47,0.52,3.9
+206,REC-007,Quality,Corporate,Central,Q4 2025,6,4,25.9,28.8,0.75,18815.37,0.45,0.43,4.1
+207,REC-007,Sales,Consumer Health,Remote,Q3 2025,5,0,22.0,37.9,0.83,8309.48,0.41,0.53,5.0
+208,REC-004,Engineering,Consumer Health,Central,Q1 2026,11,1,23.3,32.8,0.65,9555.14,0.39,0.4,5.0
+209,REC-019,Supply Chain,Pharma,Central,Q3 2025,9,10,74.9,35.0,0.86,18715.72,0.31,0.31,3.7
+210,REC-019,Finance,Consumer Health,West,Q1 2025,4,6,78.0,12.9,0.62,22547.2,0.29,0.4,3.7
+211,REC-017,Legal,Corporate,Central,Q1 2026,15,10,49.6,25.4,0.95,13769.9,0.49,0.57,3.3
+212,REC-005,R&D,Corporate,Southeast,Q1 2026,3,3,51.9,11.1,0.66,15298.59,0.47,0.25,4.7
+213,REC-004,Sales,Consumer Health,Remote,Q3 2025,1,8,30.7,23.0,0.98,9671.72,0.29,0.56,3.3
+214,REC-019,Legal,MedTech,Central,Q3 2025,6,2,77.3,27.1,0.65,10670.28,0.45,0.39,4.1
+215,REC-019,R&D,Consumer Health,West,Q4 2025,4,2,55.3,26.1,0.77,12879.64,0.45,0.35,4.6
+216,REC-020,Legal,Corporate,Southeast,Q4 2025,10,8,23.2,33.5,0.77,9102.25,0.14,0.27,3.0
+217,REC-010,Quality,MedTech,Remote,Q1 2025,6,9,57.9,36.5,0.96,14478.58,0.4,0.43,3.0
+218,REC-018,Marketing,MedTech,Central,Q2 2025,7,9,51.1,38.2,0.83,11839.55,0.12,0.59,3.0
+219,REC-014,Marketing,Corporate,Northeast,Q1 2026,10,6,38.0,14.0,0.64,6699.43,0.16,0.31,3.2
+220,REC-010,Legal,Pharma,Northeast,Q1 2026,10,2,21.9,12.0,0.75,10040.91,0.27,0.35,3.8
+221,REC-004,Engineering,Pharma,Southeast,Q1 2026,7,7,55.6,27.7,0.96,8924.33,0.23,0.45,3.1
+222,REC-001,Legal,Pharma,Northeast,Q3 2025,3,3,73.4,32.8,0.65,15501.4,0.28,0.58,4.0
+223,REC-005,HR,Pharma,Southeast,Q1 2026,13,8,51.6,10.0,0.78,21246.18,0.22,0.64,3.0
+224,REC-016,Operations,Consumer Health,West,Q3 2025,6,9,78.8,19.8,0.66,14749.96,0.13,0.24,4.4
+225,REC-005,Quality,Consumer Health,West,Q2 2025,10,10,86.2,32.2,0.97,18570.59,0.21,0.5,3.6
+226,REC-007,R&D,Consumer Health,Northeast,Q2 2025,0,9,53.4,41.6,0.86,12089.59,0.46,0.52,4.5
+227,REC-018,Sales,MedTech,Remote,Q1 2025,14,10,28.6,44.0,0.74,16228.84,0.25,0.58,4.6
+228,REC-001,Sales,Corporate,Central,Q2 2025,14,0,35.5,10.7,0.71,23270.77,0.24,0.24,4.2
+229,REC-010,Finance,Pharma,West,Q3 2025,1,4,54.5,34.6,0.83,3156.98,0.49,0.49,3.2
+230,REC-009,Supply Chain,Corporate,Southeast,Q1 2026,6,10,71.7,33.5,0.83,6861.63,0.34,0.54,3.3
+231,REC-019,Finance,Consumer Health,Southeast,Q1 2025,8,10,59.2,25.9,0.96,17101.26,0.48,0.22,4.9
+232,REC-014,Legal,Consumer Health,Northeast,Q1 2026,14,7,45.3,36.6,0.94,7940.06,0.21,0.39,3.9
+233,REC-001,Legal,Pharma,Central,Q1 2025,0,3,88.5,24.8,0.63,8499.65,0.17,0.34,4.3
+234,REC-004,Engineering,Corporate,West,Q1 2025,10,4,37.3,26.6,0.96,21315.39,0.43,0.43,3.5
+235,REC-003,Supply Chain,Corporate,Northeast,Q4 2025,3,1,88.2,42.1,0.74,22581.84,0.38,0.55,3.1
+236,REC-015,Engineering,Consumer Health,Remote,Q4 2025,2,1,67.4,29.6,0.71,11392.02,0.14,0.54,3.5
+237,REC-020,Supply Chain,MedTech,West,Q4 2025,14,6,81.6,31.7,0.73,23626.87,0.41,0.4,3.7
+238,REC-007,Sales,MedTech,Northeast,Q1 2026,2,9,75.3,16.8,0.82,17022.0,0.2,0.39,4.4
+239,REC-015,Marketing,Pharma,Southeast,Q1 2025,1,2,41.8,25.3,0.96,19596.22,0.22,0.6,4.6
+240,REC-005,R&D,Consumer Health,Remote,Q3 2025,9,5,87.9,28.1,0.85,6181.21,0.19,0.57,4.1
+241,REC-002,Legal,Consumer Health,Southeast,Q2 2025,6,1,43.9,33.4,0.86,24602.31,0.34,0.35,4.2
+242,REC-011,Supply Chain,Consumer Health,West,Q3 2025,5,1,51.8,37.6,0.62,7826.93,0.1,0.3,3.5
+243,REC-020,Finance,Pharma,West,Q3 2025,12,3,48.0,38.9,0.6,3217.63,0.24,0.45,3.3
+244,REC-015,Finance,Consumer Health,Northeast,Q1 2025,6,3,39.9,17.7,0.7,6834.26,0.44,0.31,3.4
+245,REC-006,Operations,MedTech,Northeast,Q2 2025,12,10,75.1,13.9,0.96,9711.59,0.2,0.56,4.3
+246,REC-017,Supply Chain,Corporate,Northeast,Q1 2025,4,2,75.6,16.7,0.74,11233.62,0.34,0.64,3.5
+247,REC-002,Supply Chain,Pharma,Remote,Q3 2025,4,5,37.3,32.0,0.71,5782.09,0.3,0.46,4.0
+248,REC-003,R&D,MedTech,Southeast,Q1 2026,12,10,72.6,23.1,0.8,6937.97,0.38,0.44,4.0
+249,REC-016,R&D,Consumer Health,Remote,Q4 2025,1,3,35.4,17.1,0.93,11709.8,0.22,0.6,4.1
+250,REC-012,Operations,MedTech,Southeast,Q1 2025,9,7,56.3,18.1,0.62,14269.77,0.23,0.4,3.9
+251,REC-012,R&D,Consumer Health,Central,Q4 2025,0,2,50.9,19.3,0.63,22832.47,0.22,0.43,4.1
+252,REC-003,Operations,Pharma,Northeast,Q1 2025,2,5,22.7,17.0,0.67,10243.31,0.22,0.57,4.4
+253,REC-009,Finance,Pharma,Remote,Q3 2025,0,4,39.7,22.1,0.98,23807.93,0.43,0.54,3.0
+254,REC-017,Marketing,Corporate,Southeast,Q2 2025,6,7,36.4,30.5,0.81,13312.24,0.43,0.35,3.2
+255,REC-007,Legal,Corporate,Southeast,Q4 2025,14,8,22.1,14.9,0.93,9722.58,0.4,0.42,4.3
+256,REC-012,HR,Pharma,West,Q4 2025,12,8,41.0,30.5,0.82,3708.6,0.16,0.64,5.0
+257,REC-019,Supply Chain,Corporate,West,Q2 2025,12,1,57.4,16.6,0.64,15529.33,0.28,0.6,3.2
+258,REC-004,Quality,Pharma,Northeast,Q1 2026,15,0,33.1,12.4,0.97,9243.99,0.19,0.5,3.1
+259,REC-002,HR,MedTech,Southeast,Q3 2025,13,6,31.0,13.9,0.8,13521.53,0.13,0.63,4.7
+260,REC-005,Finance,Consumer Health,West,Q4 2025,5,9,60.3,20.9,0.68,18768.99,0.28,0.29,5.0
+261,REC-015,Sales,Corporate,Remote,Q2 2025,10,9,81.5,26.1,0.82,19220.4,0.22,0.6,3.9
+262,REC-010,Legal,Pharma,West,Q2 2025,5,9,71.3,26.0,0.95,7035.78,0.33,0.38,4.9
+263,REC-008,Marketing,Consumer Health,Remote,Q3 2025,2,3,83.6,24.4,0.89,5667.07,0.25,0.54,4.0
+264,REC-011,Legal,Corporate,Southeast,Q3 2025,6,8,23.1,10.9,0.84,17863.69,0.28,0.35,3.8
+265,REC-007,Legal,MedTech,Northeast,Q3 2025,3,2,42.9,36.2,0.78,4501.22,0.32,0.31,4.9
+266,REC-005,R&D,Consumer Health,Southeast,Q2 2025,0,9,27.0,20.3,0.8,11598.69,0.13,0.54,4.4
+267,REC-005,R&D,Consumer Health,Southeast,Q2 2025,1,10,57.3,25.5,0.62,16965.39,0.31,0.5,4.3
+268,REC-004,Legal,Consumer Health,West,Q1 2025,0,0,74.1,36.8,0.95,11242.18,0.2,0.24,3.8
+269,REC-001,HR,Pharma,Northeast,Q2 2025,3,10,31.8,15.8,0.76,5369.04,0.23,0.45,3.4
+270,REC-007,Quality,Corporate,West,Q1 2025,7,3,27.4,21.3,0.61,17387.84,0.1,0.3,3.4
+271,REC-009,Supply Chain,Consumer Health,Northeast,Q1 2025,6,6,41.1,31.0,0.97,5239.9,0.31,0.65,4.7
+272,REC-006,Operations,MedTech,Remote,Q3 2025,12,10,84.7,37.0,0.65,6857.28,0.4,0.51,5.0
+273,REC-016,Sales,Consumer Health,Northeast,Q1 2026,14,6,55.8,36.0,0.79,18501.84,0.11,0.21,4.5
+274,REC-004,Operations,Pharma,West,Q2 2025,2,0,29.6,27.5,0.68,11266.45,0.36,0.31,4.5
+275,REC-015,HR,Pharma,Central,Q3 2025,1,8,75.4,24.5,0.91,19512.12,0.19,0.53,3.7
+276,REC-007,Quality,MedTech,Southeast,Q2 2025,12,8,42.5,25.5,0.6,22137.07,0.13,0.29,4.3
+277,REC-005,Finance,Pharma,Northeast,Q2 2025,6,3,55.5,24.9,0.78,6611.49,0.18,0.39,4.2
+278,REC-010,Operations,Corporate,Southeast,Q3 2025,15,1,86.6,22.6,0.74,13355.7,0.27,0.47,3.9
+279,REC-005,R&D,MedTech,West,Q4 2025,2,4,61.7,15.3,0.88,8660.42,0.29,0.4,3.8
+280,REC-020,R&D,MedTech,Central,Q2 2025,15,3,30.8,16.6,0.6,14015.4,0.39,0.42,4.9
+281,REC-013,HR,Corporate,West,Q3 2025,2,6,81.9,44.7,0.65,23506.85,0.16,0.54,4.9
+282,REC-012,Quality,Corporate,Central,Q1 2025,12,6,71.5,18.5,0.61,20888.78,0.35,0.5,4.4
+283,REC-005,Operations,Corporate,Southeast,Q3 2025,7,9,60.5,33.2,0.66,5568.07,0.14,0.52,3.8
+284,REC-019,Sales,Pharma,West,Q2 2025,13,4,68.4,27.5,0.8,22506.32,0.33,0.53,4.5
+285,REC-003,Sales,Consumer Health,Southeast,Q3 2025,6,6,68.9,10.2,0.66,13817.91,0.14,0.55,3.8
+286,REC-014,Operations,Corporate,Southeast,Q2 2025,11,2,69.3,16.9,0.67,23866.63,0.28,0.57,3.4
+287,REC-002,Marketing,Pharma,Central,Q4 2025,14,10,83.9,13.8,0.84,4755.82,0.13,0.26,3.1
+288,REC-001,Supply Chain,Pharma,West,Q4 2025,3,0,24.3,36.3,0.6,15813.8,0.5,0.24,4.0
+289,REC-001,Legal,Consumer Health,West,Q4 2025,10,9,50.1,23.0,0.94,24987.79,0.43,0.62,4.3
+290,REC-013,Supply Chain,MedTech,Central,Q3 2025,3,0,52.0,34.4,0.88,22535.35,0.16,0.47,4.7
+291,REC-009,Finance,Consumer Health,West,Q1 2026,15,8,48.9,16.6,0.97,24066.04,0.43,0.21,3.7
+292,REC-002,HR,Corporate,Southeast,Q1 2026,15,6,71.7,37.8,0.73,23659.86,0.48,0.41,4.3
+293,REC-004,Legal,Consumer Health,Remote,Q2 2025,4,8,81.3,37.5,0.87,3698.41,0.3,0.24,4.7
+294,REC-018,R&D,Pharma,West,Q1 2025,15,10,57.8,18.5,0.66,23772.62,0.38,0.25,5.0
+295,REC-001,Marketing,Consumer Health,West,Q3 2025,7,4,66.6,43.3,0.85,17640.48,0.47,0.49,4.0
+296,REC-011,Finance,MedTech,Central,Q4 2025,12,10,64.9,29.7,0.93,20785.84,0.19,0.25,3.2
+297,REC-003,HR,Pharma,Northeast,Q1 2026,11,2,79.7,43.4,0.82,3036.93,0.12,0.44,4.7
+298,REC-014,HR,Consumer Health,Southeast,Q1 2026,7,1,47.7,28.8,0.78,6183.42,0.48,0.58,4.0
+299,REC-015,Marketing,Consumer Health,Southeast,Q1 2025,10,4,55.2,34.1,0.7,21648.72,0.33,0.48,3.4
+300,REC-010,Legal,MedTech,Central,Q2 2025,6,3,69.0,11.8,0.93,6938.45,0.3,0.38,5.0
+301,REC-006,Engineering,Corporate,Central,Q4 2025,15,5,73.0,23.7,0.8,9226.88,0.38,0.29,4.7
+302,REC-013,Sales,Pharma,Central,Q1 2026,1,4,52.0,15.7,0.65,18311.02,0.22,0.27,3.4
+303,REC-007,Engineering,Consumer Health,Remote,Q1 2025,4,6,86.5,24.9,0.92,23371.68,0.14,0.64,3.4
+304,REC-002,Sales,Consumer Health,Remote,Q4 2025,4,10,70.6,18.6,0.65,11726.19,0.22,0.47,3.3
+305,REC-013,Sales,Corporate,West,Q3 2025,14,5,20.8,14.1,0.65,17111.01,0.46,0.3,4.2
+306,REC-019,R&D,Consumer Health,Northeast,Q1 2026,5,6,53.9,32.6,0.76,15571.31,0.14,0.23,4.8
+307,REC-018,Marketing,Corporate,Northeast,Q4 2025,15,1,56.3,30.5,0.87,20381.49,0.15,0.54,4.9
+308,REC-004,Marketing,Pharma,Northeast,Q1 2026,14,5,28.6,14.5,0.68,6546.63,0.32,0.58,3.1
+309,REC-004,Quality,Consumer Health,Central,Q1 2026,5,6,88.4,33.0,0.69,4015.66,0.48,0.61,3.6
+310,REC-018,R&D,Pharma,Remote,Q4 2025,10,8,83.8,44.9,0.83,14232.99,0.38,0.5,3.1
+311,REC-002,Finance,Pharma,Central,Q2 2025,4,9,58.6,30.7,0.71,19040.3,0.27,0.45,3.5
+312,REC-006,Legal,Corporate,Northeast,Q3 2025,13,2,57.5,12.5,0.88,24897.9,0.38,0.29,3.7
+313,REC-017,Supply Chain,Pharma,West,Q2 2025,10,6,46.5,43.7,0.69,8942.76,0.31,0.51,3.8
+314,REC-011,Sales,Consumer Health,Central,Q3 2025,4,3,39.2,13.4,0.97,7888.96,0.48,0.55,3.2
+315,REC-017,Operations,Corporate,Northeast,Q1 2026,11,9,80.6,29.3,0.83,22724.55,0.17,0.63,3.8
+316,REC-012,Quality,Corporate,West,Q1 2026,4,4,20.7,28.0,0.66,5780.1,0.25,0.53,3.1
+317,REC-012,Finance,Corporate,West,Q2 2025,14,5,75.9,27.6,0.7,12410.83,0.48,0.6,4.6
+318,REC-010,Sales,Consumer Health,West,Q3 2025,2,10,25.6,35.5,0.96,6632.49,0.12,0.53,4.1
+319,REC-016,Engineering,Corporate,Remote,Q2 2025,15,7,56.1,44.9,0.94,18353.4,0.26,0.48,4.8
+320,REC-001,Legal,Consumer Health,Southeast,Q1 2026,1,9,51.4,15.9,0.95,19801.63,0.46,0.28,3.7
+321,REC-005,Quality,Consumer Health,Northeast,Q4 2025,15,6,31.9,43.9,0.73,17939.39,0.43,0.58,4.7
+322,REC-010,Operations,Corporate,Central,Q3 2025,6,0,71.7,29.9,0.68,9706.04,0.47,0.49,4.7
+323,REC-002,R&D,Corporate,Northeast,Q3 2025,0,9,52.2,20.4,0.64,10693.88,0.39,0.38,3.0
+324,REC-014,R&D,Pharma,Northeast,Q1 2026,4,6,28.7,27.1,0.66,17445.94,0.19,0.38,3.6
+325,REC-014,Marketing,Consumer Health,Northeast,Q4 2025,14,2,29.8,36.1,0.6,22438.68,0.38,0.25,3.6
+326,REC-005,Legal,Corporate,Central,Q1 2025,5,10,33.9,26.8,0.85,8847.59,0.27,0.45,4.6
+327,REC-005,HR,Corporate,Remote,Q4 2025,4,1,87.0,37.7,0.65,10570.65,0.11,0.51,3.1
+328,REC-011,Legal,MedTech,West,Q4 2025,9,4,54.0,36.6,0.69,6354.91,0.3,0.31,4.5
+329,REC-009,Finance,Corporate,Southeast,Q4 2025,3,8,62.8,16.6,0.92,16835.97,0.16,0.25,3.8
+330,REC-009,Finance,Pharma,West,Q1 2025,6,1,80.5,23.3,0.8,18403.49,0.49,0.3,3.9
+331,REC-002,Quality,Corporate,Northeast,Q3 2025,3,4,45.5,43.0,0.87,8433.31,0.46,0.28,3.0
+332,REC-011,Finance,Consumer Health,West,Q3 2025,3,6,32.9,43.2,0.74,9695.85,0.14,0.21,4.1
+333,REC-005,HR,Consumer Health,Central,Q1 2026,11,3,65.5,17.4,0.75,22518.26,0.15,0.53,3.2
+334,REC-019,Finance,Pharma,West,Q1 2025,2,8,63.3,20.6,0.78,19741.74,0.31,0.27,3.3
+335,REC-014,Quality,Consumer Health,Remote,Q3 2025,11,7,64.1,14.1,0.77,13622.05,0.31,0.63,4.6
+336,REC-006,Supply Chain,Consumer Health,Southeast,Q3 2025,1,9,24.3,44.0,0.67,20919.74,0.3,0.44,4.0
+337,REC-003,Marketing,Corporate,Remote,Q4 2025,12,6,62.5,17.2,0.6,15581.76,0.34,0.2,4.9
+338,REC-017,R&D,Consumer Health,Central,Q2 2025,9,4,58.7,16.0,0.62,8240.77,0.12,0.27,4.8
+339,REC-005,Operations,MedTech,Southeast,Q2 2025,3,0,65.4,32.1,0.97,10140.36,0.48,0.6,3.5
+340,REC-005,Legal,Consumer Health,Central,Q1 2025,0,5,35.3,43.8,0.67,24375.3,0.31,0.64,4.6
+341,REC-019,Sales,Corporate,Central,Q1 2026,6,7,35.4,19.4,0.82,20770.13,0.4,0.27,3.5
+342,REC-014,HR,Pharma,West,Q1 2025,15,2,52.2,38.5,0.67,15532.48,0.48,0.28,3.6
+343,REC-010,Marketing,Pharma,West,Q1 2026,6,1,30.0,24.9,0.77,17192.61,0.26,0.53,3.3
+344,REC-001,Supply Chain,MedTech,West,Q4 2025,0,1,77.9,36.7,0.84,3962.28,0.2,0.24,3.3
+345,REC-020,Engineering,MedTech,Northeast,Q1 2026,10,1,34.2,26.8,0.81,12775.18,0.17,0.35,3.3
+346,REC-002,Quality,Consumer Health,Remote,Q1 2025,0,0,27.2,20.4,0.79,21402.63,0.16,0.61,3.0
+347,REC-014,Legal,Pharma,Central,Q3 2025,7,10,46.9,40.9,0.91,5472.99,0.17,0.25,3.2
+348,REC-010,HR,MedTech,Remote,Q3 2025,3,5,84.6,42.2,0.94,16299.14,0.17,0.44,4.2
+349,REC-014,Marketing,Consumer Health,Remote,Q3 2025,11,1,39.0,27.5,0.74,8838.82,0.46,0.56,4.6
+350,REC-005,Marketing,Consumer Health,Southeast,Q4 2025,14,7,77.0,14.0,0.76,18987.57,0.16,0.35,3.3
+351,REC-013,HR,Consumer Health,West,Q4 2025,15,6,62.1,32.3,0.65,23768.67,0.47,0.37,4.1
+352,REC-018,Quality,Corporate,Remote,Q1 2026,7,6,25.9,35.0,0.8,20085.04,0.42,0.3,3.2
+353,REC-012,Engineering,Pharma,Northeast,Q3 2025,15,2,84.5,12.1,0.73,21672.53,0.45,0.57,3.6
+354,REC-005,Quality,Corporate,Southeast,Q2 2025,7,0,72.3,14.1,0.86,6147.68,0.39,0.51,3.8
+355,REC-002,Sales,MedTech,West,Q1 2026,5,0,30.3,14.9,0.69,3274.51,0.43,0.39,4.5
+356,REC-016,Marketing,Consumer Health,West,Q4 2025,10,7,74.7,34.3,0.71,6429.52,0.45,0.21,4.5
+357,REC-017,Marketing,MedTech,West,Q4 2025,14,8,69.8,19.0,0.82,9732.75,0.19,0.62,3.5
+358,REC-003,Quality,Corporate,Southeast,Q2 2025,12,9,23.9,23.7,0.91,24471.72,0.34,0.23,4.4
+359,REC-016,HR,Corporate,West,Q2 2025,1,5,65.3,16.8,0.64,4711.79,0.34,0.58,3.1
+360,REC-010,Marketing,MedTech,Northeast,Q2 2025,0,4,33.1,17.1,0.95,8287.37,0.13,0.46,3.1
+361,REC-016,Engineering,MedTech,Central,Q1 2025,9,0,88.6,36.3,0.96,14004.75,0.23,0.38,3.7
+362,REC-005,Sales,Consumer Health,West,Q1 2026,3,8,76.5,15.3,0.82,11406.46,0.33,0.58,3.6
+363,REC-005,R&D,MedTech,Northeast,Q2 2025,6,10,65.8,36.9,0.66,24200.68,0.31,0.53,4.3
+364,REC-011,R&D,Pharma,Central,Q3 2025,11,9,79.9,25.1,0.94,20031.85,0.26,0.29,4.2
+365,REC-003,Marketing,Corporate,Northeast,Q1 2025,4,4,58.3,43.9,0.9,4917.69,0.14,0.34,4.9
+366,REC-006,Sales,Consumer Health,Remote,Q3 2025,11,1,25.0,34.9,0.78,24695.15,0.49,0.54,3.9
+367,REC-005,Sales,Corporate,Northeast,Q3 2025,9,6,48.6,31.7,0.86,12698.21,0.3,0.48,3.6
+368,REC-003,Legal,Corporate,Central,Q1 2025,1,3,69.0,29.6,0.66,5316.56,0.25,0.46,4.7
+369,REC-008,Legal,Corporate,Northeast,Q3 2025,14,7,65.0,41.5,0.78,4888.1,0.39,0.61,4.8
+370,REC-014,Finance,Corporate,Central,Q1 2025,10,5,89.8,27.0,0.87,13476.83,0.21,0.22,3.3
+371,REC-016,Marketing,Pharma,Central,Q1 2026,1,9,74.2,12.2,0.91,20370.3,0.49,0.3,3.4
+372,REC-001,Legal,Consumer Health,Central,Q2 2025,2,2,24.8,24.2,0.71,18668.55,0.45,0.44,4.3
+373,REC-009,Marketing,MedTech,Northeast,Q4 2025,10,4,31.5,22.2,0.76,13460.99,0.38,0.27,4.4
+374,REC-012,Supply Chain,Corporate,Northeast,Q1 2026,6,1,70.6,30.2,0.65,17609.38,0.43,0.53,4.7
+375,REC-011,Engineering,Pharma,West,Q2 2025,15,5,28.0,43.9,0.75,14455.22,0.1,0.4,4.7
+376,REC-005,R&D,MedTech,Northeast,Q2 2025,6,6,68.8,37.1,0.83,7755.02,0.18,0.29,4.4
+377,REC-001,HR,Consumer Health,Northeast,Q3 2025,9,8,77.3,14.4,0.79,24979.06,0.27,0.36,4.7
+378,REC-014,Quality,Consumer Health,Northeast,Q2 2025,14,6,46.1,29.3,0.66,12589.28,0.21,0.5,4.4
+379,REC-010,Supply Chain,MedTech,Northeast,Q1 2025,2,10,21.1,42.6,0.64,19498.76,0.35,0.45,4.3
+380,REC-017,Supply Chain,MedTech,Central,Q4 2025,6,3,74.4,29.3,0.64,21839.54,0.48,0.36,4.6
+381,REC-015,Legal,Corporate,Northeast,Q3 2025,7,8,39.9,40.8,0.7,21446.65,0.42,0.39,3.5
+382,REC-014,Engineering,MedTech,Northeast,Q2 2025,11,8,77.4,31.0,0.73,24101.53,0.5,0.31,4.9
+383,REC-007,Supply Chain,Corporate,Northeast,Q1 2026,13,2,85.8,23.7,0.88,11868.62,0.23,0.27,3.5
+384,REC-005,Quality,MedTech,Remote,Q4 2025,8,8,31.1,21.3,0.64,3564.09,0.1,0.55,3.3
+385,REC-020,Quality,MedTech,Remote,Q4 2025,0,2,88.8,32.2,0.9,7104.21,0.36,0.3,3.4
+386,REC-008,Legal,Consumer Health,Northeast,Q3 2025,2,2,63.9,32.3,0.82,5275.22,0.28,0.47,3.2
+387,REC-010,Operations,Pharma,Northeast,Q1 2025,15,5,83.9,17.3,0.64,20499.71,0.27,0.42,4.3
+388,REC-007,Legal,Corporate,Central,Q4 2025,5,2,40.9,41.6,0.85,16886.69,0.44,0.25,3.7
+389,REC-012,R&D,MedTech,Southeast,Q1 2026,8,1,33.5,11.0,0.61,14258.38,0.16,0.59,3.2
+390,REC-007,Engineering,Consumer Health,Southeast,Q2 2025,2,2,38.7,26.9,0.96,10668.17,0.32,0.33,4.5
+391,REC-016,Legal,Corporate,Southeast,Q3 2025,5,3,68.1,41.1,0.71,11642.17,0.33,0.54,3.6
+392,REC-007,R&D,Corporate,West,Q4 2025,8,5,63.6,31.3,0.76,15477.12,0.25,0.48,3.1
+393,REC-006,Engineering,Consumer Health,Remote,Q4 2025,9,9,77.9,32.6,0.97,10749.57,0.11,0.28,3.6
+394,REC-006,HR,Pharma,Northeast,Q2 2025,11,5,30.2,21.0,0.6,18142.43,0.39,0.3,4.1
+395,REC-011,Finance,MedTech,West,Q3 2025,6,8,35.2,29.6,0.87,23817.96,0.42,0.5,4.1
+396,REC-014,Legal,Consumer Health,Central,Q2 2025,6,0,76.2,27.5,0.98,12267.22,0.15,0.28,3.7
+397,REC-013,Finance,MedTech,Central,Q1 2025,0,7,39.9,39.5,0.75,22708.25,0.47,0.22,4.3
+398,REC-003,R&D,MedTech,West,Q3 2025,8,5,72.8,24.0,0.81,9889.84,0.34,0.38,4.4
+399,REC-015,R&D,MedTech,Central,Q1 2026,3,0,35.7,38.9,0.65,24857.89,0.44,0.53,3.5
+400,REC-003,Finance,Consumer Health,Remote,Q1 2025,1,4,81.8,11.5,0.62,9694.38,0.21,0.51,4.6

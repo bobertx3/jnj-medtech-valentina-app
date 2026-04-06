@@ -1,7 +1,7 @@
-# J&J MedTech Sales Genie App
+# J&J Genie Workshop App
 
 ## Overview
-Data backup and analytics solution for J&J MedTech surgical product sales. Loads 3 CSV datasets into Databricks Unity Catalog, creates metric views, powers a Genie space, and serves a branded AI chat advisor web app.
+Multi-dataset Genie workshop app. Users select a dataset (e.g. med_tech_sales, hr_recruiting) during install. Loads CSVs into Databricks Unity Catalog, creates metric views, powers a Genie space, and serves a branded AI chat advisor web app.
 
 ## Workspace
 - **Profile:** `__PROFILE__`
@@ -10,37 +10,46 @@ Data backup and analytics solution for J&J MedTech surgical product sales. Loads
 - **SQL Warehouse:** `__WAREHOUSE_ID__`
 - **Genie Space ID:** `__GENIE_SPACE_ID__`
 - **App Name:** `__APP_NAME__`
+- **Dataset:** `__DATASET__`
 
 ## Project Structure
 ```
-├── databricks.yml              # DAB bundle config
+├── databricks.yml              # DAB bundle config (dataset variable selects which to deploy)
 ├── resources/
-│   ├── valentina_job.yml       # Pipeline job (5 tasks)
-│   └── valentina_app.yml       # App resource definition
+│   ├── pipeline_job.yml        # Pipeline job (5 tasks, uses ${var.dataset} for paths)
+│   └── genie_app.yml           # App resource (source_code_path uses ${var.dataset})
 ├── src/
 │   ├── notebooks/
-│   │   ├── 00_setup_data_in_volume.py  # Create schema/volume, copy CSVs
-│   │   ├── 01_setup_and_load.sql       # Create tables from CSVs
-│   │   ├── 02_add_uc_metadata.sql      # PK constraints + table/column comments
-│   │   └── 03_add_business_semantics.sql  # 7 metric views
+│   │   ├── 00_setup_data_in_volume.py  # Shared — copies CSVs for selected dataset
+│   │   ├── med_tech_sales/             # MedTech Sales notebooks
+│   │   │   ├── 01_setup_and_load.sql
+│   │   │   ├── 02_add_uc_metadata.sql
+│   │   │   └── 03_add_business_semantics.sql
+│   │   └── hr_recruiting/              # HR Recruiting notebooks (future)
 │   ├── genie/
-│   │   ├── 04_create_genie_space.py  # Updates Genie space + grants SP permissions
-│   │   └── valentina_genie.json      # Genie space config (serialized_space export)
+│   │   ├── 04_create_genie_space.py    # Shared — loads genie_space.json for selected dataset
+│   │   ├── med_tech_sales/
+│   │   │   └── genie_space.json
+│   │   └── hr_recruiting/              # Future
 │   └── app/
-│       ├── app.py              # FastAPI backend (Genie API integration)
-│       ├── app.yaml            # Databricks Apps config
-│       ├── index.html          # Standalone HTML frontend (fallback)
-│       ├── requirements.txt    # Python deps
-│       └── frontend/           # React app (APX)
-│           ├── src/App.js      # React chat UI
-│           └── src/App.css     # J&J red branding
-├── raw_data/                   # Source CSVs (uploaded to volume)
-├── templates/                  # Template files for install.sh
-├── design/                     # UI reference screenshots
-└── test_cases/                 # Validation test cases (Excel)
+│       ├── med_tech_sales/             # MedTech Sales app
+│       │   ├── app.py
+│       │   ├── app.yaml
+│       │   ├── index.html
+│       │   ├── requirements.txt
+│       │   └── frontend/
+│       └── hr_recruiting/              # Future
+├── raw_data/
+│   ├── med_tech_sales/                 # MedTech Sales CSVs
+│   └── hr_recruiting/                  # Future
+├── templates/                          # Template files for install.sh
+│   ├── med_tech_sales/                 # Dataset-specific app templates
+│   └── hr_recruiting/                  # Future
+├── design/                             # UI reference screenshots
+└── test_cases/                         # Validation test cases (Excel)
 ```
 
-## Data Model
+## Data Model (med_tech_sales)
 
 ### Tables (__CATALOG__.__SCHEMA__)
 | Table | Rows | PK | Description |
@@ -77,10 +86,10 @@ databricks bundle validate
 databricks bundle deploy --auto-approve
 
 # Run the pipeline job
-databricks bundle run medtech_pipeline
+databricks bundle run data_pipeline
 
 # Start the app
-databricks bundle run medtech_ask_genie
+databricks bundle run ask_genie
 
 # View app logs
 databricks apps logs __APP_NAME__ -p __PROFILE__

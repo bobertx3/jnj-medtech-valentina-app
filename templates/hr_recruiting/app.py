@@ -1,5 +1,5 @@
 """
-J&J MedTech Sales Genie App - FastAPI Backend + Static React Frontend
+J&J HR Recruiting Genie App - FastAPI Backend + Static React Frontend
 """
 
 import os
@@ -19,10 +19,10 @@ from databricks.sdk.core import Config
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="J&J MedTech Sales Genie App")
+app = FastAPI(title="J&J HR Recruiting Genie App")
 
-GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f12fc00af814cfa74a3b452021bb66")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "796f36d00b204fb6")
+GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "__GENIE_SPACE_ID__")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "__WAREHOUSE_ID__")
 
 
 def get_workspace_client() -> WorkspaceClient:
@@ -203,7 +203,7 @@ async def health():
 
 @app.get("/api/dashboard")
 async def dashboard_data():
-    """Fetch dashboard KPI and chart data from the tables."""
+    """Fetch dashboard KPI and chart data from the HR recruiting tables."""
     try:
         w = get_workspace_client()
 
@@ -234,22 +234,22 @@ async def dashboard_data():
                 rows.append(d)
             return rows
 
-        kpis = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM medtech.sales.account_targeting")
-        opp_by_product = run_query("SELECT product_line, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY product_line ORDER BY total_opportunity DESC")
-        opp_by_target = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
-        top_accounts = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM medtech.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
-        opp_by_area = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
-        vol_by_specialty = run_query("SELECT specialty, SUM(cy_procedure_volume) AS total_volume FROM medtech.sales.hcp_procedure_volume GROUP BY specialty ORDER BY total_volume DESC")
-        top_surgeons = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM medtech.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
+        kpis = run_query("SELECT COUNT(*) AS total_candidates, SUM(CASE WHEN stage = 'Hired' THEN 1 ELSE 0 END) AS total_positions_filled, ROUND(AVG(total_days_in_pipeline), 1) AS avg_days_in_pipeline, ROUND(SUM(CASE WHEN stage = 'Hired' THEN 1.0 ELSE 0 END) / NULLIF(SUM(CASE WHEN stage IN ('Offered', 'Hired') THEN 1.0 ELSE 0 END), 0) * 100, 1) AS offer_accept_rate FROM __CATALOG__.__SCHEMA__.candidate_pipeline")
+        candidates_by_stage = run_query("SELECT stage, COUNT(*) AS candidate_count FROM __CATALOG__.__SCHEMA__.candidate_pipeline GROUP BY stage ORDER BY candidate_count DESC")
+        candidates_by_source = run_query("SELECT source, COUNT(*) AS candidate_count FROM __CATALOG__.__SCHEMA__.candidate_pipeline GROUP BY source ORDER BY candidate_count DESC")
+        positions_by_department = run_query("SELECT department, SUM(headcount_needed) AS position_count FROM __CATALOG__.__SCHEMA__.job_requisitions GROUP BY department ORDER BY position_count DESC")
+        top_recruiters = run_query("SELECT recruiter_id AS recruiter_name, SUM(positions_filled) AS positions_filled FROM __CATALOG__.__SCHEMA__.hiring_metrics GROUP BY recruiter_id ORDER BY positions_filled DESC LIMIT 10")
+        pipeline_by_bu = run_query("SELECT business_unit, COUNT(*) AS candidate_count FROM __CATALOG__.__SCHEMA__.candidate_pipeline GROUP BY business_unit ORDER BY candidate_count DESC")
+        cost_per_hire_by_dept = run_query("SELECT department, ROUND(AVG(cost_per_hire), 0) AS avg_cost_per_hire FROM __CATALOG__.__SCHEMA__.hiring_metrics GROUP BY department ORDER BY avg_cost_per_hire DESC")
 
         return {
             "kpis": kpis[0] if kpis else {},
-            "opp_by_product": opp_by_product,
-            "opp_by_target": opp_by_target,
-            "top_accounts": top_accounts,
-            "opp_by_area": opp_by_area,
-            "vol_by_specialty": vol_by_specialty,
-            "top_surgeons": top_surgeons,
+            "candidates_by_stage": candidates_by_stage,
+            "candidates_by_source": candidates_by_source,
+            "positions_by_department": positions_by_department,
+            "top_recruiters": top_recruiters,
+            "pipeline_by_bu": pipeline_by_bu,
+            "cost_per_hire_by_dept": cost_per_hire_by_dept,
         }
     except Exception as e:
         logger.error(f"Dashboard error: {e}")

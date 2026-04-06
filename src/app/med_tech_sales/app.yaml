@@ -16,11 +16,11 @@ env:
     value: "01f12fc00af814cfa74a3b452021bb66"
 
 resources:
-  - name: valentina_warehouse
+  - name: sql_warehouse
     sql_warehouse:
       id: 796f36d00b204fb6
       permission: CAN_USE
-  - name: valentina_genie_space
+  - name: genie_space
     genie_space:
       id: 01f12fc00af814cfa74a3b452021bb66
       permission: CAN_MANAGE

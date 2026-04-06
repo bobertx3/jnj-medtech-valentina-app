@@ -1,6 +1,6 @@
-# J&J Genie Workshop
+# J&J Genie Workshop App
 
-A Databricks-powered analytics stack for **Johnson & Johnson MedTech** surgical product sales. It loads curated sales datasets into Unity Catalog, exposes governed KPIs as metric views, and delivers a **natural-language “sales advisor”** via Databricks Genie plus a branded web app for reps and leadership.
+A Databricks-powered analytics workshop app. Users select a dataset during setup (e.g. Med Tech Sales, HR Recruiting). It loads curated datasets into Unity Catalog, exposes governed KPIs as metric views, and delivers a **natural-language advisor** via Databricks Genie plus a branded web app.
 
 ## Business context
 
@@ -39,9 +39,9 @@ Raw CSVs → Unity Catalog Volume → Delta Tables (3) → Metric Views (7)
 | `setup_and_load` | `01_setup_and_load.sql` | Create/load three Delta tables from CSVs on a UC volume |
 | `add_uc_metadata` | `02_add_uc_metadata.sql` | Primary keys and column documentation |
 | `add_business_semantics` | `03_add_business_semantics.sql` | Seven Unity Catalog **metric views** for shared KPI definitions |
-| `create_genie_space` | `04_create_genie_space.py` | PATCH/POST Genie space from `valentina_genie.json` (REST) |
+| `create_genie_space` | `04_create_genie_space.py` | PATCH/POST Genie space from `genie_space.json` (REST) |
 
-The Genie task uses the job’s **default notebook environment** (`environments` / `client` in `resources/valentina_job.yml`).
+The Genie task uses the job’s **default notebook environment** (`environments` / `client` in `resources/pipeline_job.yml`).
 
 ### Datasets (catalog `medtech`, schema `sales`)
 
@@ -57,7 +57,7 @@ The Genie task uses the job’s **default notebook environment** (`environments`
 
 ### Genie space
 
-- **Tables:** the three base tables above (see `valentina_genie.json` `data_sources.tables`).
+- **Tables:** the three base tables above (see `genie_space.json` `data_sources.tables`).
 - **Metric views:** all seven metric views (`data_sources.metric_views`).
 - **Guidance:** domain instructions (tiers, product lines, geography, abbreviations CY/PY, GPO, IDN, NPI), table-selection rules, join patterns, and query conventions (e.g., TOP 10, dollar formatting).
 - **Samples:** sample questions, certified SQL examples, and benchmarks for evaluation-style checks.
@@ -117,7 +117,7 @@ curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.s
 Run this command and follow the prompts. You will need your workspace URL and a personal access token (your admin can help you generate one).
 
 ```bash
-databricks configure --profile free-gotminted
+databricks configure --profile DEFAULT
 ```
 
 ### Step 3 — Prepare your workspace
@@ -155,10 +155,10 @@ Behind the scenes, the script runs these three commands for you:
 databricks bundle deploy --auto-approve
 
 # 2. Load the sales data and set up the Genie space
-databricks bundle run medtech_pipeline
+databricks bundle run data_pipeline
 
 # 3. Start the web app
-databricks bundle run medtech_ask_genie
+databricks bundle run ask_genie
 ```
 
 After the script finishes, the app URL will be printed in the terminal. Open it in your browser to start chatting with your sales data.
@@ -171,10 +171,10 @@ databricks apps get <your-app-name> --profile <your-profile>
 
 # Re-deploy after making changes
 databricks bundle deploy --auto-approve
-databricks bundle run medtech_ask_genie
+databricks bundle run ask_genie
 
 # Re-run the data pipeline
-databricks bundle run medtech_pipeline
+databricks bundle run data_pipeline
 
 # Remove everything from your workspace
 databricks bundle destroy --auto-approve
@@ -185,25 +185,28 @@ databricks bundle destroy --auto-approve
 ```
 ├── databricks.yml                 # Bundle name, variables (catalog, schema, warehouse)
 ├── resources/
-│   ├── valentina_job.yml          # medtech_pipeline: four tasks + Python env for Genie
-│   └── valentina_app.yml          # medtech_ask_genie app resource
+│   ├── pipeline_job.yml          # data_pipeline: five tasks, uses ${var.dataset} for paths
+│   └── genie_app.yml             # ask_genie app resource, uses ${var.dataset}
 ├── src/
 │   ├── notebooks/
-│   │   ├── 01_setup_and_load.sql
-│   │   ├── 02_add_uc_metadata.sql
-│   │   └── 03_add_business_semantics.sql
+│   │   ├── 00_setup_data_in_volume.py    # Shared — copies CSVs for selected dataset
+│   │   ├── med_tech_sales/               # MedTech Sales notebooks
+│   │   │   ├── 01_setup_and_load.sql
+│   │   │   ├── 02_add_uc_metadata.sql
+│   │   │   └── 03_add_business_semantics.sql
+│   │   └── hr_recruiting/                # HR Recruiting notebooks (future)
 │   ├── genie/
-│   │   ├── 04_create_genie_space.py
-│   │   └── valentina_genie.json   # Serialized Genie space (tables, metrics, instructions)
+│   │   ├── 04_create_genie_space.py      # Shared — loads config for selected dataset
+│   │   ├── med_tech_sales/genie_space.json
+│   │   └── hr_recruiting/                # Future
 │   └── app/
-│       ├── app.py                 # FastAPI: Genie + dashboard + static React
-│       ├── app.yaml               # Databricks App: uvicorn, user auth, env, warehouse resource
-│       ├── index.html             # Fallback UI without React build
-│       ├── requirements.txt
-│       └── frontend/              # React (APX) — run build for production static assets
-├── raw_data/                      # Source CSVs
-├── design/                        # UI reference screenshots
-└── test_cases/                    # Validation scenarios (e.g., Excel)
+│       ├── med_tech_sales/               # MedTech Sales app (FastAPI + React)
+│       └── hr_recruiting/                # Future
+├── raw_data/
+│   ├── med_tech_sales/                   # MedTech Sales CSVs
+│   └── hr_recruiting/                    # Future
+├── design/                               # UI reference screenshots
+└── test_cases/                           # Validation scenarios (e.g., Excel)
 ```
 
 ## Built with

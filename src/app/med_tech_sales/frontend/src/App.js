@@ -1,14 +1,70 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
 import './App.css';
 
-const SUGGESTIONS = [
+const ALL_SUGGESTIONS = [
   "Which account has the highest Opportunity ($)?",
   "What are the top 5 HCPs based on procedure volume for this year?",
   "Which Product Line has the highest total Opportunity ($)?",
   "Which GPO has the highest opportunity?",
+  "What is the total opportunity by target type?",
+  "Show top 10 accounts by rolling 12 sales",
+  "What is the average net cost for Alpha Series?",
+  "Which accounts have declining penetration?",
+  "Show procedure volume by specialty",
+  "What is the total opportunity by area?",
 ];
+
+const CHART_COLORS = ['#EB1700', '#1565C0', '#2E7D32', '#E65100', '#6A1B9A', '#00838F'];
+
+function pickSuggestions(count = 3, exclude = '') {
+  const filtered = ALL_SUGGESTIONS.filter(s => s !== exclude);
+  const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+function AutoChart({ columns, data }) {
+  if (!columns || !data || data.length === 0) return null;
+
+  // Single row — skip visualization (answer is already in the text)
+  if (data.length === 1) return null;
+
+  if (data.length > 15) return null;
+
+  const colTypes = columns.map((col, i) => {
+    const sample = data[0][i];
+    return { name: col, idx: i, isNumeric: sample !== null && sample !== '' && !isNaN(parseFloat(sample)) };
+  });
+  const stringCols = colTypes.filter(c => !c.isNumeric);
+  const numericCols = colTypes.filter(c => c.isNumeric);
+
+  if (stringCols.length === 0 || numericCols.length === 0) return null;
+
+  const chartData = data.map(row => {
+    const obj = { [stringCols[0].name]: row[stringCols[0].idx] };
+    numericCols.forEach(nc => { obj[nc.name] = parseFloat(row[nc.idx]) || 0; });
+    return obj;
+  });
+
+  return (
+    <div className="auto-chart">
+      <ResponsiveContainer width="100%" height={Math.max(200, data.length * 36 + 40)}>
+        <BarChart data={chartData} layout="vertical" margin={{ left: 20, right: 20, top: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+          <XAxis type="number" tick={{ fontSize: 12 }} />
+          <YAxis type="category" dataKey={stringCols[0].name} width={140} tick={{ fontSize: 12 }} />
+          <Tooltip formatter={(value) => value.toLocaleString()} />
+          {numericCols.length > 1 && <Legend />}
+          {numericCols.map((nc, i) => (
+            <Bar key={nc.name} dataKey={nc.name} fill={CHART_COLORS[i % CHART_COLORS.length]} radius={[0, 4, 4, 0]} />
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -17,19 +73,21 @@ function App() {
   const [conversationId, setConversationId] = useState(null);
   const [showWelcome, setShowWelcome] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [followUps, setFollowUps] = useState([]);
   const chatRef = useRef(null);
 
   useEffect(() => {
     if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
-  }, [messages, loading]);
+  }, [messages, loading, followUps]);
 
   const sendMessage = async (text) => {
     const msg = text || input.trim();
     if (!msg || loading) return;
 
     setShowWelcome(false);
+    setFollowUps([]);
     setMessages(prev => [...prev, { role: 'user', content: msg }]);
     setInput('');
     setLoading(true);
@@ -47,12 +105,16 @@ function App() {
           role: 'assistant',
           content: data.reply,
           sql: data.sql,
+          data: data.data,
+          columns: data.columns,
         }]);
+        setFollowUps(pickSuggestions(3, msg));
       } else {
         setMessages(prev => [...prev, {
           role: 'assistant',
           content: `Sorry, I encountered an error: ${data.detail || 'Unknown error'}`,
         }]);
+        setFollowUps(pickSuggestions(3, msg));
       }
     } catch (e) {
       setMessages(prev => [...prev, {
@@ -68,11 +130,11 @@ function App() {
     setMessages([]);
     setConversationId(null);
     setShowWelcome(true);
+    setFollowUps([]);
   };
 
   return (
     <div className="app">
-      {/* Header */}
       <header className="header">
         <div className="header-left">
           <button className="header-toggle" onClick={() => setSidebarCollapsed(!sidebarCollapsed)} title="Toggle sidebar">
@@ -86,7 +148,6 @@ function App() {
       </header>
 
       <div className="layout">
-        {/* Sidebar */}
         <aside className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
           <nav className="nav-items">
             <div className="nav-item active">
@@ -101,7 +162,6 @@ function App() {
           </nav>
         </aside>
 
-        {/* Main */}
         <main className="main">
           <div className="main-header">
             <h2>Chat</h2>
@@ -125,7 +185,7 @@ function App() {
                   <a className="faq-link" href="#faq">Go to FAQs &#x1F6C8;</a>
                 </div>
                 <div className="suggestions">
-                  {SUGGESTIONS.map((s, i) => (
+                  {ALL_SUGGESTIONS.slice(0, 4).map((s, i) => (
                     <button key={i} className="suggestion-card" onClick={() => sendMessage(s)}>
                       {s}
                     </button>
@@ -137,6 +197,16 @@ function App() {
             {messages.map((msg, i) => (
               <Message key={i} {...msg} />
             ))}
+
+            {!loading && followUps.length > 0 && (
+              <div className="follow-up-suggestions">
+                {followUps.map((s, i) => (
+                  <button key={i} className="follow-up-card" onClick={() => sendMessage(s)}>
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {loading && (
               <div className="message assistant">
@@ -181,7 +251,7 @@ function App() {
   );
 }
 
-function Message({ role, content, sql }) {
+function Message({ role, content, sql, data, columns }) {
   const [showSql, setShowSql] = useState(false);
 
   if (role === 'user') {
@@ -197,6 +267,7 @@ function Message({ role, content, sql }) {
       <div className="msg-avatar">V</div>
       <div className="msg-content">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        <AutoChart columns={columns} data={data} />
         {sql && (
           <>
             <span className="sql-toggle" onClick={() => setShowSql(!showSql)}>

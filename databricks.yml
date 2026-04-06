@@ -1,23 +1,29 @@
 bundle:
-  name: medtech-sales-ask-genie
+  name: jnj-genie-workshop
 
 include:
   - resources/*.yml
 
 variables:
   catalog:
-    default: "medtech"
+    default: "bx4"
   schema:
-    default: "sales"
+    default: "mt_test"
   warehouse_id:
-    default: "796f36d00b204fb6"
+    default: "08381690ac2b0e1a"
   volume_name:
     default: "raw_data"
+  dataset:
+    default: "hr_recruiting"
+  genie_space_id:
+    default: "01f128afd07410268461ef36a3a865dd"
+  app_name:
+    default: "mt-test-genie"
 
 targets:
   dev:
     default: true
     workspace:
-      profile: free-gotminted
-      host: https://dbc-2378f1fc-0530.cloud.databricks.com
-      root_path: /Workspace/Shared/medtech-genie-app
+      profile: DEFAULT
+      host: https://fevm-stable-classic-zso77x-bx3.cloud.databricks.com
+      root_path: /Workspace/Shared/jnj-genie-workshop

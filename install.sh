@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ──────────────────────────────────────────────────────────────
-# J&J MedTech Sales Genie App — Installation Script
+# J&J Genie Workshop App — Installation Script
 # Configures the repo for your Databricks workspace.
 # ──────────────────────────────────────────────────────────────
 
@@ -10,7 +10,7 @@ CONFIG_FILE="config.json"
 
 echo ""
 echo "╔═══════════════════════════════════════════════════════════╗"
-echo "║   J&J MedTech Sales Genie App — Setup                    ║"
+echo "║   J&J Genie Workshop App — Setup                         ║"
 echo "╚═══════════════════════════════════════════════════════════╝"
 echo ""
 echo "Before you begin, make sure you have the following ready"
@@ -73,10 +73,71 @@ if [[ -f "$CONFIG_FILE" ]]; then
   existing_genie_space_id=$(python3 -c "import json; print(json.load(open('$CONFIG_FILE')).get('genie_space_id',''))" 2>/dev/null || true)
   existing_volume_name=$(python3 -c "import json; print(json.load(open('$CONFIG_FILE')).get('volume_name',''))" 2>/dev/null || true)
   existing_app_name=$(python3 -c "import json; print(json.load(open('$CONFIG_FILE')).get('app_name',''))" 2>/dev/null || true)
+  existing_dataset=$(python3 -c "import json; print(json.load(open('$CONFIG_FILE')).get('dataset',''))" 2>/dev/null || true)
+fi
+
+# ── Dataset selection ─────────────────────────────────────────
+
+echo "Which dataset would you like to deploy?"
+echo ""
+
+dataset_labels=("Med Tech Sales" "HR Recruiting")
+dataset_values=("med_tech_sales" "hr_recruiting")
+
+# Find default selection index
+default_idx=0
+for i in "${!dataset_values[@]}"; do
+  if [[ "${dataset_values[$i]}" == "${existing_dataset:-med_tech_sales}" ]]; then
+    default_idx=$i
+    break
+  fi
+done
+
+selected=$default_idx
+while true; do
+  echo "  Select a dataset (use arrow keys, Enter to confirm):"
+  echo ""
+  for i in "${!dataset_labels[@]}"; do
+    if [[ $i -eq $selected ]]; then
+      echo "  > ${dataset_labels[$i]}"
+    else
+      echo "    ${dataset_labels[$i]}"
+    fi
+  done
+  echo ""
+
+  IFS= read -rsn1 key
+  if [[ "$key" == $'\x1b' ]]; then
+    read -rsn2 arrow
+    case "$arrow" in
+      '[A') (( selected > 0 )) && (( selected-- )) ;;
+      '[B') (( selected < ${#dataset_labels[@]} - 1 )) && (( selected++ )) ;;
+    esac
+    lines=$(( ${#dataset_labels[@]} + 3 ))
+    printf "\033[${lines}A\033[J"
+  elif [[ "$key" == "" ]]; then
+    DATASET="${dataset_values[$selected]}"
+    break
+  fi
+done
+echo "  Selected: ${dataset_labels[$selected]} ($DATASET)"
+
+# Check that the selected dataset has files
+if [[ ! -d "src/notebooks/$DATASET" ]] || [[ -z "$(ls -A "src/notebooks/$DATASET" 2>/dev/null)" ]]; then
+  echo ""
+  echo "  WARNING: Dataset '$DATASET' does not have notebooks yet."
+  echo "  Only 'med_tech_sales' is fully configured at this time."
+  echo ""
+  read -rp "  Continue anyway? (y/N): " cont
+  if [[ ! "$cont" =~ ^[Yy]$ ]]; then
+    echo "Aborted."
+    exit 0
+  fi
 fi
 
 # ── Collect inputs ────────────────────────────────────────────
 
+echo ""
 echo "Enter your Databricks configuration values."
 echo "(Press Enter to accept defaults shown in brackets.)"
 echo ""
@@ -188,6 +249,7 @@ WORKSPACE_URL="${WORKSPACE_URL%/}"
 
 echo ""
 echo "──────────────────────────────────────────────────────────"
+echo "  Dataset:        $DATASET"
 echo "  Profile:        $PROFILE"
 echo "  Workspace URL:  $WORKSPACE_URL"
 echo "  Catalog:        $CATALOG"
@@ -215,7 +277,8 @@ cat > "$CONFIG_FILE" <<EOF
   "warehouse_id": "$WAREHOUSE_ID",
   "volume_name": "$VOLUME_NAME",
   "genie_space_id": "$GENIE_SPACE_ID",
-  "app_name": "$APP_NAME"
+  "app_name": "$APP_NAME",
+  "dataset": "$DATASET"
 }
 EOF
 echo ""
@@ -230,13 +293,16 @@ echo "Saved your settings to $CONFIG_FILE"
 
 echo "Configuring project files from templates..."
 
+# Ensure dataset app directory exists
+mkdir -p "src/app/$DATASET"
+
 # template_source -> target_destination
 declare -a TEMPLATES=(
   "templates/databricks.yml|databricks.yml"
-  "templates/valentina_app.yml|resources/valentina_app.yml"
-  "templates/valentina_job.yml|resources/valentina_job.yml"
-  "templates/app.py|src/app/app.py"
-  "templates/app.yaml|src/app/app.yaml"
+  "templates/genie_app.yml|resources/genie_app.yml"
+  "templates/pipeline_job.yml|resources/pipeline_job.yml"
+  "templates/${DATASET}/app.py|src/app/${DATASET}/app.py"
+  "templates/${DATASET}/app.yaml|src/app/${DATASET}/app.yaml"
   "templates/CLAUDE.md|CLAUDE.md"
   "templates/README.md|README.md"
 )
@@ -258,6 +324,7 @@ for entry in "${TEMPLATES[@]}"; do
     -e "s|__VOLUME_NAME__|${VOLUME_NAME}|g" \
     -e "s|__GENIE_SPACE_ID__|${GENIE_SPACE_ID}|g" \
     -e "s|__APP_NAME__|${APP_NAME}|g" \
+    -e "s|__DATASET__|${DATASET}|g" \
     "$src" > "$dst"
   echo "  $src -> $dst"
 done
@@ -266,8 +333,6 @@ done
 rm -rf .databricks/ .databricks-resources.json 2>/dev/null || true
 
 echo "Done!"
-
-# ── Deploy ────────────────────────────────────────────────────
 
 # ── Authenticate ──────────────────────────────────────────────
 
@@ -286,8 +351,8 @@ if [[ ! "$deploy" =~ ^[Yy]$ ]]; then
   echo ""
   echo "You can deploy later by running:"
   echo "  databricks bundle deploy --auto-approve"
-  echo "  databricks bundle run medtech_pipeline"
-  echo "  databricks bundle run medtech_ask_genie"
+  echo "  databricks bundle run data_pipeline"
+  echo "  databricks bundle run ask_genie"
   echo ""
   exit 0
 fi
@@ -300,16 +365,16 @@ databricks bundle deploy --auto-approve
 
 echo ""
 echo "Step 2/3 — Loading data and configuring the Genie space..."
-echo "  Running: databricks bundle run medtech_pipeline"
+echo "  Running: databricks bundle run data_pipeline"
 echo "  (this may take a few minutes)"
 echo ""
-databricks bundle run medtech_pipeline
+databricks bundle run data_pipeline
 
 echo ""
 echo "Step 3/3 — Starting the web app..."
-echo "  Running: databricks bundle run medtech_ask_genie"
+echo "  Running: databricks bundle run ask_genie"
 echo ""
-databricks bundle run medtech_ask_genie
+databricks bundle run ask_genie
 
 echo ""
 echo "══════════════════════════════════════════════════════════"
@@ -323,10 +388,10 @@ echo "      databricks apps get $APP_NAME --profile $PROFILE"
 echo ""
 echo "    Re-deploy after making changes:"
 echo "      databricks bundle deploy --auto-approve"
-echo "      databricks bundle run medtech_ask_genie"
+echo "      databricks bundle run ask_genie"
 echo ""
 echo "    Re-run the data pipeline:"
-echo "      databricks bundle run medtech_pipeline"
+echo "      databricks bundle run data_pipeline"
 echo ""
 echo "    Remove everything from your workspace:"
 echo "      databricks bundle destroy --auto-approve"

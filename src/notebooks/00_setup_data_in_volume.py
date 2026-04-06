@@ -6,6 +6,7 @@
 
 # COMMAND ----------
 
+import glob
 import os
 import shutil
 
@@ -19,12 +20,14 @@ import shutil
 dbutils.widgets.text("catalog", "medtech", "Catalog")
 dbutils.widgets.text("schema", "sales", "Schema")
 dbutils.widgets.text("volume_name", "raw_data", "Volume Name")
+dbutils.widgets.text("dataset", "med_tech_sales", "Dataset")
 
 catalog = dbutils.widgets.get("catalog")
 schema = dbutils.widgets.get("schema")
 volume_name = dbutils.widgets.get("volume_name")
+dataset = dbutils.widgets.get("dataset")
 
-print(f"Catalog: {catalog}, Schema: {schema}, Volume: {volume_name}")
+print(f"Catalog: {catalog}, Schema: {schema}, Volume: {volume_name}, Dataset: {dataset}")
 
 # COMMAND ----------
 
@@ -48,21 +51,22 @@ spark.sql(f"CREATE VOLUME IF NOT EXISTS {volume_name}")
 # Resolve the raw_data directory relative to this notebook
 notebook_path = dbutils.notebook.entry_point.getDbutils().notebook().getContext().notebookPath().get()
 notebook_dir = "/Workspace" + notebook_path.rsplit("/", 1)[0]
-raw_data_dir = os.path.join(notebook_dir, "..", "..", "raw_data")
+raw_data_dir = os.path.join(notebook_dir, "..", "..", "raw_data", dataset)
 raw_data_dir = os.path.normpath(raw_data_dir)
 
-volume_path = f"/Volumes/{catalog}/{schema}/{volume_name}"
+volume_path = f"/Volumes/{catalog}/{schema}/{volume_name}/{dataset}"
+os.makedirs(volume_path, exist_ok=True)
 
-csv_files = ["hcp_procedure_volume.csv", "product_upgrades.csv", "account_targeting.csv"]
+csv_files = glob.glob(os.path.join(raw_data_dir, "*.csv"))
 
-for csv_file in csv_files:
-    src = os.path.join(raw_data_dir, csv_file)
+for src in csv_files:
+    csv_file = os.path.basename(src)
     dst = os.path.join(volume_path, csv_file)
-    if os.path.exists(src):
-        shutil.copy2(src, dst)
-        print(f"Copied: {csv_file} -> {dst}")
-    else:
-        print(f"WARNING: {src} not found")
+    shutil.copy2(src, dst)
+    print(f"Copied: {csv_file} -> {dst}")
+
+if not csv_files:
+    print(f"WARNING: No CSV files found in {raw_data_dir}")
 
 # COMMAND ----------
 
@@ -71,6 +75,6 @@ for csv_file in csv_files:
 
 # COMMAND ----------
 
-files = dbutils.fs.ls(f"dbfs:{volume_path}")
+files = dbutils.fs.ls(f"dbfs:/Volumes/{catalog}/{schema}/{volume_name}/{dataset}")
 for f in files:
     print(f"{f.name:40s} {f.size:>10,} bytes")

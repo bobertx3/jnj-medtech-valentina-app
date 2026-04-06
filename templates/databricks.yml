@@ -1,5 +1,5 @@
 bundle:
-  name: medtech-sales-ask-genie
+  name: jnj-genie-workshop
 
 include:
   - resources/*.yml
@@ -13,6 +13,12 @@ variables:
     default: "__WAREHOUSE_ID__"
   volume_name:
     default: "__VOLUME_NAME__"
+  dataset:
+    default: "__DATASET__"
+  genie_space_id:
+    default: "__GENIE_SPACE_ID__"
+  app_name:
+    default: "__APP_NAME__"
 
 targets:
   dev:
@@ -20,4 +26,4 @@ targets:
     workspace:
       profile: __PROFILE__
       host: __WORKSPACE_URL__
-      root_path: /Workspace/Shared/medtech-genie-app
+      root_path: /Workspace/Shared/jnj-genie-workshop
