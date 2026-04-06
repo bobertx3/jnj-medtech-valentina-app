@@ -156,9 +156,6 @@ function App() {
             <div className="nav-item">
               <span className="icon">&#128202;</span><span className="nav-label">Dashboard</span>
             </div>
-            <div className="nav-item">
-              <span className="icon">&#128222;</span><span className="nav-label"><a href="tel:301-908-5817" style={{color:'inherit',textDecoration:'none'}}>Contact Center</a></span>
-            </div>
           </nav>
         </aside>
 
