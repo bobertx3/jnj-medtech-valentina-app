@@ -1,4 +1,4 @@
-# J&J MedTech Sales Genie App
+# J&J Genie Workshop
 
 A Databricks-powered analytics stack for **Johnson & Johnson MedTech** surgical product sales. It loads curated sales datasets into Unity Catalog, exposes governed KPIs as metric views, and delivers a **natural-language “sales advisor”** via Databricks Genie plus a branded web app for reps and leadership.
 
