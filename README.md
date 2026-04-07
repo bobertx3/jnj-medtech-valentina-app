@@ -163,6 +163,137 @@ databricks bundle run ask_genie
 
 After the script finishes, the app URL will be printed in the terminal. Open it in your browser to start chatting with your sales data.
 
+### Windows and zip-based installation (no bash / no `install.sh`)
+
+Many users are on **Windows** without Git Bash or cannot run shell scripts. Use one of the flows below. **`install.sh` is optional** — the same configuration is produced by **`configure_bundle.py`** or the **`99_configure_bundle`** notebook.
+
+#### `config.json` vs bundle files (read this first)
+
+| File | Role |
+|------|------|
+| **`databricks.yml`**, **`resources/*.yml`**, **`src/app/<dataset>/app.yaml`** (and **`app.py`** defaults) | **These** are what **Databricks Asset Bundles** use when you run `databricks bundle deploy`. They must contain **your** workspace URL, profile name, warehouse ID, Genie space ID, app name, catalog, and schema. |
+| **`config.json`** | Written for **your records** and for re-running setup. It is **not** read by `bundle deploy` or by the pipeline notebooks. **Editing only `config.json` does not configure the bundle** unless you also regenerate the YAML from templates or edit those files by hand. |
+
+So: either run **`configure_bundle.py`** / **`99_configure_bundle`** (which writes both `config.json` and the real bundle files), or follow the **manual YAML** steps in [Manual setup](#manual-setup-without-installsh).
+
+#### Prerequisites (same as above)
+
+Complete **Steps 1–3** (Databricks CLI on Windows via `winget`, `databricks configure`, catalog / warehouse / empty Genie space). Collect: workspace URL, CLI profile name, catalog name, schema name, warehouse ID, volume name (default `raw_data`), Genie space ID, app name (lowercase, hyphens only), dataset (`med_tech_sales` or `hr_recruiting`).
+
+#### Option A — Python from PowerShell (closest to `install.sh`)
+
+From the **repository root** (after cloning or extracting a zip):
+
+```powershell
+python configure_bundle.py `
+  --profile YOUR_PROFILE `
+  --workspace-url https://YOUR-WORKSPACE.cloud.databricks.com `
+  --catalog YOUR_CATALOG `
+  --schema YOUR_SCHEMA `
+  --warehouse-id YOUR_WAREHOUSE_ID `
+  --volume-name raw_data `
+  --genie-space-id YOUR_GENIE_SPACE_ID `
+  --app-name your-app-name `
+  --dataset med_tech_sales
+```
+
+Then authenticate (if needed) and deploy:
+
+```powershell
+databricks auth login --host "https://YOUR-WORKSPACE.cloud.databricks.com" --profile YOUR_PROFILE
+databricks bundle validate
+databricks bundle deploy --auto-approve
+databricks bundle run data_pipeline
+databricks bundle run ask_genie
+```
+
+Use **Command Prompt** instead of PowerShell if you prefer: join the `configure_bundle.py` arguments on one line without backticks.
+
+#### Option B — Zip → Databricks Repos → configure notebook → deploy
+
+1. Download or build a **zip of the full repository** (see [Upload a zip to the workspace](#upload-a-zip-to-the-workspace-then-deploy-the-bundle); include `templates/`, `resources/`, `src/`, `raw_data/`).
+2. In Databricks: **Repos** → **Add Repo** → **Import a zip** (wording may vary).
+3. Open **`src/notebooks/99_configure_bundle.py`**, fill the **widgets** with the same values as above, **Run All**. That generates `databricks.yml`, `resources/*.yml`, app files, and `config.json` **inside the Repo**.
+4. Deploy using the **Bundle** tab on the repo folder, **or** connect VS Code / Cursor / another machine with the CLI to the same Repo path and run `databricks bundle deploy` from the project root.
+
+The notebook does **not** run `databricks auth login` for you; run that from a machine where the CLI is installed, or use your IDE’s Databricks authentication.
+
+#### Option C — Fully manual (no Python)
+
+1. Import the full repo (zip or Git) into Repos or edit locally.
+2. Copy from **`templates/`** and replace placeholders **`__PROFILE__`**, **`__WORKSPACE_URL__`**, **`__CATALOG__`**, **`__SCHEMA__`**, **`__WAREHOUSE_ID__`**, **`__VOLUME_NAME__`**, **`__GENIE_SPACE_ID__`**, **`__APP_NAME__`**, **`__DATASET__`** in the files listed in the [Manual setup](#manual-setup-without-installsh) section — **or** hand-edit `databricks.yml`, `resources/pipeline_job.yml`, `resources/genie_app.yml`, and `src/app/<dataset>/app.yaml` / `app.py` to match your workspace.
+3. Optionally create **`config.json`** with the same fields for documentation (still optional for deploy).
+4. Run **`databricks bundle validate`**, then **`deploy`**, then **`bundle run`** as in Option A.
+
+### Manual setup (without `install.sh`)
+
+Use this path if you cannot run the setup script (for example on a locked-down machine) or if someone else prepared the repo for you with your workspace values already filled in. Deployment always uses **`databricks bundle`** CLI commands against your workspace; there is no separate “upload-only” deploy in the UI.
+
+1. **Complete Steps 1–3 above** (CLI install, `databricks configure` or equivalent, catalog / warehouse / empty Genie space ready).
+
+2. **Set bundle and workspace targets** in `databricks.yml`:
+   - `targets.dev.workspace.profile` — must match the CLI profile you use (e.g. the name passed to `databricks configure`).
+   - `targets.dev.workspace.host` — your workspace URL (no trailing slash).
+   - `targets.dev.workspace.root_path` — where deployed bundle assets (jobs, notebooks, app source) land in the workspace (default in this repo: `/Workspace/Shared/jnj-genie-workshop`). This is independent of where you store a Git repo or zip import.
+   - Under `variables`, set defaults for `catalog`, `schema`, `warehouse_id`, `volume_name`, `dataset`, `genie_space_id`, and `app_name` (app names must be lowercase letters, numbers, and hyphens only).
+
+3. **Align the job and app resources** with the same values:
+   - `resources/pipeline_job.yml` — in the `create_genie_space` task, set `genie_space_id` and `app_name` in `base_parameters` to match your Genie space and app name.
+   - `resources/genie_app.yml` — set `name` to the same app name.
+
+4. **Configure the Databricks App** under `src/app/<dataset>/` (e.g. `med_tech_sales`):
+   - `app.yaml` — set `GENIE_SPACE_ID`, `DATABRICKS_WAREHOUSE_ID`, and the `sql_warehouse` / `genie_space` resource IDs to match your workspace.
+   - `app.py` — optional: update the `os.getenv(..., default)` fallbacks for `GENIE_SPACE_ID` and `DATABRICKS_WAREHOUSE_ID` so they match (the app normally reads these from `app.yaml` at runtime).
+
+The Genie notebook (`src/genie/04_create_genie_space.py`) substitutes catalog, schema, warehouse, and Genie space into `genie_space.json` when the pipeline runs; you do not need to hand-edit that JSON if bundle variables and job parameters are correct.
+
+**Shortcut:** Files under `templates/` mirror what `install.sh` writes. You can copy from `templates/databricks.yml`, `templates/pipeline_job.yml`, `templates/genie_app.yml`, and `templates/<dataset>/app.py` / `app.yaml`, then replace every `__PROFILE__`, `__WORKSPACE_URL__`, `__CATALOG__`, `__SCHEMA__`, `__WAREHOUSE_ID__`, `__VOLUME_NAME__`, `__GENIE_SPACE_ID__`, `__APP_NAME__`, and `__DATASET__` with your values (same as the script’s `sed` step).
+
+#### Upload a zip to the workspace, then deploy the bundle
+
+If you prefer to keep the project in Databricks (for example you edit or receive a prefilled zip and import it into the workspace):
+
+1. **Configure the YAML and app files** (steps 2–4 above) *before* zipping, or edit files in Repos after import.
+
+2. **Create a zip** of the repository root so that `databricks.yml` sits at the **top level** of the archive (not nested inside an extra folder). You can omit bulky or generated folders to keep the archive small, for example: `node_modules/`, `.venv/`, `venv/`, `.git/`, and `src/app/frontend/build/`.
+
+3. **Import into Databricks Repos** — In the workspace UI, use **Workspace** → **Repos** → **Add Repo** → **Import a zip** (wording may vary slightly by region). After import, the bundle lives under a path such as `/Workspace/Repos/<user>/jnj-genie-workshop`.
+
+4. **Run the bundle commands from a shell whose working directory is that project root** (the folder that contains `databricks.yml`). The CLI does not need to run on your laptop: common options are a **local terminal** after cloning the same Repo URL from Databricks, **VS Code / Cursor with the Databricks extension** opened on the Repo, or any environment where the Databricks CLI is installed and authenticated as **your user** for this workspace.
+
+5. **Authenticate** if you have not already (same as when deploying from a laptop):
+
+   ```bash
+   databricks auth login --host "<your-workspace-url>" --profile "<your-profile>"
+   ```
+
+6. **Deploy and run** from that project root:
+
+   ```bash
+   databricks bundle validate
+   databricks bundle deploy --auto-approve
+   databricks bundle run data_pipeline
+   databricks bundle run ask_genie
+   ```
+
+`databricks bundle deploy` uploads job definitions, notebooks, and app source to `root_path` in `databricks.yml` and registers them in the workspace. The copy under Repos is your **source**; `root_path` is where the bundle **deploys** artifacts for jobs and the app to use.
+
+#### Configure with a notebook or Python (alternative to `install.sh`)
+
+The repo includes the same templating logic as `install.sh` without bash:
+
+- **`configure_bundle.py`** (repository root) — run locally: `python configure_bundle.py --help`. Pass profile, workspace URL, catalog, schema, warehouse, volume, Genie space ID, app name, and dataset; it writes `databricks.yml`, `resources/*.yml`, `src/app/<dataset>/*`, `config.json`, and refreshes from `templates/`.
+- **`src/notebooks/99_configure_bundle.py`** — Databricks notebook with **widgets** that calls `configure_bundle.py`. Use it from a **full repo** checkout in **Databricks Repos** (must include `templates/`). It does **not** run `databricks auth login` or deploy; use the **Bundle** tab or the CLI after a successful run.
+
+#### Bundle tab: "Still loading...", no Target, or Deploy disabled
+
+The workspace **Bundle** panel parses the **whole** bundle, including `include: resources/*.yml`.
+
+- **Incomplete import:** If **`resources/pipeline_job.yml`** and **`resources/genie_app.yml`** are missing (for example only a few root files were uploaded), the bundle cannot resolve and the UI may stay on **Still loading...**. **Fix:** Import the **full** project (`databricks.yml`, **`resources/`**, **`src/`**, **`raw_data/`**, and **`templates/`** if you use the configure notebook).
+- **Full repo but UI still stuck:** Having many folders (`.git`, `.databricks`, `src`, `templates`, etc.) is expected and fine. If the Bundle tab still spins or **Target** stays empty, try: click the **Bundle** tab again or navigate away and back; hard-refresh the browser; run **`databricks bundle validate`** from a terminal (local or IDE) against this same folder — if validate fails, the UI will too. Check **`databricks.yml`** and included YAML for syntax errors. Occasionally the in-workspace Bundle preview lags; deploying with **`databricks bundle deploy`** from a authenticated CLI is the reliable path even when the panel misbehaves.
+
+The setup script also writes `config.json` for convenience when re-running `./install.sh`; it is **not** required for bundle deploy or for the notebooks at runtime.
+
 ### Useful commands after setup
 
 ```bash
@@ -183,12 +314,14 @@ databricks bundle destroy --auto-approve
 ## Project structure
 
 ```
+├── configure_bundle.py            # Widget-free: render templates → bundle files (same as install.sh)
 ├── databricks.yml                 # Bundle name, variables (catalog, schema, warehouse)
 ├── resources/
 │   ├── pipeline_job.yml          # data_pipeline: five tasks, uses ${var.dataset} for paths
 │   └── genie_app.yml             # ask_genie app resource, uses ${var.dataset}
 ├── src/
 │   ├── notebooks/
+│   │   ├── 99_configure_bundle.py        # Optional — widgets + configure_bundle.py
 │   │   ├── 00_setup_data_in_volume.py    # Shared — copies CSVs for selected dataset
 │   │   ├── med_tech_sales/               # MedTech Sales notebooks
 │   │   │   ├── 01_setup_and_load.sql
