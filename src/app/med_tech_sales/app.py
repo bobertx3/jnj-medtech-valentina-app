@@ -9,7 +9,6 @@ import asyncio
 import logging
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from typing import Optional
@@ -256,24 +255,8 @@ async def dashboard_data():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# Serve React static files
-static_dir = os.path.join(os.path.dirname(__file__), "frontend", "build")
-if os.path.isdir(static_dir):
-    app.mount("/static", StaticFiles(directory=os.path.join(static_dir, "static")), name="static")
-
-    @app.get("/{full_path:path}")
-    async def serve_react(full_path: str):
-        file_path = os.path.join(static_dir, full_path)
-        if os.path.isfile(file_path):
-            return FileResponse(file_path)
-        return FileResponse(os.path.join(static_dir, "index.html"))
-else:
-    # Serve inline HTML when no React build exists
-    @app.get("/{full_path:path}")
-    async def serve_inline(full_path: str):
-        if full_path.startswith("api/"):
-            raise HTTPException(status_code=404)
-        return FileResponse(
-            os.path.join(os.path.dirname(__file__), "index.html"),
-            media_type="text/html",
-        )
+@app.get("/{full_path:path}")
+async def serve_frontend(full_path: str):
+    if full_path.startswith("api/"):
+        raise HTTPException(status_code=404)
+    return FileResponse(os.path.join(os.path.dirname(__file__), "index.html"), media_type="text/html")

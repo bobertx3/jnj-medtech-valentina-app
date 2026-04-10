@@ -1,6 +1,0 @@
-resources:
-  apps:
-    ask_genie:
-      name: __APP_NAME__
-      description: "Genie Workshop App - Chat with curated datasets"
-      source_code_path: ../src/app/${var.dataset}
