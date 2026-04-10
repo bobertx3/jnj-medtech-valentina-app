@@ -1,4 +1,5 @@
 # J&J MedTech Sales Genie Workshop
+-- BOBBY
 
 A Databricks workshop that loads curated med-tech sales data into Unity Catalog, creates governed metric views, builds a Genie Space for natural-language analytics, and deploys a branded web app — all driven by six sequential notebooks.
 
