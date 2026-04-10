@@ -11,7 +11,7 @@ auth:
 
 env:
   - name: DATABRICKS_WAREHOUSE_ID
-    value: "__WAREHOUSE_ID__"
+    value: "6f538f22f07fe0d8"
   - name: GENIE_SPACE_ID
     value: "01f134e58e421ba1b8a5200121a57a9f"
 
