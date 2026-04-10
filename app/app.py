@@ -1,15 +1,13 @@
 """
-J&J MedTech Sales Genie App - FastAPI Backend + Static React Frontend
+J&J MedTech Sales Genie App - FastAPI Backend
 """
 
 import os
-import json
-import time
 import asyncio
 import logging
 
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 from databricks.sdk import WorkspaceClient
@@ -20,12 +18,11 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="J&J MedTech Sales Genie App")
 
-GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID", "01f131fb36aa184b8b53f281573aeb01")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "6f538f22f07fe0d8")
+GENIE_SPACE_ID = os.getenv("GENIE_SPACE_ID")
+WAREHOUSE_ID   = os.getenv("DATABRICKS_WAREHOUSE_ID")
 
 
 def get_workspace_client() -> WorkspaceClient:
-    """Get workspace client using app auth (service principal)."""
     return WorkspaceClient(config=Config())
 
 
@@ -44,7 +41,7 @@ class ChatResponse(BaseModel):
 
 
 @app.post("/api/chat", response_model=ChatResponse)
-async def chat(req: ChatRequest, request: Request):
+async def chat(req: ChatRequest):
     """Send a message to the Genie space via direct REST API calls."""
     import httpx
 
@@ -101,6 +98,7 @@ async def chat(req: ChatRequest, request: Request):
             if msg_data.get('attachments'):
                 for i, att in enumerate(msg_data['attachments']):
                     logger.info(f"Attachment {i} keys: {list(att.keys())}")
+
             reply_text = ""
             sql_query = None
             result_data = None
@@ -207,7 +205,6 @@ async def dashboard_data():
         w = get_workspace_client()
 
         def run_query(query):
-            """Execute SQL via statement execution API and return list of dicts."""
             resp = w.statement_execution.execute_statement(
                 warehouse_id=WAREHOUSE_ID,
                 statement=query,
@@ -221,7 +218,6 @@ async def dashboard_data():
                 d = {}
                 for i, col in enumerate(cols):
                     val = row[i]
-                    # Try to convert numeric strings
                     if val is not None:
                         try:
                             val = float(val)
@@ -233,22 +229,22 @@ async def dashboard_data():
                 rows.append(d)
             return rows
 
-        kpis = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM medtech.sales.account_targeting")
+        kpis          = run_query("SELECT SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, COUNT(DISTINCT account) AS total_accounts, SUM(total_units_sold) AS total_units FROM medtech.sales.account_targeting")
         opp_by_product = run_query("SELECT product_line, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY product_line ORDER BY total_opportunity DESC")
-        opp_by_target = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
-        top_accounts = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM medtech.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
-        opp_by_area = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
+        opp_by_target  = run_query("SELECT target_type, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY target_type ORDER BY total_opportunity DESC")
+        top_accounts   = run_query("SELECT account, SUM(opportunity) AS total_opportunity, SUM(rolling_12_sales) AS total_rolling_12_sales, ROUND(AVG(penetration_2025)*100, 1) AS avg_penetration FROM medtech.sales.account_targeting GROUP BY account ORDER BY total_opportunity DESC LIMIT 10")
+        opp_by_area    = run_query("SELECT area, SUM(opportunity) AS total_opportunity FROM medtech.sales.account_targeting GROUP BY area ORDER BY total_opportunity DESC")
         vol_by_specialty = run_query("SELECT specialty, SUM(cy_procedure_volume) AS total_volume FROM medtech.sales.hcp_procedure_volume GROUP BY specialty ORDER BY total_volume DESC")
-        top_surgeons = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM medtech.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
+        top_surgeons   = run_query("SELECT surgeon_name, cy_procedure_volume, specialty FROM medtech.sales.hcp_procedure_volume ORDER BY cy_procedure_volume DESC LIMIT 8")
 
         return {
-            "kpis": kpis[0] if kpis else {},
-            "opp_by_product": opp_by_product,
-            "opp_by_target": opp_by_target,
-            "top_accounts": top_accounts,
-            "opp_by_area": opp_by_area,
+            "kpis":            kpis[0] if kpis else {},
+            "opp_by_product":  opp_by_product,
+            "opp_by_target":   opp_by_target,
+            "top_accounts":    top_accounts,
+            "opp_by_area":     opp_by_area,
             "vol_by_specialty": vol_by_specialty,
-            "top_surgeons": top_surgeons,
+            "top_surgeons":    top_surgeons,
         }
     except Exception as e:
         logger.error(f"Dashboard error: {e}")
