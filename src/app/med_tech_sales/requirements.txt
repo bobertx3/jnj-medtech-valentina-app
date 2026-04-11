@@ -1,2 +1,0 @@
-databricks-sdk>=0.50.0
-httpx
