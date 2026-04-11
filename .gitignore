@@ -3,10 +3,6 @@
 *.swp
 *~
 
-# Databricks
-.databricks/
-.databricks-resources.json
-
 # Python
 __pycache__/
 *.pyc
@@ -15,12 +11,14 @@ venv/
 
 # Node
 node_modules/
-src/app/frontend/build/
 
 # IDE
 .idea/
-.vscode/
 *.iml
+
+# Scratch / explorations
+scratch/**
+!scratch/README.md
 
 # Secrets / tokens
 .env

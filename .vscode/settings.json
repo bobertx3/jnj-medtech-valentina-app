@@ -1,0 +1,21 @@
+{
+    // Jupyter / Databricks notebook cell markers
+    "jupyter.interactiveWindow.cellMarker.codeRegex": "^# COMMAND ----------|^# Databricks notebook source|^(#\\s*%%|#\\s*\\<codecell\\>|#\\s*In\\[\\d*?\\]|#\\s*In\\[ \\])",
+    "jupyter.interactiveWindow.cellMarker.default": "# COMMAND ----------",
+
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+
+    // Pylance settings (VS Code)
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.extraPaths": ["src", "lib", "resources"],
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.stubPath": ".vscode",
+
+    // Pyright settings (Cursor)
+    "cursorpyright.analysis.typeCheckingMode": "off",
+    "cursorpyright.analysis.extraPaths": ["src", "lib", "resources"],
+    "cursorpyright.analysis.diagnosticMode": "workspace",
+    "cursorpyright.analysis.stubPath": ".vscode"
+}
